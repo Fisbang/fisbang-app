@@ -24,6 +24,9 @@ def create_app():
     from app import app as app_blueprint
     app.register_blueprint(app_blueprint)
 
+    from api import api
+    api.init_app(app)
+
     @app.errorhandler(404)
     def page_not_found(e):
         return render_template('404.html'), 404

@@ -19,6 +19,7 @@ class Sensor(db.Model):
     def view(self):
         sensor = {}
         sensor["id"] = self.id
+        sensor["user_id"] = self.user_id
         sensor["name"] = self.name
 
         return sensor

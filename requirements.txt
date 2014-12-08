@@ -6,3 +6,4 @@ flask-sqlalchemy
 flask-wtf
 flask-migrate
 psycopg2
+flask-restful
