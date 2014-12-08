@@ -18,6 +18,9 @@ def create_app():
     db.init_app(app)
     login_manager.init_app(app)
 
+    from models.user import User
+    from models.sensor import Sensor, SensorData
+
     from app import app as app_blueprint
     app.register_blueprint(app_blueprint)
 

@@ -7,6 +7,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(64), unique=True, index=True)
     username = db.Column(db.String(64), unique=True, index=True)
     password= db.Column(db.String(128))
+    sensors = db.relationship('Sensor', backref='user', lazy='dynamic')
 
 @login_manager.user_loader
 def load_user(user_id):
