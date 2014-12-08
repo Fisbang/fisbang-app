@@ -1,0 +1,49 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %} Fisbang App {% endblock %}
+
+{% block metas %}
+    {{ super() }}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+    <!-- MetisMenu CSS -->
+    <link href="{{ url_for('static', filename='css/plugins/metisMenu/metisMenu.min.css') }}" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="{{ url_for('static', filename='css/plugins/timeline.css') }}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/sb-admin-2.css') }}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/styleform.css') }}" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="{{ url_for('static', filename='css/plugins/morris.css') }}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="{{ url_for('static', filename='js/plugins/metisMenu/metisMenu.min.js') }}"></script>
+
+    <!-- Flot Charts JavaScript -->
+    <script src="{{ url_for('static', filename='js/plugins/flot/excanvas.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/plugins/flot/jquery.flot.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/plugins/flot/jquery.flot.pie.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/plugins/flot/jquery.flot.resize.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/plugins/flot/jquery.flot.tooltip.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/plugins/flot/flot-data.js') }}"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="{{ url_for('static', filename='js/sb-admin-2.js') }}"></script>
+{% endblock %}
