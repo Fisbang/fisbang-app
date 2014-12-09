@@ -1,25 +1,26 @@
 from flask import Flask, render_template
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.login import LoginManager
+from flask.ext.security import Security, SQLAlchemyUserDatastore
 
 db = SQLAlchemy()
 bootstrap = Bootstrap()
-login_manager = LoginManager()
-login_manager.session_protection = 'strong'
-login_manager.login_view = '/login'
+security = Security()
 
 def create_app():
     app = Flask(__name__)
 
     app.config.from_envvar('FISBANG_SETTINGS')
 
-    bootstrap.init_app(app)
-    db.init_app(app)
-    login_manager.init_app(app)
-
-    from models.user import User
+    from models.user import User, Role
     from models.sensor import Sensor, SensorData
+
+    bootstrap.init_app(app)
+
+    db.init_app(app)
+
+    user_datastore = SQLAlchemyUserDatastore(db, User, Role)
+    security.init_app(app, user_datastore)
 
     from app import app as app_blueprint
     app.register_blueprint(app_blueprint)

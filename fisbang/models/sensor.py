@@ -1,12 +1,11 @@
 from fisbang import db
-from fisbang.models.user import *
 
 import datetime
 
 class Sensor(db.Model):
     __tablename__ = 'sensor'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     name = db.Column(db.String(80))
     sensor_data = db.relationship('SensorData', backref='sensor', lazy='dynamic')
 
