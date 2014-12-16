@@ -14,6 +14,7 @@ def create_app():
 
     from models.user import User, Role
     from models.sensor import Sensor, SensorData
+    from models.device import Device, DeviceType
 
     bootstrap.init_app(app)
 

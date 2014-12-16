@@ -213,7 +213,7 @@
         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
         </li>
         <li class="divider"></li>
-        <li><a href="login.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+        <li><a href="{{ url_for('security.logout')}}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
         </li>
       </ul>
       <!-- /.dropdown-user -->
@@ -237,10 +237,10 @@
           <!-- /input-group -->
         </li>
         <li>
-          <a class="active" href="index.php"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+          <a class="active" href="{{ url_for('.index') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
         </li>
         <li>
-          <a href="savings.php"><i class="fa fa-bar-chart-o fa-fw"></i> Savings</a>
+          <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Savings</a>
         </li>
         <li class="toggle-button">
           <div class="register-switch">

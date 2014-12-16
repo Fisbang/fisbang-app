@@ -1,0 +1,56 @@
+{% extends "app/base.html" %}
+
+{% block navbar %}
+    {{ super() }}
+    {% include 'app/navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    {{ super() }}
+    <div id="page-wrapper">
+      <div class="row">
+        <div class="col-lg-12">
+          <a href="{{ url_for('.devices_list') }}" class="btn btn-sm btn-success">Back to Devices List</a>
+          <h1 class="page-header">Device Details</h1>
+        </div>
+      </div>
+      <div class="row">
+        <table>
+          <tr>
+            <td>Device Type</td><td>{{device.device_type.name}}</td>
+          </tr>
+          <tr>
+            <td>Location</td><td>{{device.location}}</td>
+          </tr>
+          <tr>
+            <td>Merk</td><td>{{device.merk}}</td>
+          </tr>
+          <tr>
+            <td>Type</td><td>{{device.type}}</td>
+          </tr>
+          <tr>
+            <td>Wattage</td><td>{{device.wattage}}</td>
+          </tr>
+          <tr>
+            <td>Connected Sensor</td>
+            <td>
+              {% if device.sensors.count() > 0 %}
+                {% for sensor in device.sensors %}
+                <div>{{ sensor.id }} - {{ sensor.name }}</div>
+                {% endfor %}
+              {% else %}
+                <div> - </div>
+              {% endif %}
+            </td>
+          </tr>
+        </table>
+        <div>
+          <a href="{{ url_for('.device_edit', device_id=device.id) }}" class="btn btn-sm btn-success">Edit</a>
+        </div>
+        <div>
+          <a href="{{ url_for('.device_delete', device_id=device.id) }}" class="btn btn-sm btn-success">Delete</a>
+        </div>
+      </div>
+    </div>
+{% endblock %}
+

@@ -6,11 +6,15 @@ app_name = 'fisbang'
 num_keep_releases = 5
 
 file_list = [   'fisbang/app/*',
+                'fisbang/api/*',
                 'fisbang/models/*',
                 'fisbang/static/*',
                 'fisbang/templates/*',
+                'fisbang/helpers/*',
                 'fisbang/*.py',
                 'conf/uwsgi.ini',
+                'conf/settings.conf.sample',
+                'migrations/*',
                 'manage.py',
                 'wsgi.py',
                 'requirements.txt'   ]
@@ -54,6 +58,7 @@ def deploy():
         run('echo "logto = /var/log/uwsgi/{}.log" >> conf/uwsgi.ini'.format(env.base_url))
         run('echo "virtualenv = {}/current/venv" >> conf/uwsgi.ini'.format(env.app_path))
 
+    run('service uwsgi restart')
     # cleanup
     with cd('{}/releases'.format(env.app_path)):
         run('rm -r `ls -r | tail -n +{}`;true'.format(num_keep_releases + 1))
