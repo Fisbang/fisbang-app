@@ -11,17 +11,14 @@ class Sensor(db.Model):
     token = db.Column(db.String(80))
     sensor_data = db.relationship('SensorData', backref='sensor', lazy='dynamic')
 
-    def __init__(self, name, device):
-        self.name = name
-
     def __repr__(self):
         return '<Sensor %r>' % self.name
 
     def view(self):
         sensor = {}
         sensor["id"] = self.id
-        sensor["user_id"] = self.user_id
         sensor["name"] = self.name
+        sensor["token"] = self.token
 
         return sensor
 
@@ -37,6 +34,8 @@ class SensorData(db.Model):
         self.value = value
         if timestamp:
             self.timestamp = timestamp
+        else:
+            self.timestamp = datetime.datetime().strftime("%s")
 
     def __repr__(self):
         return '<SensorData %r>' % self.timestamp

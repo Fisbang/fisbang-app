@@ -4,7 +4,12 @@ from fisbang.models.user import User
 from fisbang.helpers.arg_types import date_type, datapoints
 from fisbang import db
 
+from flask.ext.security.core import current_user
+from flask.ext.security.decorators import http_auth_required
+
 class SensorResource(Resource):
+
+    decorators = [http_auth_required]
 
     def get(self):
         """
@@ -20,18 +25,28 @@ class SensorResource(Resource):
         Create New Sensor
         """
         arg = reqparse.RequestParser()
-        arg.add_argument('name', type = str, required = True, location='json')
+        arg.add_argument('token', type = str, required = True, location='json')
 
         data = arg.parse_args()
 
-        sensor = Sensor(name=data["name"])
-        db.session.add(sensor)
-        db.session.commit()
-
-        return sensor.view(), 201
+        sensor_query = Sensor.query.filter_by(token=data['token'])
+        if sensor_query.count():
+            sensor = sensor_query.first()
+            if not sensor.user_id == current_user.id:
+                return "Unauthorized", 403
+            return sensor.view(), 200
+        else:
+            sensor = Sensor()
+            sensor.token = data["token"]
+            sensor.user_id = current_user.id
+            db.session.add(sensor)
+            db.session.commit()
+            return sensor.view(), 201
 
 
 class SensorDetailsResource(Resource):
+
+    decorators = [http_auth_required]
 
     def get(self, sensor_id):
         """
@@ -39,8 +54,10 @@ class SensorDetailsResource(Resource):
         """
         # get sensor details
         sensor = Sensor.query.get(sensor_id)
-
-        return sensor.view(), 200
+        if sensor:
+            return sensor.view(), 200
+        else:
+            return "Sensor Not Found", 400
 
     def delete(self, sensor_id):
         """
@@ -55,30 +72,33 @@ class SensorDetailsResource(Resource):
 
 class SensorDataResource(Resource):
 
+    decorators = [http_auth_required]
+
     def get(self, sensor_id):
         """
         Get Sensor Data
         """
-        parser = reqparse.RequestParser()
-        parser.add_argument('start_time', type = date_type, location='args')
-        parser.add_argument('end_time', type = date_type, location='args')
-        parser.add_argument('limit', type = int, location='args')
-        params = parser.parse_args()
+        # parser = reqparse.RequestParser()
+        # parser.add_argument('start_time', type = date_type, location='args', required=False)
+        # parser.add_argument('end_time', type = date_type, location='args', required=False)
+        # parser.add_argument('limit', type = int, location='args', required=False)
+        # params = parser.parse_args()
 
         # get sensor details
         sensor_datas = SensorData.query.filter_by(sensor_id=sensor_id).order_by(SensorData.timestamp.desc())
 
-        if params['start_time']:
-            print "Start:", params['start_time'].strftime("%s")
-            sensor_datas = sensor_datas.filter(SensorData.timestamp >= params['start_time'])
-        if params['end_time']:
-            print "Stop:", params['end_time'].strftime("%s")
-            sensor_datas = sensor_datas.filter(SensorData.timestamp <= params['end_time'])
+        # if params['start_time']:
+        #     print "Start:", params['start_time'].strftime("%s")
+        #     sensor_datas = sensor_datas.filter(SensorData.timestamp >= params['start_time'])
+        # if params['end_time']:
+        #     print "Stop:", params['end_time'].strftime("%s")
+        #     sensor_datas = sensor_datas.filter(SensorData.timestamp <= params['end_time'])
 
-        if params['limit'] > 0:
-            sensor_datas = sensor_datas.limit(params['limit'])
-        else:
-            sensor_datas = sensor_datas.limit(1000)
+        # if params['limit'] > 0:
+        #     sensor_datas = sensor_datas.limit(params['limit'])
+        # else:
+        #     sensor_datas = sensor_datas.limit(1000)
+        sensor_datas = sensor_datas.limit(1000)
 
         formated_data = [{"time": int(sensor_data.timestamp.strftime("%s")), "value": sensor_data.value} for sensor_data in sensor_datas]
 

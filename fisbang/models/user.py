@@ -23,7 +23,7 @@ class User(db.Model, UserMixin):
     devices = db.relationship('Device', backref='user', lazy='dynamic')
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return '<User %r>' % self.email
 
     def view(self):
         user = {}

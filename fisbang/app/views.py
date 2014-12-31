@@ -31,7 +31,7 @@ def device_create():
     from fisbang.app.forms import CreateDeviceForm
     form = CreateDeviceForm()
     form.device_type.choices = [(type.id, type.name) for type in get_device_type()]
-    form.sensors.choices = [(sensor.id, sensor.name) for sensor in get_sensor()]
+    form.sensors.choices = [(sensor.id, str(sensor.name)+' - '+str(sensor.token)) for sensor in get_sensor()]
     if form.validate_on_submit():
         from fisbang.models.device import Device, DeviceType
         from fisbang.models.sensor import Sensor
@@ -60,7 +60,7 @@ def device_edit(device_id):
     device = Device.query.get(device_id)
     form = EditDeviceForm()
     form.device_type.choices = [(type.id, type.name) for type in get_device_type()]
-    form.sensors.choices = [(sensor.id, sensor.name) for sensor in get_sensor(device.id)]
+    form.sensors.choices = [(sensor.id, str(sensor.name)+' - '+str(sensor.token)) for sensor in get_sensor(device.id)]
     if form.validate_on_submit():
         device_type = DeviceType.query.get(form.device_type.data)
         device.device_type_id = device_type.id
