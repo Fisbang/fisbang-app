@@ -9,7 +9,10 @@ from .. import db
 @app.route('/', methods=['GET'])
 @login_required
 def index():
-    return render_template('app/dashboard.html')
+    from fisbang.app.forms import SelectDeviceForm
+    form = SelectDeviceForm()
+    form.device.choices = [(device.id, device.device_type.name+' @ '+device.location) for device in get_device()]
+    return render_template('app/dashboard.html', select_device_form=form)
 
 @app.route('/devices_list', methods=['GET'])
 @login_required
@@ -87,6 +90,11 @@ def get_device_type():
     from fisbang.models.device import DeviceType
     device_types = DeviceType.query.all()
     return device_types
+
+def get_device():
+    from fisbang.models.device import Device
+    device = Device.query.filter_by(user_id=current_user.id).all()
+    return device
 
 def get_sensor(device_id=None):
     from flask.ext.security.core import current_user

@@ -1,9 +1,12 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
 <div class="panel panel-default">
   <div class="panel-heading">
     Line Chart Example
   </div>
   <!-- /.panel-heading -->
   <div class="panel-body">
+    {{ wtf.quick_form(select_device_form) }}
     <div class="flot-chart">
       <div class="flot-chart-content" id="flot-line-chart"></div>
     </div>
@@ -37,3 +40,4 @@
   <!-- /.panel-body -->
 </div>
 <!-- /.panel -->                                        
+

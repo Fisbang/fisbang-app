@@ -49,3 +49,7 @@ class CreateDeviceForm(DeviceForm):
 class EditDeviceForm(DeviceForm):
 
     submit = SubmitField('Edit Device')
+
+class SelectDeviceForm(Form):
+
+    device = SelectField('Device', coerce=int, choices=[], id='device-select')
