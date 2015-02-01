@@ -1,6 +1,6 @@
 {% extends "bootstrap/base.html" %}
 
-{% block title %} Fisbang App {% endblock %}
+{% block title %} Fisbang - where green idea get implemented {% endblock %}
 
 {% block metas %}
     {{ super() }}
@@ -8,10 +8,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="shortcut icon" href="img/favicon.ico">
 {% endblock %}
 
 {% block styles %}
-    {{ super() }}
+    <link href="{{bootstrap_find_resource('css/bootstrap.css', cdn='static')}}" rel="stylesheet">
+
     <!-- MetisMenu CSS -->
     <link href="{{ url_for('static', filename='css/plugins/metisMenu/metisMenu.min.css') }}" rel="stylesheet">
 
