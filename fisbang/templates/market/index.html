@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+    {{ super() }}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    {{ super() }}
+    <div id="wrapper" class="back-market">    
+        <div class="container">
+            <div class="jumbotron" style="text-align:center">
+                <h1>Turn Green Idea into Reality </h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                  sed do eiusmod tempor incididunt ut labore et dolore 
+                  magna aliqua. Ut enim ad minim veniam,
+                  quis nostrud exercitation ullamco laboris nisi ut
+                  aliquip ex ea commodo consequat.</p>
+                <p><a href="https://www.freelancer.com/post-project?utm_expid=294858-286.ZU646-oSRMeI5WnHLxWZnQ.0&utm_referrer=https%3A%2F%2Fwww.freelancer.com%2F%3Ft%3Dg%26z%3Db" target="_blank" class="btn btn-info btn-lg">Start your project</a></p>
+            </div>
+        </div>
+    </div>
+
+    <section id="project"> 
+        <div class="container"> 
+            <div class="row">
+                <div class="col-md-12"><h1>List of Project on Market</h1></div>    
+            </div>      
+            <div class="row">
+                <div class="col-xs-4">
+                    <img src ="{{ url_for('static', filename='img/portfolio-1.jpg') }}">
+                    <p><a href="#"  class="btn btn-danger">Project 1</a></p>
+                </div>
+                <div class="col-xs-4">
+                    <img src ="{{ url_for('static', filename='img/portfolio-2.jpg') }}">
+                    <p><a href="#"  class="btn btn-info">Project 2</a></p>
+                </div>
+                <div class="col-xs-4">
+                    <img src ="{{ url_for('static', filename='img/portfolio-3.jpg') }}">
+                    <p><a href="#"  class="btn btn-warning">Project 3</a></p>
+                </div>
+            </div>
+        </div>    
+    </section>
+
+    <section id="Steps" class="container">
+        <div class="row">
+            <div class="col-md-12"><h1>Why Using Fisbang Market?</h1></div>    
+        </div>        
+        <div class="row">
+            <div class="col-md-3">
+                <h2>Based on what do you need</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+              sed do eiusmod tempor incididunt ut labore et dolore 
+              magna aliqua. Ut enim ad minim veniam,
+              quis nostrud exercitation ullamco laboris nisi ut
+              aliquip ex ea commodo consequat.</p>
+            </div>
+            <div class="col-md-3">
+                <h2>Affodable Price</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+              sed do eiusmod tempor incididunt ut labore et dolore 
+              magna aliqua. Ut enim ad minim veniam,
+              quis nostrud exercitation ullamco laboris nisi ut
+              aliquip ex ea commodo consequat</p>
+            </div>
+            <div class="col-md-3">
+                <h2>Selected expert, driven by community</h2>
+                <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+              sed do eiusmod tempor incididunt ut labore et dolore 
+              magna aliqua. Ut enim ad minim veniam,
+              quis nostrud exercitation ullamco laboris nisi ut
+              aliquip ex ea commodo consequat</p>
+            </div>
+            <div class="col-md-3">
+                <h2>Dont Worry, we help to control</h2>
+                <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+              sed do eiusmod tempor incididunt ut labore et dolore 
+              magna aliqua. Ut enim ad minim veniam,
+              quis nostrud exercitation ullamco laboris nisi ut
+              aliquip ex ea commodo consequat</p>
+            </div>
+        </div>
+        <hr>
+    </section>
+
+    <section id="footer" class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <footer>
+                    <p>Copyright  Fisbang</p>
+                </footer>
+            </div>
+        </div>
+    </section>   
+{% endblock %}

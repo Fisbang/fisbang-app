@@ -23,8 +23,14 @@ def create_app():
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
     security.init_app(app, user_datastore)
 
+    from homepage import homepage as homepage_blueprint
+    app.register_blueprint(homepage_blueprint,  url_prefix='/')
+
     from app import app as app_blueprint
-    app.register_blueprint(app_blueprint)
+    app.register_blueprint(app_blueprint,  url_prefix='/app')
+
+    from market import market as market_blueprint
+    app.register_blueprint(market_blueprint,  url_prefix='/market')
 
     from api import api
     api.init_app(app)

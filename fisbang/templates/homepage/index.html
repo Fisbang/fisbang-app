@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+    {{ super() }}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    {{ super() }}
+    <div id="wrapper" class="back-home">    
+        <div class="container">
+            <div class="jumbotron" style="text-align:center">
+                <h1>Turn Green Idea into Reality </h1>
+                <p>Fisbang is abbreviation of FISika (physic)and BANGunan (building) in Indonesian language. We use theory and practical experience in building physics for contributing in green building. For us, building physics has three mayor subject : thermal, lighting and accoustic. One of our thought is how to work integrited building physics with economical factor such us return of investment </p>
+                <p> But building is not about your home, office or hotel.
+                By spirit of thinking the best for people, we want to drive
+                fisbang into broader area later. </p>
+
+                <p><a href="{{ url_for('market.index') }}" style = "margin-right:20px" class="btn btn-info btn-lg">Fisbang Market</a><a href="{{ url_for('app.index') }}" class="btn btn-info btn-lg">Fisbang App</a></p>
+
+            </div>
+        </div>
+    </div>
+
+    <section id="Promote" class="container">
+        <div class="row">
+            <div class="col-md-12"><h1>What is fisbang?</h1></div>    
+        </div>    
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Based on what you needs</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+              sed do eiusmod tempor incididunt ut labore et dolore 
+              magna aliqua. Ut enim ad minim veniam,
+              quis nostrud exercitation ullamco laboris nisi ut
+              aliquip ex ea commodo consequat.</p>
+                <p><a href="#"  class="btn btn-danger">Explore</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Market that make it done</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+              sed do eiusmod tempor incididunt ut labore et dolore 
+              magna aliqua. Ut enim ad minim veniam,
+              quis nostrud exercitation ullamco laboris nisi ut
+              aliquip ex ea commodo consequat</p>
+                <p><a href="#"  class="btn btn-info">Explore</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Application to save energy</h2>
+                <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+              sed do eiusmod tempor incididunt ut labore et dolore 
+              magna aliqua. Ut enim ad minim veniam,
+              quis nostrud exercitation ullamco laboris nisi ut
+              aliquip ex ea commodo consequat</p>
+                <p><a href="#"  class="btn btn-warning">Explore</a></p>
+            </div>
+        </div>
+        <hr>
+    </section>
+
+    <section id ="dynamic" class="container">
+        <div class ="row">
+            <div class="col-md-6"><h2>Our Prototype is here!</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+              sed do eiusmod tempor incididunt ut labore et dolore 
+              magna aliqua. Ut enim ad minim veniam,
+              quis nostrud exercitation ullamco laboris nisi ut
+              aliquip ex ea commodo consequat.</p>
+            </div>  
+            <div class="col-md-6">
+                <img src="{{ url_for('static', filename='img/fisbang-1.jpg') }}">
+            </div>  
+        </div>    
+    </section>    
+    <section id="footer" class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <footer>
+                    <p>Copyright  Fisbang</p>
+                </footer>
+            </div>
+        </div>
+    </section>    
+{% endblock %}
