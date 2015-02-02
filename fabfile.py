@@ -7,6 +7,8 @@ num_keep_releases = 5
 
 file_list = [   'fisbang/app/*',
                 'fisbang/api/*',
+                'fisbang/homepage/*',
+                'fisbang/market/*',
                 'fisbang/models/*',
                 'fisbang/static/*',
                 'fisbang/templates/*',
@@ -26,9 +28,9 @@ def prod():
     env.hosts = env_stuff['hosts']
     env.user = env_stuff['user']
     env.key_filename = env_stuff['key']
-    env.app_path = '/var/www/app.fisbang.com'
-    env.base_url = 'app.fisbang.com'
-    env.config_file_path = '/var/www/app.fisbang.com/config/settings.cfg'
+    env.app_path = '/var/www/fisbang.com'
+    env.base_url = 'fisbang.com'
+    env.config_file_path = '/var/www/fisbang.com/config/settings.cfg'
 
 def pack():
     filelist = ' '.join(file_list)
