@@ -16,7 +16,7 @@
                   magna aliqua. Ut enim ad minim veniam,
                   quis nostrud exercitation ullamco laboris nisi ut
                   aliquip ex ea commodo consequat.</p>
-                <p><a href="https://www.freelancer.com/post-project?utm_expid=294858-286.ZU646-oSRMeI5WnHLxWZnQ.0&utm_referrer=https%3A%2F%2Fwww.freelancer.com%2F%3Ft%3Dg%26z%3Db" target="_blank" class="btn btn-info btn-lg">Start your project</a></p>
+                <p><a href="{{ url_for('market.project_create') }}" class="btn btn-info btn-lg">Start your project</a></p>
             </div>
         </div>
     </div>
@@ -27,18 +27,12 @@
                 <div class="col-md-12"><h1>List of Project on Market</h1></div>    
             </div>      
             <div class="row">
+                {% for project in project_list %}
                 <div class="col-xs-4">
                     <img src ="{{ url_for('static', filename='img/portfolio-1.jpg') }}">
-                    <p><a href="#"  class="btn btn-danger">Project 1</a></p>
+                    <p><a href="{{ url_for('market.index') }}"  class="btn btn-danger">{{ project.name }}</a></p>
                 </div>
-                <div class="col-xs-4">
-                    <img src ="{{ url_for('static', filename='img/portfolio-2.jpg') }}">
-                    <p><a href="#"  class="btn btn-info">Project 2</a></p>
-                </div>
-                <div class="col-xs-4">
-                    <img src ="{{ url_for('static', filename='img/portfolio-3.jpg') }}">
-                    <p><a href="#"  class="btn btn-warning">Project 3</a></p>
-                </div>
+                {% endfor %}
             </div>
         </div>    
     </section>
