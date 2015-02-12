@@ -1,8 +1,9 @@
-{% extends "app/base.html" %}
+{% extends "base.html" %}
 
 {% block navbar %}
     {{ super() }}
-    {% include 'app/navbar.html' %}
+    {% include 'navbar.html' %}
+    {% include 'app/sidebar.html' %}
 {% endblock %}
 
 {% block content %}

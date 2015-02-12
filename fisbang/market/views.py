@@ -11,7 +11,7 @@ def index():
     projects = Project.query.limit(3).all()
     return render_template('market/index.html', project_list=projects)
 
-@market.route('/create', methods=['GET','POST'])
+@market.route('/create_project', methods=['GET','POST'])
 @login_required
 def project_create():
     from fisbang.market.forms import CreateProjectForm
@@ -33,7 +33,7 @@ def project_create():
                           project_budget_id=project_budget.id)
         db.session.add(project)
         db.session.commit()
-        return redirect(url_for('market.index'))
+        return redirect(url_for('market.project_details', project_id=project.id))
 
     return render_template('market/create.html', form=form)
 
@@ -46,3 +46,16 @@ def get_budget():
     from fisbang.models.project import ProjectBudget
     project_budgets = ProjectBudget.query.all()
     return project_budgets
+
+@market.route('/projects', methods=['GET'])
+def projects_list():
+    from fisbang.models.project import Project
+    projects = Project.query.all()
+    return render_template('market/projects_list.html', projects=projects)
+
+@market.route('/projects/<project_id>', methods=['GET'])
+@login_required
+def project_details(project_id):
+    from fisbang.models.project import Project
+    project = Project.query.get(project_id)
+    return render_template('market/project_details.html', project=project)
