@@ -2,13 +2,14 @@ from flask import render_template, session, redirect, request, url_for, flash
 from flask.ext.security import login_required
 from flask.ext.security.core import current_user
 
-from . import market
-from .. import db
+from fisbang.market import market
+from fisbang.services import mailing
+from fisbang import db
 
 @market.route('/', methods=['GET'])
 def index():
     from fisbang.models.project import Project
-    projects = Project.query.limit(3).all()
+    projects = Project.query.order_by(Project.id.desc()).limit(3).all()
     return render_template('market/index.html', project_list=projects)
 
 @market.route('/create_project', methods=['GET','POST'])
@@ -33,6 +34,7 @@ def project_create():
                           project_budget_id=project_budget.id)
         db.session.add(project)
         db.session.commit()
+        mailing.send_created_project(project.id)
         return redirect(url_for('market.project_details', project_id=project.id))
 
     return render_template('market/create.html', form=form)
@@ -54,7 +56,6 @@ def projects_list():
     return render_template('market/projects_list.html', projects=projects)
 
 @market.route('/projects/<project_id>', methods=['GET'])
-@login_required
 def project_details(project_id):
     from fisbang.models.project import Project
     project = Project.query.get(project_id)
