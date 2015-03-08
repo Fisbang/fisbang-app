@@ -36,6 +36,9 @@ def create_app():
     from api import api
     api.init_app(app)
 
+    from services import mailing
+    mailing.config(app.config.get('ADMINS', None))
+
     @app.errorhandler(404)
     def page_not_found(e):
         return render_template('404.html'), 404

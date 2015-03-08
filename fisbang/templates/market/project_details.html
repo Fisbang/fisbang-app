@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+    {{ super() }}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    {{ super() }}
+    <div id="wrapper">
+      <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <a href="{{ url_for('.projects_list') }}" class="btn btn-sm btn-success">Back to Projects List</a>
+          <h1 class="page-header">Project Details</h1>
+        </div>
+      </div>
+      <div class="row">
+        <table>
+          <tr>
+            <td>Projects Name</td><td>{{project.name}}</td>
+          </tr>
+          <tr>
+            <td>Poster</td><td>{{project.user.name}}</td>
+          </tr>
+          <tr>
+            <td>Category</td><td>{{project.project_category.name}}</td>
+          </tr>
+          <tr>
+            <td>Skills</td><td>{{project.skills}}</td>
+          </tr>
+          <tr>
+            <td>Budget</td><td>{{project.project_budget.name}}</td>
+          </tr>
+          <tr>
+            <td>Description</td><td>{{project.description}}</td>
+          </tr>
+        </table>
+      </div>
+      </div>
+    </div>
+{% endblock %}
+

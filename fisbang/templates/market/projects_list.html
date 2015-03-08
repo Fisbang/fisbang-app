@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+    {{ super() }}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    {{ super() }}
+    <div id="wrapper">
+      <div class="container">
+
+      <div class="row">
+        <div>
+          <a href="{{ url_for('market.project_create') }}" class="btn btn-sm btn-success">Create New Project</a>
+        </div>
+        <table>
+          <tr>
+            <td>No</td>
+            <td>Project Name</td>
+            <td>Poster</td>
+            <td>Category</td>
+            <td>Skills</td>
+            <td>Budget</td>
+            <td>Detail</td>
+          {% for project in projects %}
+          <tr>
+            <td>{{loop.index}}</td>
+            <td>{{project.name}}</td>
+            <td>{{project.user.name}}</td>
+            <td>{{project.project_category.name}}</td>
+            <td>{{project.skills}}</td>
+            <td>{{project.project_budget.name}}</td>
+            <td>
+              <a href="{{ url_for('.project_details', project_id=project.id)}}" class="btn btn-sm btn-success">Details</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+        <div>
+      </div>
+      </div>
+    </div>
+{% endblock %}
+

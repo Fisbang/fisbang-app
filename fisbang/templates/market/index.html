@@ -24,13 +24,16 @@
     <section id="project"> 
         <div class="container"> 
             <div class="row">
-                <div class="col-md-12"><h1>List of Project on Market</h1></div>    
+                <div class="col-md-12">
+                  <h1>List of Project on Market</h1>
+                  <a href="{{ url_for('market.projects_list') }}"  class="btn btn-danger">See all projects</a>
+                </div>
             </div>      
             <div class="row">
                 {% for project in project_list %}
                 <div class="col-xs-4">
-                    <img src ="{{ url_for('static', filename='img/portfolio-1.jpg') }}">
-                    <p><a href="{{ url_for('market.index') }}"  class="btn btn-danger">{{ project.name }}</a></p>
+                    <img src ="{{ url_for('static', filename='img/portfolio-'+loop.index|string+'.jpg') }}">
+                    <p><a href="{{ url_for('market.project_details', project_id=project.id) }}"  class="btn btn-danger">{{ project.name }}</a></p>
                 </div>
                 {% endfor %}
             </div>
