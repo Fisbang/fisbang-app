@@ -21,7 +21,6 @@ class User(db.Model, UserMixin):
                             backref=db.backref('users', lazy='dynamic'))
     sensors = db.relationship('Sensor', backref='user', lazy='dynamic')
     devices = db.relationship('Device', backref='user', lazy='dynamic')
-    projects = db.relationship('Project', backref='user', lazy='dynamic')
 
     def __repr__(self):
         return '<User %r>' % self.email

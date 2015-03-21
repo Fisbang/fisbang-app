@@ -10,45 +10,29 @@ from fisbang import db
 
 @market.route('/', methods=['GET'])
 def index():
-    from fisbang.models.project import Project
-    projects = Project.query.order_by(Project.id.desc()).limit(3).all()
-    return render_template('market/index.html', project_list=projects)
+    return render_template('market/index.html')
 
 @market.route('/create_project', methods=['GET','POST'])
 def project_create():
-    from fisbang.market.forms import CreateProjectForm, CreateProjectWithRegister
-    if current_user.is_authenticated():
-        form = CreateProjectForm()
-    else:
-        form = CreateProjectWithRegister()
-    form.project_category.choices = [(type.id, type.name) for type in get_category()]
-    form.project_budget.choices = [(type.id, type.name) for type in get_budget()]
-    print "category", form.project_category.data
-
+    from fisbang.market.forms import CreateProjectForm
+    form = CreateProjectForm()
     if form.validate_on_submit():
-        if not current_user.is_authenticated():
-            user = register_user(**form.to_dict())
-            login_user(user)
-        else:
-            user = current_user
-        from fisbang.models.project import Project, ProjectCategory, ProjectBudget
-        print form.project_category.data
-        project_category = ProjectCategory.query.get(form.project_category.data)
-        print form.project_budget.data
-        project_budget = ProjectBudget.query.get(form.project_budget.data)
+        from fisbang.models.project import Project
 
-        project = Project(user_id=user.id,
-                          project_category_id = project_category.id,
-                          name=form.name.data,
-                          skills=form.skills.data,
+        project = Project(name=form.name.data,
+                          email=form.email.data,
                           description=form.description.data,
-                          project_budget_id=project_budget.id)
+                          budget=form.budget.data)
         db.session.add(project)
         db.session.commit()
-        mailing.send_created_project(project.id)
-        return redirect(url_for('market.project_details', project_id=project.id))
+        #mailing.send_created_project(project.id)
+        return redirect(url_for('market.index'))
 
-    return render_template('market/create.html', form=form)
+    if current_user.is_authenticated():
+        form.name.data = current_user.name
+        form.email.data = current_user.email
+
+    return render_template('market/get-project.html', form=form)
 
 def get_category():
     from fisbang.models.project import ProjectCategory
