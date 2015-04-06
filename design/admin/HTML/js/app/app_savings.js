@@ -2,26 +2,44 @@ $(function	()	{
 
 	//Morris Chart
 
-	
-
 	var barChart = Morris.Bar({
 	  element: 'barChart',
 	  data: [
-		{ y: '2006', a: 100, b: 90 },
-		{ y: '2007', a: 75,  b: 65 },
-		{ y: '2008', a: 50,  b: 40 },
-		{ y: '2009', a: 75,  b: 65 },
-		{ y: '2010', a: 50,  b: 40 },
-		{ y: '2011', a: 75,  b: 65 },
-		{ y: '2012', a: 100, b: 90 }
+		{ y: 'Jan', a: 100, b: 90 },
+		{ y: 'Feb', a: 75,  b: 65 },
+		{ y: 'Mar', a: 50,  b: 40 },
+		{ y: 'Apr', a: 75,  b: 65 },
+		{ y: 'Mei', a: 50,  b: 40 },
+		{ y: 'Jun', a: 75,  b: 65 },
+		{ y: 'Jul', a: 100, b: 90 }
 	  ],
 	  xkey: 'y',
 	  ykeys: ['a', 'b'],
 	  grid: false,
-	  labels: ['Item C', 'Item D'],
+	  labels: ['Actual', 'Prediction'],
 	  barColors: ['#5EE1B1', '#3BC894'],
 	  gridTextColor : '#fff'
 	});
+
+	var lineChart = Morris.Line({
+		element: 'lineChart',
+		data: [
+			{ y: '2015', a: 30,  b: 30 },
+			{ y: '2016', a: 40,  b: 35 },
+			{ y: '2017', a: 50,  b: 40 },
+			{ y: '2018', a: 60,  b: 45 },
+			{ y: '2019', a: 70,  b: 50 },
+			{ y: '2020', a: 80,  b: 55 },
+			{ y: '2021', a: 90, b: 60 }
+		],
+		xkey: 'y',
+		grid: false,
+		ykeys: ['a', 'b'],
+		labels: ['Actual', 'Prediction'],
+		lineColors: ['#8CB4BC', '#538792'],
+		gridTextColor : '#fff'
+	});
+
 
 	//Sparkline
 	$('#visits').sparkline([15,19,20,22,33,27,31,27,19,30,21,10,15,18,25,9], {

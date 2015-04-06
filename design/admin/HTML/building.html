@@ -1,5 +1,5 @@
 <!--
-Project page for fisbang admin
+Building page for fisbang admin. Page to manage building used fisbang system
 -->
 
 <!DOCTYPE html>
@@ -66,7 +66,6 @@ Project page for fisbang admin
 		<div id="top-nav" class="fixed skin-6">
 			<a href="#" class="brand">
 				<span class="text-toogle"><img src="./img/logo_fisbang.png"</span>
-				<span class="text-toggle"> Admin</span>
 			</a><!-- /brand -->					
 			<button type="button" class="navbar-toggle pull-left" id="sidebarToggle">
 				<span class="icon-bar"></span>
@@ -303,7 +302,7 @@ Project page for fisbang admin
 				</div><!-- /search-block -->
 				<div class="main-menu">
 					<ul>
-						<li class="active">
+						<li>
 							<a href="index.html">
 								<span class="menu-icon">
 									<i class="fa fa-desktop fa-lg"></i> 
@@ -315,23 +314,34 @@ Project page for fisbang admin
 							</a>
 						</li>
 						<li>
-							<a href="project.html">
-								<span class="menu-icon">
-									<i class="fa fa-clock-o fa-lg"></i> 
-								</span>
-								<span class="text">
-									Project
-								</span>
-								<span class="menu-hover"></span>
-							</a>
-						</li>
-						<li>
 							<a href="savings.html">
 								<span class="menu-icon">
 									<i class="fa fa-picture-o fa-lg"></i> 
 								</span>
 								<span class="text">
 									Savings
+								</span>
+								<span class="menu-hover"></span>
+							</a>
+						</li>						
+						<li class="active">
+							<a href="building.html">
+								<span class="menu-icon">
+									<i class="fa fa-clock-o fa-lg"></i> 
+								</span>
+								<span class="text">
+									Building
+								</span>
+								<span class="menu-hover"></span>
+							</a>
+						</li>
+						<li>
+							<a href="market.html">
+								<span class="menu-icon">
+									<i class="fa fa-picture-o fa-lg"></i> 
+								</span>
+								<span class="text">
+									Market
 								</span>
 								<span class="menu-hover"></span>
 							</a>
@@ -358,32 +368,13 @@ Project page for fisbang admin
 		</aside>
 
 		<div id="main-container">
-			<div id="breadcrumb">
-				<ul class="breadcrumb">
-					 <li><i class="fa fa-home"></i><a href="index.html"> Home</a></li>
-					 <li class="active">Project</li>	 
-				</ul>
-			</div><!-- /breadcrumb-->
 			<div class="main-header clearfix">
 				<div class="page-title">
-					<h3 class="no-margin">Project</h3>
-					<span>Optimize existing and design the new one</span>
+					<h3 class="no-margin">Building</h3>
+					<span>List of your building. Optimize energy to the max</span>
 				</div><!-- /page-title -->
 				<ul class="page-stats">
-			    	<li>
-			    		<div class="value">
-			    			<span>New visits</span>
-			    			<h4 id="currentVisitor">4256</h4>
-			    		</div>
-						<span id="visits" class="sparkline"></span>
-			    	</li>
-			    	<li>
-			    		<div class="value">
-			    			<span>My balance</span>
-			    			<h4>$<strong id="currentBalance">32153</strong></h4>
-			    		</div>
-			    		<span id="balances" class="sparkline"></span>
-			    	</li>
+			    	<button class="btn btn-primary">Add Building</button>
 			    </ul><!-- /page-stats -->
 			</div><!-- /main-header -->
 			
@@ -392,7 +383,7 @@ Project page for fisbang admin
 					<div class = "col-md-12">
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								Existing Project
+								Name Of Project
 								<span class="badge badge-info pull-right">	
 									4 left
 								</span>
@@ -547,8 +538,7 @@ Project page for fisbang admin
 				</div><!-- /.col -->
 			</div><!-- /.row-->
 		</footer>
-		
-		
+				
 		<!--Modal-->
 		<div class="modal fade" id="newFolder">
   			<div class="modal-dialog">

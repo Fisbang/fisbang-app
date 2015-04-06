@@ -1,5 +1,5 @@
 <!--
-Dashboard for fisbang admin
+Savings for fisbang admin
 -->
 
 <!DOCTYPE html>
@@ -66,7 +66,6 @@ Dashboard for fisbang admin
 		<div id="top-nav" class="fixed skin-6">
 			<a href="#" class="brand">
 				<span class="text-toogle"><img src="./img/logo_fisbang.png"</span>
-				<span class="text-toggle"> Admin</span>
 			</a><!-- /brand -->					
 			<button type="button" class="navbar-toggle pull-left" id="sidebarToggle">
 				<span class="icon-bar"></span>
@@ -378,7 +377,7 @@ Dashboard for fisbang admin
 				<ul class="page-stats">
 			    	<li>
 			    		<div class="value">
-			    			<span>New visits</span>
+			    			<span>My Energy (kwH)</span>
 			    			<h4 id="currentVisitor">4256</h4>
 			    		</div>
 						<span id="visits" class="sparkline"></span>
@@ -386,17 +385,16 @@ Dashboard for fisbang admin
 			    	<li>
 			    		<div class="value">
 			    			<span>My balance</span>
-			    			<h4>$<strong id="currentBalance">32153</strong></h4>
+			    			<h4>Rp<strong id="currentBalance">32153</strong></h4>
 			    		</div>
 			    		<span id="balances" class="sparkline"></span>
 			    	</li>
 			    </ul><!-- /page-stats -->
 			</div><!-- /main-header -->
-			
 			<div class="padding-md">
-
 				<div class="row">
 					<div class="col-md-8">
+						<h4> Saving Potential</h4>
 						<div class="panel bg-success fadeInDown animation-delay5">
 							<div class="panel-body">
 								<div id="barChart" style="height: 300px;"></div>
@@ -412,12 +410,40 @@ Dashboard for fisbang admin
 								</div><!-- /.row -->
 							</div>
 						</div><!-- /panel -->
+
+						<h4> Life Cycle Analysis</h4>
+						<div class="panel bg-info fadeInDown animation-delay4">
+							<div class="panel-body">
+								<div id="lineChart" style="height: 150px;"></div>
+								<div class="pull-right text-right">
+									<strong class="font-14">Yearly Saving 3210 kWh</strong><br/>
+									<span><i class="fa fa-shopping-cart"></i> Predicted ROI 8 yr</span>
+									<div class="seperator"></div>
+								</div>
+							</div>
+							<div class="panel-footer">
+								<div class="row">
+									<div class="col-xs-4">
+										Predicted Investment
+										<strong class="block">Rp664</strong>
+									</div><!-- /.col -->
+									<div class="col-xs-4">
+										Predicted Electrical Rate
+										<strong class="block">Rp731</strong>
+									</div><!-- /.col -->
+									<div class="col-xs-4">
+										Predicted Savings
+										<strong class="block">Rp912</strong>
+									</div><!-- /.col -->
+								</div><!-- /.row -->
+							</div>
+						</div><!-- /panel -->						
 					</div><!-- /.col -->						
 					<div class="col-md-4">	
 						<div class="panel panel-default">
 							<div class="panel-heading clearfix">
 								<span class="pull-left">
-									To Do List <span class="text-success m-left-xs"><i class="fa fa-check"></i></span>
+									Saving Potential List <span class="text-success m-left-xs"><i class="fa fa-check"></i></span>
 								</span>
 								<ul class="tool-bar">
 									<li><a href="#" class="refresh-widget" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Refresh"><i class="fa fa-refresh"></i></a></li>
@@ -426,12 +452,12 @@ Dashboard for fisbang admin
 							</div>
 							<div class="panel-body no-padding collapse in" id="toDoListWidget">
 								<ul class="list-group task-list no-margin collapse in">
-									<li class="list-group-item selected">
+									<li class="list-group-item">
 										<label class="label-checkbox inline">
-											 <input type="checkbox" class="task-finish" checked>
+											 <input type="checkbox" class="task-finish">
 											 <span class="custom-checkbox"></span>
 										</label>
-										SEO Optimisation
+										Change AC to inverter mode
 										<span class="pull-right">
 											<a href="#" class="task-del"><i class="fa fa-trash-o fa-lg text-danger"></i></a>
 										</span>
@@ -441,7 +467,7 @@ Dashboard for fisbang admin
 											 <input type="checkbox" class="task-finish">
 											 <span class="custom-checkbox"></span>
 										</label>
-										Unit Testing
+										Using LED at room
 										<span class="pull-right">
 											<a href="#" class="task-del"><i class="fa fa-trash-o fa-lg text-danger"></i></a>
 										</span>
@@ -451,7 +477,7 @@ Dashboard for fisbang admin
 											 <input type="checkbox" class="task-finish">
 											 <span class="custom-checkbox"></span>
 										</label>
-										Mobile Development 
+										Add VSD on pumps
 										<span class="pull-right">
 											<a href="#" class="task-del"><i class="fa fa-trash-o fa-lg text-danger"></i></a>
 										</span>
@@ -462,7 +488,7 @@ Dashboard for fisbang admin
 											 <input type="checkbox" class="task-finish">
 											 <span class="custom-checkbox"></span>
 										</label>
-										Database Migration
+										Control your lamp
 										<span class="pull-right">
 											<a href="#" class="task-del"><i class="fa fa-trash-o fa-lg text-danger"></i></a>
 										</span>
@@ -472,17 +498,7 @@ Dashboard for fisbang admin
 											 <input type="checkbox" class="task-finish">
 											 <span class="custom-checkbox"></span>
 										</label>
-										New Frontend Layout <span class="label label-warning m-left-xs">PENDING</span>
-										<span class="pull-right">
-											<a href="#" class="task-del"><i class="fa fa-trash-o fa-lg text-danger"></i></a>
-										</span>
-									</li>
-									<li class="list-group-item">
-										<label class="label-checkbox inline">
-											 <input type="checkbox" class="task-finish">
-											 <span class="custom-checkbox"></span>
-										</label>
-										Bug Fixes <span class="label label-danger m-left-xs">IMPORTANT</span>
+										Control your AC <span class="label label-danger m-left-xs">IMPORTANT</span>
 										<span class="pull-right">
 											<a href="#" class="task-del"><i class="fa fa-trash-o fa-lg text-danger"></i></a>
 										</span>
@@ -494,7 +510,7 @@ Dashboard for fisbang admin
 							</div>
 						</div><!-- /panel -->				
 					</div><!-- /.col -->
-				</div><!-- /.row -->
+				</div><!-- /.row -->			
 			</div><!-- /.padding-md -->
 		</div><!-- /main-container -->
 		
