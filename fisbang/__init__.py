@@ -27,11 +27,15 @@ def create_app():
     from homepage import homepage as homepage_blueprint
     app.register_blueprint(homepage_blueprint,  url_prefix='/')
 
-    from dashboard import dashboard as dashboard_blueprint
-    app.register_blueprint(dashboard_blueprint,  url_prefix='/dashboard')
+    from app import app as app_blueprint
+    app.register_blueprint(app_blueprint,  url_prefix='/app')
 
     from market import market as market_blueprint
     app.register_blueprint(market_blueprint,  url_prefix='/market')
+
+    from dashboard import dashboard as dashboard_blueprint
+    app.register_blueprint(dashboard_blueprint,  url_prefix='/dashboard')
+
 
     from api import api
     api.init_app(app)
