@@ -27,213 +27,196 @@
     </ul> 
     {% if current_user.is_authenticated() %}
     <!-- if user already login > -->
-    <ul class="nav navbar-top-links navbar-right">
+    <ul class="nav-notification">
       <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-          <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
+          <i class="fa fa-envelope fa-lg"></i>
+          <span class="notification-label bounceIn animation-delay4">7</span>
         </a>
-        <ul class="dropdown-menu dropdown-messages">
+        <ul class="dropdown-menu message dropdown-1">
+          <li><a>You have 4 new unread messages</a></li>            
           <li>
-            <a href="#">
-              <div>
-                <strong>John Smith</strong>
-                <span class="pull-right text-muted">
-                  <em>Yesterday</em>
-                </span>
+            <a class="clearfix" href="#">
+              <img src="img/user.jpg" alt="User Avatar">
+              <div class="detail">
+                <strong>John Doe</strong>
+                <p class="no-margin">
+                  Lorem ipsum dolor sit amet...
+                </p>
+                <small class="text-muted"><i class="fa fa-check text-success"></i> 27m ago</small>
               </div>
-              <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-            </a>
+            </a>  
           </li>
-          <li class="divider"></li>
           <li>
-            <a href="#">
-              <div>
-                <strong>John Smith</strong>
-                <span class="pull-right text-muted">
-                  <em>Yesterday</em>
-                </span>
+            <a class="clearfix" href="#">
+              <img src="img/user2.jpg" alt="User Avatar">
+              <div class="detail">
+                <strong>Jane Doe</strong>
+                <p class="no-margin">
+                  Lorem ipsum dolor sit amet...
+                </p>
+                <small class="text-muted"><i class="fa fa-check text-success"></i> 5hr ago</small>
               </div>
-              <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-            </a>
+            </a>  
           </li>
-          <li class="divider"></li>
           <li>
-            <a href="#">
-              <div>
-                <strong>John Smith</strong>
-                <span class="pull-right text-muted">
-                  <em>Yesterday</em>
-                </span>
+            <a class="clearfix" href="#">
+              <img src="img/user.jpg" alt="User Avatar">
+              <div class="detail">
+                <strong>Bill Doe</strong>
+                <p class="no-margin">
+                  Lorem ipsum dolor sit amet...
+                </p>
+                <small class="text-muted"><i class="fa fa-reply"></i> Yesterday</small>
               </div>
-              <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-            </a>
+            </a>  
           </li>
-          <li class="divider"></li>
           <li>
-            <a class="text-center" href="#">
-              <strong>Read All Messages</strong>
-              <i class="fa fa-angle-right"></i>
-            </a>
+            <a class="clearfix" href="#">
+              <img src="img/user2.jpg" alt="User Avatar">
+              <div class="detail">
+                <strong>Baby Doe</strong>
+                <p class="no-margin">
+                  Lorem ipsum dolor sit amet...
+                </p>
+                <small class="text-muted"><i class="fa fa-reply"></i> 9 Feb 2013</small>
+              </div>
+            </a>  
           </li>
+          <li><a href="#">View all messages</a></li>            
         </ul>
-        <!-- /.dropdown-messages -->
       </li>
-      <!-- /.dropdown -->
+      <li class="dropdown hidden-xs">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <i class="fa fa-tasks fa-lg"></i>
+          <span class="notification-label bounceIn animation-delay5">4</span>
+        </a>
+        <ul class="dropdown-menu task dropdown-2">
+          <li><a href="#">You have 4 tasks to complete</a></li>           
+          <li>
+            <a href="#">
+              <div class="clearfix">
+                <span class="pull-left">Bug Fixes</span>
+                <small class="pull-right text-muted">78%</small>
+              </div>
+              <div class="progress">
+                <div class="progress-bar" style="width:78%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <div class="clearfix">
+                <span class="pull-left">Software Updating</span>
+                <small class="pull-right text-muted">54%</small>
+              </div>
+              <div class="progress progress-striped">
+                <div class="progress-bar progress-bar-success" style="width:54%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <div class="clearfix">
+                <span class="pull-left">Database Migration</span>
+                <small class="pull-right text-muted">23%</small>
+              </div>
+              <div class="progress">
+                <div class="progress-bar progress-bar-warning" style="width:23%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <div class="clearfix">
+                <span class="pull-left">Unit Testing</span>
+                <small class="pull-right text-muted">92%</small>
+              </div>
+              <div class="progress progress-striped active">
+                <div class="progress-bar progress-bar-danger " style="width:92%"></div>
+              </div>
+            </a>
+          </li>
+          <li><a href="#">View all tasks</a></li>           
+        </ul>
+      </li>
       <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-          <i class="fa fa-tasks fa-fw"></i>  <i class="fa fa-caret-down"></i>
+          <i class="fa fa-bell fa-lg"></i>
+          <span class="notification-label bounceIn animation-delay6">5</span>
         </a>
-        <ul class="dropdown-menu dropdown-tasks">
+        <ul class="dropdown-menu notification dropdown-3">
+          <li><a href="#">You have 5 new notifications</a></li>           
           <li>
             <a href="#">
-              <div>
-                <p>
-                  <strong>Task 1</strong>
-                  <span class="pull-right text-muted">40% Complete</span>
-                </p>
-                <div class="progress progress-striped active">
-                  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                    <span class="sr-only">40% Complete (success)</span>
-                  </div>
-                </div>
-              </div>
+              <span class="notification-icon bg-warning">
+                <i class="fa fa-warning"></i>
+              </span>
+              <span class="m-left-xs">Server #2 not responding.</span>
+              <span class="time text-muted">Just now</span>
             </a>
           </li>
-          <li class="divider"></li>
           <li>
             <a href="#">
-              <div>
-                <p>
-                  <strong>Task 2</strong>
-                  <span class="pull-right text-muted">20% Complete</span>
-                </p>
-                <div class="progress progress-striped active">
-                  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                    <span class="sr-only">20% Complete</span>
-                  </div>
-                </div>
-              </div>
+              <span class="notification-icon bg-success">
+                <i class="fa fa-plus"></i>
+              </span>
+              <span class="m-left-xs">New user registration.</span>
+              <span class="time text-muted">2m ago</span>
             </a>
           </li>
-          <li class="divider"></li>
           <li>
             <a href="#">
-              <div>
-                <p>
-                  <strong>Task 3</strong>
-                  <span class="pull-right text-muted">60% Complete</span>
-                </p>
-                <div class="progress progress-striped active">
-                  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                    <span class="sr-only">60% Complete (warning)</span>
-                  </div>
-                </div>
-              </div>
+              <span class="notification-icon bg-danger">
+                <i class="fa fa-bolt"></i>
+              </span>
+              <span class="m-left-xs">Application error.</span>
+              <span class="time text-muted">5m ago</span>
             </a>
           </li>
-          <li class="divider"></li>
           <li>
             <a href="#">
-              <div>
-                <p>
-                  <strong>Task 4</strong>
-                  <span class="pull-right text-muted">80% Complete</span>
-                </p>
-                <div class="progress progress-striped active">
-                  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                    <span class="sr-only">80% Complete (danger)</span>
-                  </div>
-                </div>
-              </div>
+              <span class="notification-icon bg-success">
+                <i class="fa fa-usd"></i>
+              </span>
+              <span class="m-left-xs">2 items sold.</span>
+              <span class="time text-muted">1hr ago</span>
             </a>
           </li>
-          <li class="divider"></li>
           <li>
-            <a class="text-center" href="#">
-              <strong>See All Tasks</strong>
-              <i class="fa fa-angle-right"></i>
+            <a href="#">
+              <span class="notification-icon bg-success">
+                <i class="fa fa-plus"></i>
+              </span>
+              <span class="m-left-xs">New user registration.</span>
+              <span class="time text-muted">1hr ago</span>
             </a>
           </li>
+          <li><a href="#">View all notifications</a></li>           
         </ul>
-        <!-- /.dropdown-tasks -->
       </li>
-      <!-- /.dropdown -->
-      <li class="dropdown">
+      <li class="profile dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-          <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
+          <strong>John Doe</strong>
+          <span><i class="fa fa-chevron-down"></i></span>
         </a>
-        <ul class="dropdown-menu dropdown-alerts">
+        <ul class="dropdown-menu">
           <li>
-            <a href="#">
-              <div>
-                <i class="fa fa-comment fa-fw"></i> New Comment
-                <span class="pull-right text-muted small">4 minutes ago</span>
+            <a class="clearfix" href="#">
+              <img src="img/user.jpg" alt="User Avatar">
+              <div class="detail">
+                <strong>John Doe</strong>
+                <p class="grey">John_Doe@email.com</p> 
               </div>
             </a>
           </li>
+          <li><a tabindex="-1" href="profile.html" class="main-link"><i class="fa fa-edit fa-lg"></i> Edit profile</a></li>
+          <li><a tabindex="-1" href="gallery.html" class="main-link"><i class="fa fa-picture-o fa-lg"></i> Photo Gallery</a></li>
+          <li><a tabindex="-1" href="#" class="theme-setting"><i class="fa fa-cog fa-lg"></i> Setting</a></li>
           <li class="divider"></li>
-          <li>
-            <a href="#">
-              <div>
-                <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                <span class="pull-right text-muted small">12 minutes ago</span>
-              </div>
-            </a>
-          </li>
-          <li class="divider"></li>
-          <li>
-            <a href="#">
-              <div>
-                <i class="fa fa-envelope fa-fw"></i> Message Sent
-                <span class="pull-right text-muted small">4 minutes ago</span>
-              </div>
-            </a>
-          </li>
-          <li class="divider"></li>
-          <li>
-            <a href="#">
-              <div>
-                <i class="fa fa-tasks fa-fw"></i> New Task
-                <span class="pull-right text-muted small">4 minutes ago</span>
-              </div>
-            </a>
-          </li>
-          <li class="divider"></li>
-          <li>
-            <a href="#">
-              <div>
-                <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                <span class="pull-right text-muted small">4 minutes ago</span>
-              </div>
-            </a>
-          </li>
-          <li class="divider"></li>
-          <li>
-            <a class="text-center" href="#">
-              <strong>See All Alerts</strong>
-              <i class="fa fa-angle-right"></i>
-            </a>
-          </li>
+          <li><a tabindex="-1" class="main-link logoutConfirm_open" href="#logoutConfirm"><i class="fa fa-lock fa-lg"></i> Log out</a></li>
         </ul>
-        <!-- /.dropdown-alerts -->
       </li>
-      <!-- /.dropdown -->
-      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-          <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
-        </a>
-        <ul class="dropdown-menu dropdown-user">
-          <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-          </li>
-          <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-          </li>
-          <li class="divider"></li>
-          <li><a href="{{ url_for('security.logout') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-          </li>
-        </ul>
-        <!-- /.dropdown-user -->
-      </li>
-      <!-- /.dropdown -->
     </ul>
     {% else %}
     <ul class="nav navbar-nav navbar-right">   
