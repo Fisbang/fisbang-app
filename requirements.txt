@@ -8,4 +8,5 @@ flask-migrate
 psycopg2
 flask-restful
 flask-security
+flask-scripts
 uwsgi
