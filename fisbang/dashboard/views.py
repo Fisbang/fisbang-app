@@ -3,35 +3,35 @@ from flask import render_template, session, redirect, request, url_for, flash
 from flask.ext.security import login_required
 from flask.ext.security.core import current_user
 
-from . import app
+from . import dashboard
 from .. import db
 
-@app.route('/', methods=['GET'])
+@dashboard.route('/', methods=['GET'])
 @login_required
 def index():
-    from fisbang.app.forms import SelectDeviceForm
+    from fisbang.dashboard.forms import SelectDeviceForm
     form = SelectDeviceForm()
     form.device.choices = [(device.id, device.device_type.name+' @ '+device.location) for device in get_device()]
-    return render_template('app/dashboard.html', select_device_form=form)
+    return render_template('dashboard/dashboard.html', select_device_form=form)
 
-@app.route('/devices_list', methods=['GET'])
+@dashboard.route('/devices_list', methods=['GET'])
 @login_required
 def devices_list():
     from fisbang.models.device import Device
     devices = Device.query.filter_by(user_id=current_user.id).all()
-    return render_template('app/devices_list.html', devices=devices)
+    return render_template('dashboard/devices_list.html', devices=devices)
 
-@app.route('/device_detail/<device_id>', methods=['GET'])
+@dashboard.route('/device_detail/<device_id>', methods=['GET'])
 @login_required
 def device_details(device_id):
     from fisbang.models.device import Device
     device = Device.query.get(device_id)
-    return render_template('app/device_details.html', device=device)
+    return render_template('dashboard/device_details.html', device=device)
 
-@app.route('/create_device', methods=['GET', 'POST'])
+@dashboard.route('/create_device', methods=['GET', 'POST'])
 @login_required
 def device_create():
-    from fisbang.app.forms import CreateDeviceForm
+    from fisbang.dashboard.forms import CreateDeviceForm
     form = CreateDeviceForm()
     form.device_type.choices = [(type.id, type.name) for type in get_device_type()]
     form.sensors.choices = [(sensor.id, str(sensor.name)+' - '+str(sensor.token)) for sensor in get_sensor()]
@@ -51,13 +51,13 @@ def device_create():
             device_sensor = device.sensors.append(sensor)
         db.session.add(device)
         db.session.commit()
-        return redirect(url_for('app.device_details', device_id=device.id))
-    return render_template('app/device_create.html', form=form)
+        return redirect(url_for('dashboard.device_details', device_id=device.id))
+    return render_template('dashboard/device_create.html', form=form)
 
-@app.route('/edit_device/<device_id>', methods=['GET','POST'])
+@dashboard.route('/edit_device/<device_id>', methods=['GET','POST'])
 @login_required
 def device_edit(device_id):
-    from fisbang.app.forms import EditDeviceForm
+    from fisbang.dashboard.forms import EditDeviceForm
     from fisbang.models.device import Device, DeviceType
     from fisbang.models.sensor import Sensor
     device = Device.query.get(device_id)
@@ -77,14 +77,14 @@ def device_edit(device_id):
             device.sensors.append(sensor)
         db.session.add(device)
         db.session.commit()
-        return redirect(url_for('app.device_details', device_id=device.id))
+        return redirect(url_for('dashboard.device_details', device_id=device.id))
     form.device_type.data = device.device_type.id
     form.location.data = device.location
     form.merk.data = device.merk
     form.type.data = device.type
     form.wattage.data = device.wattage
     form.sensors.data = [sensor.id for sensor in device.sensors]
-    return render_template('app/device_edit.html', form=form)
+    return render_template('dashboard/device_edit.html', form=form)
 
 def get_device_type():
     from fisbang.models.device import DeviceType
@@ -105,7 +105,7 @@ def get_sensor(device_id=None):
         sensors += connected_sensors
     return sensors
 
-@app.route('/delete_device/<device_id>', methods=['GET'])
+@dashboard.route('/delete_device/<device_id>', methods=['GET'])
 @login_required
 def device_delete(device_id):
     from fisbang.models.device import Device
@@ -113,5 +113,5 @@ def device_delete(device_id):
     print device
     db.session.delete(device)
     db.session.commit()
-    return redirect(url_for('app.devices_list'))
+    return redirect(url_for('dashboard.devices_list'))
 
