@@ -34,10 +34,13 @@
 {% endblock %}
 
 {% block scripts %}
-    {{ super() }}
+    <script src="{{bootstrap_find_resource('js/jquery.js', cdn='static')}}"></script>
+
+    <script src="{{bootstrap_find_resource('js/bootstrap.js', cdn='static')}}"></script>
+
     <!-- Metis Menu Plugin JavaScript -->
     <script src="{{ url_for('static', filename='js/plugins/metisMenu/metisMenu.min.js') }}"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="{{ url_for('static', filename='js/sb-admin-2.js') }}"></script>
+    <!-- <script src="{{ url_for('static', filename='js/sb-admin-2.js') }}"></script> -->
 {% endblock %}
