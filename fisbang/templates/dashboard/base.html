@@ -1,0 +1,72 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %} Fisbang Admin {% endblock %}
+
+{% block metas %}
+    {{ super() }}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+{% endblock %}
+
+{% block styles %}
+    <link href="{{bootstrap_find_resource('css/bootstrap.css', cdn='static')}}" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet">
+	
+    <!-- Pace -->
+    <link href="{{ url_for('static', filename='css/admin/pace.css') }}" rel="stylesheet">
+	
+    <!-- Color box -->
+    <link href="{{ url_for('static', filename='css/admin/colorbox/colorbox.css') }}" rel="stylesheet">
+	
+    <!-- Morris -->
+    <link href="{{ url_for('static', filename='css/admin/morris.css') }}" rel="stylesheet"/>	
+	
+    <!-- Perfect -->
+    <link href="{{ url_for('static', filename='css/admin/app.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/admin/app-skin.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{bootstrap_find_resource('js/jquery.js', cdn='static')}}"></script>
+
+    <script src="{{bootstrap_find_resource('js/bootstrap.js', cdn='static')}}"></script>
+
+    <!-- Flot -->
+    <script src="{{ url_for('static', filename='') }}js/admin/jquery.flot.min.js"></script>
+   
+    <!-- Morris -->
+    <script src="{{ url_for('static', filename='') }}js/admin/rapheal.min.js"></script>	
+    <script src="{{ url_for('static', filename='') }}js/admin/morris.min.js"></script>	
+    
+    <!-- Colorbox -->
+    <script src="{{ url_for('static', filename='') }}js/admin/jquery.colorbox.min.js"></script>	
+
+    <!-- Sparkline -->
+    <script src="{{ url_for('static', filename='') }}js/admin/jquery.sparkline.min.js"></script>
+    
+    <!-- Pace -->
+    <script src="{{ url_for('static', filename='') }}js/admin/pace.min.js"></script>
+    
+    <!-- Popup Overlay -->
+    <script src="{{ url_for('static', filename='') }}js/admin/jquery.popupoverlay.min.js"></script>
+    
+    <!-- Slimscroll -->
+    <script src="{{ url_for('static', filename='') }}js/admin/jquery.slimscroll.min.js"></script>
+    
+    <!-- Modernizr -->
+    <script src="{{ url_for('static', filename='') }}js/admin/modernizr.min.js"></script>
+    
+    <!-- Cookie -->
+    <script src="{{ url_for('static', filename='') }}js/admin/jquery.cookie.min.js"></script>
+    
+    <!-- Perfect -->
+    <script src="{{ url_for('static', filename='') }}js/admin/app/app_dashboard-2.js"></script>
+    <script src="{{ url_for('static', filename='') }}js/admin/app/app.js"></script>
+{% endblock %}
+
+    

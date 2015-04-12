@@ -12,7 +12,7 @@ def index():
     from fisbang.dashboard.forms import SelectDeviceForm
     form = SelectDeviceForm()
     form.device.choices = [(device.id, device.device_type.name+' @ '+device.location) for device in get_device()]
-    return render_template('dashboard/dashboard.html', select_device_form=form)
+    return render_template('dashboard/index.html', select_device_form=form)
 
 @dashboard.route('/devices_list', methods=['GET'])
 @login_required
