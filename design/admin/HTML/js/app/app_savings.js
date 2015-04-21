@@ -15,7 +15,7 @@ $(function	()	{
 	  ],
 	  xkey: 'y',
 	  ykeys: ['a', 'b'],
-	  grid: false,
+	  grid: true,
 	  labels: ['Actual', 'Prediction'],
 	  barColors: ['#5EE1B1', '#3BC894'],
 	  gridTextColor : '#fff'
