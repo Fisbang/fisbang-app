@@ -29,5 +29,6 @@ class User(db.Model, UserMixin):
         user = {}
         user["id"] = self.id
         user["email"] = self.email
+        user["name"] = self.email
 
         return user

@@ -10,7 +10,7 @@ class Device(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     device_type_id = db.Column(db.Integer, db.ForeignKey('device_type.id'))
-    location = db.Column(db.String(80))
+    environment_id = db.Column(db.Integer, db.ForeignKey('environment.id'))
     merk = db.Column(db.String(80))
     type = db.Column(db.String(80))
     wattage = db.Column(db.Integer)
@@ -19,9 +19,9 @@ class Device(db.Model):
     def view(self):
         device = {}
         device["id"] = self.id
-        device["user_id"] = self.id
+        device["user_id"] = self.user_id
         device["device_type"] = self.device_type.name
-        device["location"] = self.location
+        device["environment_id"] = self.environment_id
         device["merk"] = self.merk
         device["type"] = self.type
         device["wattage"] = self.wattage
