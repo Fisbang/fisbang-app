@@ -1,7 +1,6 @@
 from flask.ext.restful import Resource, reqparse
 from fisbang.models.device import Device
 from fisbang.models.user import User
-from fisbang.helpers.arg_types import date_type, datapoints
 from fisbang import db
 
 from flask.ext.security.core import current_user

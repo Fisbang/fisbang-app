@@ -1,9 +1,11 @@
 from flask import Flask, render_template
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.mongokit import MongoKit
 from flask.ext.security import Security, SQLAlchemyUserDatastore
 
 db = SQLAlchemy()
+nodb = MongoKit()
 bootstrap = Bootstrap()
 security = Security()
 
@@ -13,7 +15,7 @@ def create_app():
     app.config.from_envvar('FISBANG_SETTINGS')
 
     from models.user import User, Role
-    from models.sensor import Sensor, SensorData
+    from models.sensor import Sensor
     from models.device import Device, DeviceType
     from models.environment import Environment
     from models.project import Project
@@ -24,6 +26,11 @@ def create_app():
 
     user_datastore = SQLAlchemyUserDatastore(db, User, Role)
     security.init_app(app, user_datastore)
+
+    nodb.init_app(app)
+
+    from models.sensor_data import SensorData
+    nodb.register([SensorData])
 
     from homepage import homepage as homepage_blueprint
     app.register_blueprint(homepage_blueprint,  url_prefix='/')

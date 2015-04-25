@@ -1,5 +1,5 @@
 from flask.ext.restful import Resource, reqparse
-from fisbang.models.sensor import Sensor, SensorData
+from fisbang.models.sensor import Sensor
 from fisbang.models.user import User
 from fisbang import db
 

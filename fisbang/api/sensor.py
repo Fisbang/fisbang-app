@@ -1,8 +1,9 @@
 from flask.ext.restful import Resource, reqparse
-from fisbang.models.sensor import Sensor, SensorData
+from fisbang.models.sensor import Sensor
+from fisbang.models.sensor_data import SensorData
 from fisbang.models.user import User
-from fisbang.helpers.arg_types import date_type, datapoints
-from fisbang import db
+from fisbang.helpers.arg_types import datapoints
+from fisbang import db, nodb
 
 from flask.ext.security.core import current_user
 from flask.ext.security.decorators import http_auth_required
@@ -85,25 +86,21 @@ class SensorDataResource(Resource):
         # params = parser.parse_args()
 
         # get sensor details
-        sensor_datas = SensorData.query.filter_by(sensor_id=sensor_id).order_by(SensorData.timestamp.desc())
+        sensor_datas = nodb.SensorData.find({"sensor_id":sensor_id})
 
         # if params['start_time']:
         #     print "Start:", params['start_time'].strftime("%s")
-        #     sensor_datas = sensor_datas.filter(SensorData.timestamp >= params['start_time'])
+        # TODO : filter base on start_time
         # if params['end_time']:
         #     print "Stop:", params['end_time'].strftime("%s")
-        #     sensor_datas = sensor_datas.filter(SensorData.timestamp <= params['end_time'])
+        # TODO : filter base on end_time
 
         # if params['limit'] > 0:
-        #     sensor_datas = sensor_datas.limit(params['limit'])
+        # TODO : limit the result by user parameter
         # else:
-        #     sensor_datas = sensor_datas.limit(1000)
-        sensor_datas = sensor_datas.limit(1000)
-
-        formated_data = [{"time": int(sensor_data.timestamp.strftime("%s")), "value": sensor_data.value} for sensor_data in sensor_datas]
-
-        return formated_data, 200
-
+        # TODO : limit the result by default
+        
+        return [sensor_data.to_dict() for sensor_data in sensor_datas], 200
 
     def post(self, sensor_id):
         """
@@ -114,26 +111,34 @@ class SensorDataResource(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument('data', type = datapoints, required = False, location='json')
         parser.add_argument('value', type = float, required = False, location='json')
-        parser.add_argument('time', type = date_type, required = False, location='json')
+        parser.add_argument('timestamp', type = int, required = False, location='json')
 
         data = parser.parse_args()
 
         print "Sensor id: %d"%(sensor_id)
- 
-        if not data['data']:
-            sensor_data = SensorData(sensor_id=sensor_id, value=data["value"], timestamp=data["time"])
-            db.session.add(sensor_data)
-            db.session.commit()
 
-            return sensor_data.view(), 201
+        if not any([data['data'], all([data["value"], data["timestamp"]])]):
+            raise ValueError("Malformed datapoints")
+
+        if not data['data']:
+            sensor_data = nodb.SensorData()
+            sensor_data.sensor_id = sensor_id
+            sensor_data.value = data["value"]
+            sensor_data.timestamp = data["timestamp"]
+            sensor_data.save()
+
+            return "OK", 201
         else:
             count=0
             for datapoint in data['data']:
                 # print datapoint
-                sensor_data = SensorData(sensor_id=sensor_id, value=datapoint["value"], timestamp=datapoint["time"])
-                db.session.add(sensor_data)
+                sensor_data = nodb.SensorData()
+                sensor_data.sensor_id = sensor_id
+                sensor_data.value = datapoint["value"]
+                sensor_data.timestamp = datapoint["timestamp"]
+                sensor_data.save()
+
                 count += 1
-            db.session.commit()
 
             return count, 201
                 

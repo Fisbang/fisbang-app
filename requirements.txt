@@ -8,5 +8,6 @@ flask-migrate
 psycopg2
 flask-restful
 flask-security
-flask-scripts
+pymongo==2.8
+flask-mongokit
 uwsgi
