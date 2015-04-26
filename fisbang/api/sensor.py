@@ -8,6 +8,9 @@ from fisbang import db, nodb
 from flask.ext.security.core import current_user
 from flask.ext.security.decorators import http_auth_required
 
+import pandas as pd
+import numpy as np
+
 class SensorResource(Resource):
 
     decorators = [http_auth_required]
@@ -79,15 +82,16 @@ class SensorDataResource(Resource):
         """
         Get Sensor Data
         """
-        # parser = reqparse.RequestParser()
-        # parser.add_argument('start_time', type = date_type, location='args', required=False)
-        # parser.add_argument('end_time', type = date_type, location='args', required=False)
-        # parser.add_argument('limit', type = int, location='args', required=False)
-        # params = parser.parse_args()
+        parser = reqparse.RequestParser()
+        parser.add_argument('start_time', type = int, location='args', required=False)
+        parser.add_argument('end_time', type = int, location='args', required=False)
+        parser.add_argument('limit', type = int, location='args', required=False)
+        parser.add_argument('resample', type = str, location='args', required=False)
+        params = parser.parse_args()
 
         # get sensor details
-        sensor_datas = nodb.SensorData.find({"sensor_id":sensor_id})
-
+        cursor = nodb.SensorData.find({"sensor_id":sensor_id})
+        
         # if params['start_time']:
         #     print "Start:", params['start_time'].strftime("%s")
         # TODO : filter base on start_time
@@ -99,8 +103,50 @@ class SensorDataResource(Resource):
         # TODO : limit the result by user parameter
         # else:
         # TODO : limit the result by default
+
+        sensor_datas = [sensor_data.to_dict() for sensor_data in cursor]
+        # print sensor_datas[:10]
+
+        # if params['resample']:
+        if params['resample']:
+            df = pd.DataFrame.from_records(sensor_datas)            
+            # print df[:10]
+            
+            # df.timestamp = pd.to_datetime((df.timestamp.values*1e9).astype(int))
+            # print df[:10]
+            
+            df = df.set_index('timestamp')
+            # print df[:10]
+
+            df.index = pd.to_datetime((df.index.values*1e9).astype(int))
+            # print df[:10]
+
+            if params['resample'] == 'M':
+                df = df.resample('1M')
+            elif params['resample'] == 'H':
+                df = df.resample('1H')
+            elif params['resample'] == 'D':
+                df = df.resample('1D')
+            # print df
         
-        return [sensor_data.to_dict() for sensor_data in sensor_datas], 200
+            df.index = df.index.astype(np.int64) // 1e9
+            # print df
+
+            # print type(df.index)
+            # df.index = df.index.astype(int)
+
+            df = df.reset_index()
+            # print df[:10]
+
+            df.columns = ['timestamp', 'value']
+        
+            return_data = df.to_dict(orient='records')
+        else:
+            return_data = sensor_datas
+
+        # print return_data
+
+        return return_data, 200
 
     def post(self, sensor_id):
         """

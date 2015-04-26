@@ -11,3 +11,4 @@ flask-security
 pymongo==2.8
 flask-mongokit
 uwsgi
+pandas

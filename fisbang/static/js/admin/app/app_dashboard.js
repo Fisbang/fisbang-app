@@ -8,6 +8,15 @@ $(function () {
     var init = { data: [],
         	 label: ""
                };
+    var current_date = (new Date()).getTime();
+    var offset_date = 1000 * 60 * 60 * 24;
+    var yesterday_date = current_date - offset_date;
+    // var yesterday_date = current_date;
+    // yesterday_date.setDate(yesterday_date.getDate() - 1);
+
+    console.log("current date : "+current_date);
+    console.log("yesterday date : "+yesterday_date);
+
     //var init;
     var options = {	
 	series: {
@@ -27,8 +36,10 @@ $(function () {
 	},
         xaxis: {
             mode: "time",
-            timeformat: "%S",
-            minTickSize: [10, "second"],
+            timeformat: "%H:%M",
+            minTickSize: [1, "hour"],
+            min: yesterday_date,
+            max: current_date
         },
 	colors: ["#37b494"]
     };
@@ -112,8 +123,10 @@ $(function () {
 	},
         xaxis: {
             mode: "time",
-            timeformat: "%S",
-            minTickSize: [10, "second"],
+            timeformat: "%H:%M",
+            minTickSize: [1, "hour"],
+            min: yesterday_date,
+            max: current_date
         },
 	colors: ["#37b494"]
     },
@@ -335,7 +348,7 @@ $(function () {
 	    console.log("Retrieving sensor data");
 	    for(i=0;i<sensors.length;i++){
 		$.ajax({
-		    url: "/api/sensor/"+sensors[i]["id"]+"/data",
+		    url: "/api/sensor/"+sensors[i]["id"]+"/data?resample=H",
 		    username: "ricky.hariady@gmail.com",
 		    password: "password",
                     indexValue: i,
@@ -346,13 +359,16 @@ $(function () {
 			sensorData[sensor_id] = result;
                         if(sensor_id == house_sensor_id) {
                             var main_data = []
+                            var max = 100
                             for(i=0;i<result.length;i++){
-                                main_data.push([result[i]["timestamp"]*1000,result[i]["value"]]);
+                                max = Math.max(max, result[i]["value"]*220)
+                                main_data.push([result[i]["timestamp"]*1000,result[i]["value"]*220]);
                             }
                             mainPlotData.push({data: main_data, label: house_environment_name})
 			    console.log("mainPlotData : "+JSON.stringify(mainPlotData));
 			    console.log(plot);
                             plot.setData( mainPlotData );
+                            plot.getOptions().yaxes[0].max = max + 100;
                             plot.setupGrid()
                             plot.draw();
                             // console.log("plot data : "+JSON.stringify(plot.getData()));
@@ -365,7 +381,7 @@ $(function () {
                                 if(sensors[i]["type"]=="CURRENT"){
                                     var device_data = []
                                     for(j=0;j<result.length;j++){
-                                        device_data.push([result[j]["timestamp"]*1000,result[j]["value"]]);
+                                        device_data.push([result[j]["timestamp"]*1000,result[j]["value"]*220]);
                                     }
                                     devicePlotData.push({data: device_data, label: device["device_type"]})
 			            console.log("devicePlotData : "+JSON.stringify(devicePlotData));
