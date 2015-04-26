@@ -189,7 +189,7 @@ $(function () {
 
 
     //Sparkline
-    $('#visits').sparkline([15,19,20,22,33,27,31,27,19,30,21,10,15,18,25,9], {
+    $('#energy').sparkline([15,19,20,22,33,27,31,27,19,30,21,10,15,18,25,9], {
 	type: 'bar', 
 	barColor: '#FC8675',	
 	height:'35px',
@@ -246,7 +246,7 @@ $(function () {
     $(window).resize(function(e)	{
 	
 	//Sparkline
-	$('#visits').sparkline([15,19,20,22,33,27,31,27,19,30,21,10,15,18,25,9], {
+	$('#energy').sparkline([15,19,20,22,33,27,31,27,19,30,21,10,15,18,25,9], {
 	    type: 'bar', 
 	    barColor: '#fa4c38',	
 	    height:'35px',
@@ -384,6 +384,35 @@ $(function () {
                                     }
 
                                     $('#energy-count-daily').text(last_daily_energy.toFixed(3));
+
+	                            $({numberValue: 0}).animate({numberValue: last_daily_energy.toFixed(3)}, {
+	                                duration: 3000,
+	                                easing: 'linear',
+	                                step: function() { 
+		                            $('#today-energy').text(Math.ceil(this.numberValue)); 
+	                                }
+	                            });
+
+	                            $({numberValue: 0}).animate({numberValue: last_daily_energy*900}, {
+	                                duration: 3000,
+	                                easing: 'linear',
+	                                step: function() { 
+		                            $('#current-balance').text(Math.ceil(this.numberValue)); 
+	                                }
+	                            });
+
+                                    var monthly_energy = [];
+                                    for(i=0;i<result.length;i++)
+                                        monthly_energy.push(result[i]["value"]*220/1000);
+                                    
+                                    $('#energy').sparkline(monthly_energy, {
+	                                type: 'bar', 
+	                                barColor: '#FC8675',	
+	                                height:'35px',
+	                                weight:'96px'
+                                    });
+
+
                                 }
                             });
 
@@ -408,6 +437,10 @@ $(function () {
                                     console.log(last_monthly_energy);
 
                                     $('#energy-count-monthly').text(last_monthly_energy.toFixed(3))
+
+		                    $('#currentEnergy').text(Math.ceil(last_monthly_energy)); 
+		                    $('#currentBalance').text(Math.ceil(last_monthly_energy*900)); 
+
                                 }
                             });
 
@@ -441,68 +474,41 @@ $(function () {
 	updateEnvironments();
 
 	//Number Animation
-	var currentUser = $('#userCount').text();
-	$({numberValue: 0}).animate({numberValue: currentUser}, {
-	    duration: 2500,
-	    easing: 'linear',
-	    step: function() { 
-		$('#userCount').text(Math.ceil(this.numberValue)); 
-	    }
-	});
+	// var today_energy = $('#today-energy').text();
+	// $({numberValue: 0}).animate({numberValue: today_energy}, {
+	//     duration: 2500,
+	//     easing: 'linear',
+	//     step: function() { 
+	// 	$('#today-energy').text(Math.ceil(this.numberValue)); 
+	//     }
+	// });
 	
-	var currentServerload = $('#serverloadCount').text();
-	$({numberValue: 0}).animate({numberValue: currentServerload}, {
-	    duration: 2500,
-	    easing: 'linear',
-	    step: function() { 
-		$('#serverloadCount').text(Math.ceil(this.numberValue)); 
-	    }
-	});
+	// var ratio_from_power_capacity = $('#ratio-from-power-capacity').text();
+	// $({numberValue: 0}).animate({numberValue: ratio_from_power_capacity}, {
+	//     duration: 2500,
+	//     easing: 'linear',
+	//     step: function() { 
+	// 	$('#ratio_from_power_capacity').text(Math.ceil(this.numberValue)); 
+	//     }
+	// });
 	
-	var currentOrder = $('#orderCount').text();
-	$({numberValue: 0}).animate({numberValue: currentOrder}, {
-	    duration: 2500,
-	    easing: 'linear',
-	    step: function() { 
-		$('#orderCount').text(Math.ceil(this.numberValue)); 
-	    }
-	});
+	// var current_balance = $('#current-balance').text();
+	// $({numberValue: 0}).animate({numberValue: current_balance}, {
+	//     duration: 2500,
+	//     easing: 'linear',
+	//     step: function() { 
+	// 	$('#current_balance').text(Math.ceil(this.numberValue)); 
+	//     }
+	// });
 	
-	var currentVisitor = $('#visitorCount').text();
-	$({numberValue: 0}).animate({numberValue: currentVisitor}, {
-	    duration: 2500,
-	    easing: 'linear',
-	    step: function() { 
-		$('#visitorCount').text(Math.ceil(this.numberValue)); 
-	    }
-	});
+	// var ratio_from_max_budget = $('#ratio-from-max-budget').text();
+	// $({numberValue: 0}).animate({numberValue: ratio_from_max_budget}, {
+	//     duration: 2500,
+	//     easing: 'linear',
+	//     step: function() { 
+	// 	$('#ratio-from-max-budget').text(Math.ceil(this.numberValue)); 
+	//     }
+	// });
 	
-	setInterval(function() {
-	    var currentNumber = $('#userCount').text();
-	    var randomNumber = Math.floor(Math.random()*20) + 1;
-	    var newNumber = parseInt(currentNumber, 10) + parseInt(randomNumber, 10); 
-	    
-	    $({numberValue: currentNumber}).animate({numberValue: newNumber}, {
-		duration: 500,
-		easing: 'linear',
-		step: function() { 
-		    $('#userCount').text(Math.ceil(this.numberValue)); 
-		}
-	    });
-	}, 3000);
-	
-	setInterval(function() {
-	    var currentNumber = $('#visitorCount').text();
-	    var randomNumber = Math.floor(Math.random()*50) + 1;
-	    var newNumber = parseInt(currentNumber, 10) + parseInt(randomNumber, 10); 
-	    
-	    $({numberValue: currentNumber}).animate({numberValue: newNumber}, {
-		duration: 500,
-		easing: 'linear',
-		step: function() { 
-		    $('#visitorCount').text(Math.ceil(this.numberValue)); 
-		}
-	    });
-	}, 5000);
     });
 });
