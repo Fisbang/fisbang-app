@@ -121,12 +121,12 @@ class SensorDataResource(Resource):
             df.index = pd.to_datetime((df.index.values*1e9).astype(int))
             # print df[:10]
 
-            if params['resample'] == 'M':
-                df = df.resample('1M')
-            elif params['resample'] == 'H':
+            if params['resample'] == 'H':
                 df = df.resample('1H')
             elif params['resample'] == 'D':
-                df = df.resample('1D')
+                df = df.resample('1D', 'sum')
+            elif params['resample'] == 'M':
+                df = df.resample('1M', 'sum')
             # print df
         
             df.index = df.index.astype(np.int64) // 1e9

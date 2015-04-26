@@ -364,6 +364,53 @@ $(function () {
                             plot.setupGrid()
                             plot.draw();
                             // console.log("plot data : "+JSON.stringify(plot.getData()));
+
+
+		            $.ajax({
+		                url: "/api/sensor/"+sensors[this.indexValue]["id"]+"/data?resample=D",
+                                indexValue: this.indexValue,
+                                // async: false,
+		                success:function(result){
+                                    var current_date = new Date();
+                                    $('#hours-count-daily').text(current_date.getHours());
+
+                                    var last_daily_energy = 0;
+                                    var last_daily_timestamp = 0;
+                                    for(i=0;i<result.length;i++){
+                                        if(result[i]["timestamp"] > last_daily_timestamp){
+                                            last_daily_energy = result[i]["value"]*220/1000;
+                                            last_daily_timestamp = result[i]["timestamp"];
+                                        }
+                                    }
+
+                                    $('#energy-count-daily').text(last_daily_energy.toFixed(3));
+                                }
+                            });
+
+		            $.ajax({
+		                url: "/api/sensor/"+sensors[this.indexValue]["id"]+"/data?resample=M",
+                                indexValue: i,
+                                // async: false,
+		                success:function(result){
+                                    var current_date = new Date();
+                                    console.log(current_date.getHours());
+                                    $('#days-count-monthly').text(current_date.getDate());
+
+                                    var last_monthly_energy = 0;
+                                    var last_monthly_timestamp = 0;
+                                    for(i=0;i<result.length;i++){
+                                        if(result[i]["timestamp"] > last_monthly_timestamp){
+                                            last_monthly_energy = result[i]["value"]*220/1000;
+                                            last_monthly_timestamp = result[i]["timestamp"];
+                                        }
+                                    }
+                                    console.log(result);
+                                    console.log(last_monthly_energy);
+
+                                    $('#energy-count-monthly').text(last_monthly_energy.toFixed(3))
+                                }
+                            });
+
                             return;
                         }
 
