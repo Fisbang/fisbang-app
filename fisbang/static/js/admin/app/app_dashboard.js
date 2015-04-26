@@ -284,8 +284,6 @@ $(function () {
 	var updateEnvironments = function() {
 	    $.ajax({
 		url: "/api/environment",
-		username: "ricky.hariady@gmail.com",
-		password: "password",
 		success:function(result){
 		    console.log("Got environments : "+JSON.stringify(result));
 		    environments = result;
@@ -308,8 +306,6 @@ $(function () {
 	var updateDevices = function() {
 	    $.ajax({
 		url: "/api/device",
-		username: "ricky.hariady@gmail.com",
-		password: "password",
 		success:function(result){
 		    console.log("Got devices : "+JSON.stringify(result));
 		    devices = result;
@@ -322,8 +318,6 @@ $(function () {
 	var updateSensors = function() {
 	    $.ajax({
 		url: "/api/sensor",
-		username: "ricky.hariady@gmail.com",
-		password: "password",
 		success:function(result){
 		    console.log("Got sensors : "+JSON.stringify(result));
 		    sensors = result;
@@ -349,8 +343,6 @@ $(function () {
 	    for(i=0;i<sensors.length;i++){
 		$.ajax({
 		    url: "/api/sensor/"+sensors[i]["id"]+"/data?resample=H",
-		    username: "ricky.hariady@gmail.com",
-		    password: "password",
                     indexValue: i,
                     // async: false,
 		    success:function(result){
