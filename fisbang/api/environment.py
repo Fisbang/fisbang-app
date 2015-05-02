@@ -3,12 +3,13 @@ from fisbang.models.environment import Environment
 from fisbang.models.user import User
 from fisbang import db
 
+from flask.ext.security import login_required
 from flask.ext.security.core import current_user
-from flask.ext.security.decorators import http_auth_required
+from flask.ext.security.decorators import auth_required
 
 class EnvironmentResource(Resource):
 
-    decorators = [http_auth_required]
+    decorators = [auth_required('token','basic','session')]
 
     def get(self):
         """
@@ -22,7 +23,7 @@ class EnvironmentResource(Resource):
 
 class EnvironmentDetailsResource(Resource):
 
-    decorators = [http_auth_required]
+    decorators = [auth_required('token','basic','session')]
 
     def get(self, environment_id):
         """

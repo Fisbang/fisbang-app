@@ -5,15 +5,16 @@ from fisbang.models.user import User
 from fisbang.helpers.arg_types import datapoints
 from fisbang import db, nodb
 
+from flask.ext.security import login_required
 from flask.ext.security.core import current_user
-from flask.ext.security.decorators import http_auth_required
+from flask.ext.security.decorators import auth_required
 
 import pandas as pd
 import numpy as np
 
 class SensorResource(Resource):
 
-    decorators = [http_auth_required]
+    decorators = [auth_required('token','basic','session')]
 
     def get(self):
         """
@@ -50,7 +51,7 @@ class SensorResource(Resource):
 
 class SensorDetailsResource(Resource):
 
-    decorators = [http_auth_required]
+    decorators = [auth_required('token','basic','session')]
 
     def get(self, sensor_id):
         """
@@ -76,7 +77,7 @@ class SensorDetailsResource(Resource):
 
 class SensorDataResource(Resource):
 
-    decorators = [http_auth_required]
+    decorators = [auth_required('token','basic','session')]
 
     def get(self, sensor_id):
         """

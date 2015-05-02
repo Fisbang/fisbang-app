@@ -3,12 +3,13 @@ from fisbang.models.sensor import Sensor
 from fisbang.models.user import User
 from fisbang import db
 
+from flask.ext.security import login_required
 from flask.ext.security.core import current_user
-from flask.ext.security.decorators import http_auth_required
+from flask.ext.security.decorators import auth_required
 
 class CurrentUserDetailsResource(Resource):
 
-    decorators = [http_auth_required]
+    decorators = [auth_required('token','basic','session')]
 
     def get(self):
         """
@@ -20,7 +21,7 @@ class CurrentUserDetailsResource(Resource):
 
 class UserDetailsResource(Resource):
 
-    decorators = [http_auth_required]
+    decorators = [auth_required('token','basic','session')]
 
     def get(self, user_id="self"):
         """
