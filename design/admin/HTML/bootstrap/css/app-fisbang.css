@@ -2,7 +2,6 @@
 
 
 /* General */
----------------
 	.user {
 		font-size: 17px;
 		color:#63C2E8;
@@ -12,222 +11,9 @@
 		font-family: 'rockwell';	
 	}
 
-	h1 {margin-bottom: 40px;}
 
-	p {
-		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-		font-weight: 200;
-		font-size: 16px;
-
-	}
-
-	body {color: #000000;}
-
-	.section-subheading {
-		margin-top: -30px;
-		margin-bottom: 30px;
-	}
-
-
-/* only for web 
------------------*/
-
-/* top nav */
-
-	.navbar {
-		background-color: #ffffff;
-		color: #FFFFFF;
-		font-family: 'rockwell';
-		font-size: 17px;
-		min-height: 0;
-	}
-
-	.navbar-nav>li>a {
-		padding: 10px;
-	}
-
-	.navbar-nav>li.active{
-		color: #0087AF;
-		border-bottom:0px solid transparent;		
-	}	
-
-	.navbar-nav>li{
-		border-bottom:0px solid transparent;
-	}
-
-	.navbar-toggle{
-		margin: 0 0 0 0;
-	}
-
-	.navbar-nav.navbar-right:last-child {
-		margin-right: 0;
-	}
-
-	.navbar-collapse {
-		padding-right: 0;
-	}
-
-
-/*background conf*/
-
-	.back-footer {background-color: #D2DAB3;color: #000000;}
-	.back-home{
-	    background: #60a89d;
-	    background-image: url('../img/web/img-back-7.png');
-	    background-position: center bottom;
-	    background-repeat: no-repeat;
-	    width: 100%;
-	    min-height: 650px;
-	}
-
-	#dynamic {
-		background-color: #ffffff;
-		text-align: center;
-	} 
-
-	#project, #app {
-		background-color: #D2DAB3;
-	}	
-
-	#market {
-	    background:#57BBE2;
-	    min-height: 650px;
-	    color:#ffffff;}	
-
-	#steps {
-		background: #0087AF;
-		color: #ffffff;
-	}       	
-
-/*	general */    
-	.jumbotron {
-		background: none;
-		color: #000000;
-		padding-top: 40px;
-		padding-bottom: 40px;
-		padding-left: 0;
-		padding-right: 0;
-		margin-bottom: 0;
-	}
-
-	.white{
-		color: #ffffff;
-	}
-
-	.container .jumbotron{
-		padding-left: 0;
-		padding-right: 0;
-	}
-
-	.non-jumbotron, footer {
-		padding-top: 40px;
-		padding-bottom: 40px;
-	}
-
-	#landing-content, #landing-app {
-		padding-top: 40px;
-	}
-
-	footer .useful-link li a {color: #000000;}
-
-	footer img {
-		padding-top: 20px;
-	}
-
-	footer {
-  		margin-left: 0;
-  		background: #504f63;
-  		color: #d5d4dd;
-  		padding-left: 0;
-		padding-right: 0;
-	}
-
-
-/* market */
-
-	.project-caption {
-		padding: 10px;
-		background-color: #ffffff;
-		border-bottom: 2px #438733 solid;
-	}
-
-	#portfolio .portfolio-item {
-        right: 0;
-        margin: 0 0 15px;
-    }
-
-    #portfolio .portfolio-item .portfolio-link {
-        display: block;
-        position: relative;
-        margin: 0 auto;
-        max-width: 400px;
-    }
-
-    #portfolio .portfolio-item .portfolio-link .portfolio-hover {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        background: rgba(67,135,51,.9);
-        -webkit-transition: all ease .5s;
-        -moz-transition: all ease .5s;
-        transition: all ease .5s;
-    }
-
-    #portfolio .portfolio-item .portfolio-link .portfolio-hover:hover {
-        opacity: 1;
-    }
-
-    #portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content {
-        position: absolute;
-        top: 50%;
-        width: 100%;
-        height: 20px;
-        margin-top: -12px;
-        text-align: center;
-        font-size: 20px;
-        color: #fff;
-    }
-
-    #portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content i {
-        margin-top: -12px;
-    }
-
-    #portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content h3,
-    #portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content h4 {
-        margin: 0;
-    }
-
-    #portfolio .portfolio-item .portfolio-caption {
-        margin: 0 auto;
-        padding: 25px;
-        max-width: 400px;
-        text-align: center;
-        background-color: #fff;
-    }
-
-    #portfolio .portfolio-item .portfolio-caption h4 {
-        margin: 0;
-        text-transform: none;
-    }
-
-    #portfolio .portfolio-item .portfolio-caption p {
-        margin: 0;
-        font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif;
-        font-size: 16px;
-        font-style: italic;
-    }
-
-    #portfolio * {
-        z-index: 2;
-    }
-
-
-/* for admin 
----------------*/
 
 /* for top navigation */
-
 
 	#top-nav {
 		background-color: #ffffff;
@@ -243,7 +29,7 @@
 
 	#top-nav .nav-notification{
 		font-size:17px;
-		line-height: 120%; 
+		line-height: 100%; 
 	}
 
 	#wrapper.sidebar-hide #top-nav{margin-left:0}
@@ -287,12 +73,8 @@
 		-o-transform:scale(1.0);
 		background-color:#57BBE2;
 		color:#fff;
-  }	
-    
-    #top-nav .navbar-toggle {
-    	margin : 2px 0 2px 0;
-    }
-	
+}	
+
 	#top-nav .navbar-toggle.hide-menu {
 		margin-top: 0px;
 	}
@@ -437,15 +219,15 @@
 	#top-nav .navbar-toggle .icon-bar {
 	  background-color: #999;
 	}
-	#top-nav .brand , .navbar .brand{
+	#top-nav .brand {
 	  background: #fff;
 	  width: 120px;
-	  line-height: 120%;
+	  line-height: 100%;
 	  text-align: left;
 	  color: #438733;
 	}
 
-	#top-nav .brand img, .navbar .brand img{
+	#top-nav .brand img{
 	  height: 20px;float: left;
 	  margin-right: 10px;
 	}
@@ -459,7 +241,7 @@
 	#top-nav .nav-notification > li:hover {
 	  background: rgba(252, 252, 252, 0.9);
 	}
-	#top-nav .nav-notification > li > a,#top-nav .brand , .navbar .brand{
+	#top-nav .nav-notification > li > a,#top-nav .brand {
 	  /*color: #999;*/
 	  padding: 10px;
 	}
