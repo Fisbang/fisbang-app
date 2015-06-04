@@ -8,9 +8,11 @@
 		color:#63C2E8;
 	}
 
-	h1,h2,h3,h4,h5,h6 {
+	h1,h2,h3,h4,h5,h6,label {
 		font-family: 'rockwell';	
 	}
+
+    label {color:#438733;font-weight:200}	
 
 	h1 {margin-bottom: 40px;}
 
@@ -27,6 +29,24 @@
 		margin-top: -30px;
 		margin-bottom: 30px;
 	}
+
+	textarea { 
+	    padding:6px 12px;
+	    width:100%; 
+	    height:10em; 
+	    font-size:14px;
+	    line-height:1.42857143;
+	    color:#555;
+	    background-color:#fff;
+	    background-image:none;
+	    border:1px solid #ccc;
+	    border-radius:4px;
+	    -webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075);
+	    box-shadow:inset 0 1px 1px rgba(0,0,0,.075);
+	    -webkit-transition:border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+	    -o-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+	    transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+ 	}	
 
 
 /* only for web 
@@ -94,6 +114,10 @@
 	    min-height: 650px;
 	    color:#ffffff;}	
 
+	#login {
+	    min-height: 650px;
+	    }    
+
 	#steps {
 		background: #0087AF;
 		color: #ffffff;
@@ -145,10 +169,26 @@
 
 /* market */
 
-	.project-caption {
+	#portfolio img {
+		width: 100%;
+	}
+
+	.portopolio-caption {
 		padding: 10px;
 		background-color: #ffffff;
+		
+	}
+
+	.portopolio-caption h4 {
+		color: #CCCCCC;
+	}
+
+	.product {
 		border-bottom: 2px #438733 solid;
+	}
+
+	.service {
+		border-bottom: 2px #57BBE2 solid;
 	}
 
 	#portfolio .portfolio-item {
@@ -160,7 +200,7 @@
         display: block;
         position: relative;
         margin: 0 auto;
-        max-width: 400px;
+        /*max-width: 400px;*/
     }
 
     #portfolio .portfolio-item .portfolio-link .portfolio-hover {
