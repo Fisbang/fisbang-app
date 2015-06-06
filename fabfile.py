@@ -9,6 +9,7 @@ file_list = [   'fisbang/app/*',
                 'fisbang/api/*',
                 'fisbang/homepage/*',
                 'fisbang/market/*',
+                'fisbang/dashboard/*',
                 'fisbang/models/*',
                 'fisbang/static/*',
                 'fisbang/templates/*',
@@ -59,10 +60,7 @@ def deploy():
         run('echo "chdir = {}/current" >> conf/uwsgi.ini'.format(env.app_path))
         run('echo "logto = /var/log/uwsgi/{}.log" >> conf/uwsgi.ini'.format(env.base_url))
         run('echo "virtualenv = {}/current/venv" >> conf/uwsgi.ini'.format(env.app_path))
-        run('virtualenv --system-site-packages venv; source venv/bin/activate; pip install -r requirements.txt')
-
-    with cd('{}/current'.format(env.app_path)):
-        run('FISBANG_SETTINGS={} python manage.py db upgrade'.format(env.config_file_path))
+        run('virtualenv --system-site-packages venv; source venv/bin/activate; pip install -r requirements.txt; FISBANG_SETTINGS={} python manage.py db upgrade'.format(env.config_file_path))
 
     run('supervisorctl restart fisbang')
     # cleanup

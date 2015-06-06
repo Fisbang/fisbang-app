@@ -9,8 +9,8 @@ from .device import *
 from .environment import *
 
 api.add_resource(SensorResource, '/sensor')
-api.add_resource(SensorDetailsResource, '/sensor/<int:sensor_id>')
-api.add_resource(SensorDataResource, '/sensor/<int:sensor_id>/data')
+api.add_resource(SensorDetailResource, '/sensor/<string:token>')
+api.add_resource(SensorDataResource, '/sensor/<string:token>/data')
 
 api.add_resource(DeviceResource, '/device')
 api.add_resource(DeviceDetailsResource, '/device/<int:device_id>')

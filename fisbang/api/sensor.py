@@ -1,5 +1,5 @@
 from flask.ext.restful import Resource, reqparse
-from fisbang.models.sensor import Sensor
+from fisbang.models.sensor import Sensor, SensorType
 from fisbang.models.sensor_data import SensorData
 from fisbang.models.user import User
 from fisbang.helpers.arg_types import datapoints
@@ -12,78 +12,62 @@ from flask.ext.security.decorators import auth_required
 import pandas as pd
 import numpy as np
 
+import time
+
 class SensorResource(Resource):
-
-    decorators = [auth_required('token','basic','session')]
-
-    def get(self):
-        """
-        Get Sensor List
-        """
-        # get sensor details
-        sensors = Sensor.query.all()
-
-        return [sensor.view() for sensor in sensors], 200
-
+    
     def post(self):
         """
-        Create New Sensor
+        Register Sensor
         """
         arg = reqparse.RequestParser()
-        arg.add_argument('token', type = str, required = True, location='json')
+        arg.add_argument('type', type = str, required = True, location='args')
 
         data = arg.parse_args()
 
-        sensor_query = Sensor.query.filter_by(token=data['token'])
-        if sensor_query.count():
-            sensor = sensor_query.first()
-            if not sensor.user_id == current_user.id:
-                return "Unauthorized", 403
-            return sensor.view(), 200
-        else:
-            sensor = Sensor()
-            sensor.token = data["token"]
-            sensor.user_id = current_user.id
-            db.session.add(sensor)
-            db.session.commit()
-            return sensor.view(), 201
+        sensor = Sensor()
+        sensor.create_token()
+        sensor_type = SensorType.query.filter_by(name=data["type"]).first()
+        sensor.sensor_type_id = sensor_type.id
+        db.session.add(sensor)
+        db.session.commit()
+        
+        return {"sensor": sensor.view(), "key": sensor.get_key()}, 201
+        
+        
+class SensorDetailResource(Resource):
 
-
-class SensorDetailsResource(Resource):
-
-    decorators = [auth_required('token','basic','session')]
-
-    def get(self, sensor_id):
+    def get(self, token):
         """
-        Get Sensor Detail
+        Get Sensor
         """
+        arg = reqparse.RequestParser()
+        arg.add_argument('key', type = str, required = True, location='args')
+
+        data = arg.parse_args()
+
         # get sensor details
-        sensor = Sensor.query.get(sensor_id)
+        query = Sensor.query.filter_by(token=token)
+
+        sensor = query.first()
+
         if sensor:
-            return sensor.view(), 200
+            if sensor.check_key(data['key']):
+                return {"sensor": sensor.view()}, 200
+            else:
+                return "Unauthorized Access", 403
         else:
-            return "Sensor Not Found", 400
-
-    def delete(self, sensor_id):
-        """
-        Delete Existing Sensor
-        """
-
-    def put(self, sensor_id):
-        """
-        Change Existing Sensor
-        """
+            return "Sensor Not Found", 404
 
 
 class SensorDataResource(Resource):
 
-    decorators = [auth_required('token','basic','session')]
-
-    def get(self, sensor_id):
+    def get(self, token):
         """
         Get Sensor Data
         """
         parser = reqparse.RequestParser()
+        parser.add_argument('key', type = str, location='args', required = True)
         parser.add_argument('start_time', type = int, location='args', required=False)
         parser.add_argument('end_time', type = int, location='args', required=False)
         parser.add_argument('limit', type = int, location='args', required=False)
@@ -91,7 +75,16 @@ class SensorDataResource(Resource):
         params = parser.parse_args()
 
         # get sensor details
-        cursor = nodb.SensorData.find({"sensor_id":sensor_id})
+        query = Sensor.query.filter_by(token=token)
+        sensor = query.first()
+
+        if not sensor:
+            return "Sensor Not Found", 404
+
+        if not sensor.check_key(params['key']):
+            return "Unauthorize", 403
+
+        cursor = nodb.SensorData.find({"sensor_id":sensor.id})
         
         # if params['start_time']:
         #     print "Start:", params['start_time'].strftime("%s")
@@ -149,29 +142,38 @@ class SensorDataResource(Resource):
 
         return return_data, 200
 
-    def post(self, sensor_id):
+    def post(self, token):
         """
         Create Sensor Data
         """
         # from flask import request
         # print request.data
         parser = reqparse.RequestParser()
+        parser.add_argument('key', type = str, location='args', required = True)
         parser.add_argument('data', type = datapoints, required = False, location='json')
         parser.add_argument('value', type = float, required = False, location='json')
         parser.add_argument('timestamp', type = int, required = False, location='json')
 
         data = parser.parse_args()
 
-        print "Sensor id: %d"%(sensor_id)
+        # get sensor details
+        query = Sensor.query.filter_by(token=token)
+        sensor = query.first()
 
-        if not any([data['data'], all([data["value"], data["timestamp"]])]):
+        if not sensor:
+            return "Sensor Not Found", 404
+
+        if not sensor.check_key(data['key']):
+            return "Unauthorize", 403
+
+        if not any([data['data'], data["value"]]):
             raise ValueError("Malformed datapoints")
 
         if not data['data']:
             sensor_data = nodb.SensorData()
-            sensor_data.sensor_id = sensor_id
+            sensor_data.sensor_id = sensor.id
             sensor_data.value = data["value"]
-            sensor_data.timestamp = data["timestamp"]
+            sensor_data.timestamp = data.get("timestampt", int(time.time()))
             sensor_data.save()
 
             return "OK", 201
@@ -180,7 +182,7 @@ class SensorDataResource(Resource):
             for datapoint in data['data']:
                 # print datapoint
                 sensor_data = nodb.SensorData()
-                sensor_data.sensor_id = sensor_id
+                sensor_data.sensor_id = sensor.id
                 sensor_data.value = datapoint["value"]
                 sensor_data.timestamp = datapoint["timestamp"]
                 sensor_data.save()
@@ -190,7 +192,7 @@ class SensorDataResource(Resource):
             return count, 201
                 
 	
-    def delete(self, sensor_id):
+    def delete(self, token):
         """
         Delete Sensor Data
         """

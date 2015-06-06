@@ -7,6 +7,7 @@ class DeviceType(db.Model):
     devices = db.relationship('Device', backref='device_type', lazy='dynamic')
 
 class Device(db.Model):
+    __tablename__ = 'device'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     device_type_id = db.Column(db.Integer, db.ForeignKey('device_type.id'))
@@ -14,7 +15,7 @@ class Device(db.Model):
     merk = db.Column(db.String(80))
     type = db.Column(db.String(80))
     wattage = db.Column(db.Integer)
-    sensors = db.relationship('Sensor', backref='device', lazy='dynamic')
+    sensors = db.relationship('DeviceSensor', lazy='dynamic')
 
     def view(self):
         device = {}
@@ -28,3 +29,9 @@ class Device(db.Model):
         device["sensors"] = [sensor.id for sensor in self.sensors]
 
         return device
+
+class DeviceSensor(db.Model):
+    __tablename__ = 'device_sensor'
+    id = db.Column(db.Integer, primary_key=True)
+    device_id = db.Column(db.Integer, db.ForeignKey('device.id'))
+    sensor_id = db.Column(db.Integer, db.ForeignKey('sensor.id'))

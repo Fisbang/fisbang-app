@@ -1,6 +1,8 @@
 from fisbang import db
 
 import datetime
+import uuid
+import md5
 
 class SensorType(db.Model):
     __tablename__ = 'sensor_type'
@@ -12,10 +14,7 @@ class SensorType(db.Model):
 class Sensor(db.Model):
     __tablename__ = 'sensor'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     sensor_type_id = db.Column(db.Integer, db.ForeignKey('sensor_type.id'))
-    environment_id = db.Column(db.Integer, db.ForeignKey('environment.id'))
-    device_id = db.Column(db.Integer, db.ForeignKey('device.id'))
     token = db.Column(db.String(80))
 
     def __repr__(self):
@@ -25,8 +24,15 @@ class Sensor(db.Model):
         sensor = {}
         sensor["id"] = self.id
         sensor["type"] = self.sensor_type.name
-        sensor["environment_id"] = self.environment_id
-        sensor["device_id"] = self.device_id
         sensor["token"] = self.token
 
         return sensor
+
+    def get_key(self):
+        return md5.new(self.token).hexdigest()
+
+    def check_key(self, key):
+        return key == self.get_key()
+
+    def create_token(self):
+        self.token = uuid.uuid1().get_hex()
