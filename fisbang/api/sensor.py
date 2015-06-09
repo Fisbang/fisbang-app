@@ -2,6 +2,8 @@ from flask.ext.restful import Resource, reqparse
 from fisbang.models.sensor import Sensor, SensorType
 from fisbang.models.sensor_data import SensorData
 from fisbang.models.user import User
+from fisbang.models.environment import Environment
+from fisbang.models.device import Device
 from fisbang.helpers.arg_types import datapoints
 from fisbang import db, nodb
 
@@ -15,51 +17,117 @@ import numpy as np
 import time
 
 class SensorResource(Resource):
-    
+
+    decorators = [auth_required('token','basic','session')]
+
+    # def post(self):
+    #     """
+    #     Register Sensor
+    #     """
+    #     arg = reqparse.RequestParser()
+    #     arg.add_argument('type', type = str, required = True, location='json')
+
+    #     data = arg.parse_args()
+
+    #     sensor_type = SensorType.query.filter_by(name=data["type"]).first()
+    #     if not sensor_type:
+    #         return "Sensor Type not found", 400
+
+    #     sensor = Sensor()
+    #     sensor.create_token()
+    #     sensor.sensor_type_id = sensor_type.id
+
+    #     db.session.add(sensor)
+    #     db.session.commit()
+        
+    #     return sensor.view(True), 201
+
     def post(self):
         """
         Register Sensor
         """
         arg = reqparse.RequestParser()
-        arg.add_argument('type', type = str, required = True, location='args')
+        arg.add_argument('token', type = str, required = True, location='json')
+        arg.add_argument('key', type = str, required = True, location='json')
 
         data = arg.parse_args()
 
-        sensor = Sensor()
-        sensor.create_token()
-        sensor_type = SensorType.query.filter_by(name=data["type"]).first()
-        sensor.sensor_type_id = sensor_type.id
-        db.session.add(sensor)
-        db.session.commit()
-        
-        return {"sensor": sensor.view(), "key": sensor.get_key()}, 201
-        
-        
-class SensorDetailResource(Resource):
+        sensor = Sensor.query.get(data["token"])
+        if not sensor:
+            return "Sensor Not Found", 404
 
-    def get(self, token):
+        if not sensor.check_key(data["key"]):
+            return "Access Denied", 403
+
+        sensor.user_id = current_user.id
+
+        db.session.commit()
+
+        return sensor.view(), 200
+
+    def get(self):
         """
         Get Sensor
         """
+        sensors = Sensor.query.filter_by(user_id=current_user.id).all()
+
+        return [sensor.view() for sensor in sensors], 200
+
+class SensorDetailResource(Resource):
+
+    decorators = [auth_required('token','basic','session')]
+        
+    def get(self, token):
+        """
+        Get Sensor Detail
+        """
+        sensor = Sensor.query.get(token)
+
+        if not sensor:
+            return "Sensor Not Found", 404
+
+        if not sensor.user_id == current_user.id:
+            return "Access Denied", 403
+
+        return sensor.view(), 200
+
+    def put(self, token):
+        """
+        Update Sensor
+        """
+        sensor = Sensor.query.get(token)
+
+        if not sensor:
+            return "Sensor Not Found", 404
+        
+        if not sensor.user_id == current_user.id:
+            return "Access Denied", 40
+
         arg = reqparse.RequestParser()
-        arg.add_argument('key', type = str, required = True, location='args')
+        arg.add_argument('environment_id', type = int, required = False, location='json')
+        arg.add_argument('device_id', type = int, required = False, location='json')
 
         data = arg.parse_args()
 
-        # get sensor details
-        query = Sensor.query.filter_by(token=token)
+        if data["environment_id"]:
+            environment = Environment.query.filter_by(id=data["environment_id"]).first()
+            if not environment:
+                return "Environment ID Not found", 400
 
-        sensor = query.first()
+            sensor.environment_id = data["environment_id"]
 
-        if sensor:
-            if sensor.check_key(data['key']):
-                return {"sensor": sensor.view()}, 200
-            else:
-                return "Unauthorized Access", 403
-        else:
-            return "Sensor Not Found", 404
+        if data["device_id"]:
+            device = Device.query.filter_by(id=data["device_id"]).first()
+            if not device:
+                return "Device ID Not found", 400
 
+            sensor.device_id = data["device_id"]
 
+        db.session.commit()
+
+        return sensor.view(), 200
+
+        
 class SensorDataResource(Resource):
 
     def get(self, token):

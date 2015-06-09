@@ -15,7 +15,7 @@ class Environment(db.Model):
     name = db.Column(db.String(20))
     children = db.relationship('Environment', backref=db.backref('parent', remote_side=[id]))
     devices = db.relationship('Device', backref='environment', lazy='dynamic')
-    sensors = db.relationship('EnvironmentSensor', lazy='dynamic')
+    sensors = db.relationship('Sensor', lazy='dynamic')
 
     def view(self, collapse=False):
         environment = {}
@@ -30,16 +30,10 @@ class Environment(db.Model):
                 environment["parent_id"] = None
         
         environment["devices"] = [device.id for device in self.devices]
-        environment["sensors"] = [sensor.id for sensor in self.sensors]
+        environment["sensors"] = [sensor.token for sensor in self.sensors]
         if collapse:
             environment["children"] = [child.view(collapse) for child in self.children]
         else:
             environment["children"] = [child.id for child in self.children]
 
         return environment
-
-class EnvironmentSensor(db.Model):
-    __tablename__ = 'environment_sensor'
-    id = db.Column(db.Integer, primary_key=True)
-    environment_id = db.Column(db.Integer, db.ForeignKey('environment.id'))
-    sensor_id = db.Column(db.Integer, db.ForeignKey('sensor.id'))

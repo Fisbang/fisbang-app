@@ -15,7 +15,7 @@ class Device(db.Model):
     merk = db.Column(db.String(80))
     type = db.Column(db.String(80))
     wattage = db.Column(db.Integer)
-    sensors = db.relationship('DeviceSensor', lazy='dynamic')
+    sensors = db.relationship('Sensor', lazy='dynamic')
 
     def view(self):
         device = {}
@@ -26,12 +26,6 @@ class Device(db.Model):
         device["merk"] = self.merk
         device["type"] = self.type
         device["wattage"] = self.wattage
-        device["sensors"] = [sensor.id for sensor in self.sensors]
+        device["sensors"] = [sensor.token for sensor in self.sensors]
 
         return device
-
-class DeviceSensor(db.Model):
-    __tablename__ = 'device_sensor'
-    id = db.Column(db.Integer, primary_key=True)
-    device_id = db.Column(db.Integer, db.ForeignKey('device.id'))
-    sensor_id = db.Column(db.Integer, db.ForeignKey('sensor.id'))

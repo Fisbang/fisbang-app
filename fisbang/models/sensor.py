@@ -13,19 +13,24 @@ class SensorType(db.Model):
 
 class Sensor(db.Model):
     __tablename__ = 'sensor'
-    id = db.Column(db.Integer, primary_key=True)
+    token = db.Column(db.String(80), primary_key=True)
     sensor_type_id = db.Column(db.Integer, db.ForeignKey('sensor_type.id'))
-    token = db.Column(db.String(80))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    environment_id = db.Column(db.Integer, db.ForeignKey('environment.id'))
+    device_id = db.Column(db.Integer, db.ForeignKey('device.id'))
 
     def __repr__(self):
         return '<Sensor %r>' % self.id
 
-    def view(self):
+    def view(self, withKey=False):
         sensor = {}
-        sensor["id"] = self.id
-        sensor["type"] = self.sensor_type.name
         sensor["token"] = self.token
-
+        sensor["type"] = self.sensor_type.name
+        sensor["user_id"] = self.user_id
+        sensor["environment_id"] = self.environment_id
+        sensor["device_id"] = self.device_id
+        if withKey:
+            sensor["key"] = self.get_key()
         return sensor
 
     def get_key(self):
