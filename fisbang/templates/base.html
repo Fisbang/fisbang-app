@@ -14,33 +14,17 @@
 {% block styles %}
     <link href="{{bootstrap_find_resource('css/bootstrap.css', cdn='static')}}" rel="stylesheet">
 
-    <!-- MetisMenu CSS -->
-    <link href="{{ url_for('static', filename='css/plugins/metisMenu/metisMenu.min.css') }}" rel="stylesheet">
-
-    <!-- Timeline CSS -->
-    <link href="{{ url_for('static', filename='css/plugins/timeline.css') }}" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="{{ url_for('static', filename='css/styleform.css') }}" rel="stylesheet">
-
-    <!-- Morris Charts CSS -->
-    <link href="{{ url_for('static', filename='css/plugins/morris.css') }}" rel="stylesheet">
-
     <!-- Custom Fonts -->
     <link href="{{ url_for('static', filename='css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
 
     <!-- Custom CSS -->
-    <link href="{{ url_for('static', filename='css/sb-admin-2.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/admin/app.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/admin/app-landing.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/admin/app-fisbang.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block scripts %}
     <script src="{{bootstrap_find_resource('js/jquery.js', cdn='static')}}"></script>
 
     <script src="{{bootstrap_find_resource('js/bootstrap.js', cdn='static')}}"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="{{ url_for('static', filename='js/plugins/metisMenu/metisMenu.min.js') }}"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <!-- <script src="{{ url_for('static', filename='js/sb-admin-2.js') }}"></script> -->
 {% endblock %}

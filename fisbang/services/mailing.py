@@ -11,18 +11,24 @@ def config(admins = None):
     global ADMINS
     ADMINS = admins
 
-def send_created_project(project_id):
+def send_created_project(name, email, description, budget, project_id):
 
     url = url_for('market.project_details', project_id=project_id)
 
-    text_plain = "There is a new created project http://www.fisbang.com/{}".format(url)
+    text_plain = """\
+Name = {}
+Description = {}
+Budget = {}""".format(name, description, budget)
 
-    text_html = "There is a new created project <a href='http://www.fisbang.com{}'>click here</a>".format(url)
+    text_html = """\
+Name = {}<br>
+Description = {}<br>
+Budget = {}""".format(name, description, budget)
 
     for admin in ADMINS:
-        _send_email(admin, 
-                    "info@fisbang.com", 
-                    subject="New Project!", 
+        _send_email(admin,
+                    email, 
+                    subject="New Fisbang Project!", 
                     text_plain=text_plain,
                     text_html = text_html)
         return True

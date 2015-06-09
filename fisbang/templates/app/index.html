@@ -7,14 +7,24 @@
 
 {% block content %}
     {{ super() }}
-    <div id="wrapper" class="back-home" style="background:#D2DAB3">    
-      <div class="container">
-        <div class="jumbotron" style="text-align:center">
-          <h1>Can big data predict the future?</h1>
-          <p> We are developing app that help you to save energy</p>
+    <div id="landing-app">
+      <section id="app">
+        <div class="container">
+          <div class="jumbotron">
+	    <div class="row">
+	      <div class="col-md-6">
+		<h1>Can Big Data Predict The Future?</h1>
+		<p> We are developing application that can save your bill based on 
+		  current condition.
+		</p> 
+	      </div>
+	      <div class="col-md-6">
+		<img src="{{ url_for('static', filename='img/img-app-1.png') }}">
+	      </div>
+	    </div>      
+          </div>
         </div>
-      </div>
-    </div>
-
+      </section>	
+    </div><!-- /landing-content -->
     {% include 'footer.html' %}
 {% endblock %}
