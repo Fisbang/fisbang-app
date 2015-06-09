@@ -17,19 +17,24 @@ class Environment(db.Model):
     devices = db.relationship('Device', backref='environment', lazy='dynamic')
     sensors = db.relationship('EnvironmentSensor', lazy='dynamic')
 
-    def view(self):
+    def view(self, collapse=False):
         environment = {}
         environment["id"] = self.id
         environment["name"] = self.name
-        environment["user_id"] = self.id
-        environment["environment_type"] = self.environment_type.name
-        if self.parent:
-            environment["parent_id"] = self.parent.id
-        else:
-            environment["parent_id"] = None
-        environment["children"] = [child.id for child in self.children]
+        environment["user_id"] = self.user_id
+        environment["type"] = self.environment_type.name
+        if not collapse:
+            if self.parent:
+                environment["parent_id"] = self.parent.id
+            else:
+                environment["parent_id"] = None
+        
         environment["devices"] = [device.id for device in self.devices]
         environment["sensors"] = [sensor.id for sensor in self.sensors]
+        if collapse:
+            environment["children"] = [child.view(collapse) for child in self.children]
+        else:
+            environment["children"] = [child.id for child in self.children]
 
         return environment
 
