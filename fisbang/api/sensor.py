@@ -130,12 +130,12 @@ class SensorDetailResource(Resource):
         
 class SensorDataResource(Resource):
 
+    @auth_required('token','basic','session')
     def get(self, token):
         """
         Get Sensor Data
         """
         parser = reqparse.RequestParser()
-        parser.add_argument('key', type = str, location='args', required = True)
         parser.add_argument('start_time', type = int, location='args', required=False)
         parser.add_argument('end_time', type = int, location='args', required=False)
         parser.add_argument('limit', type = int, location='args', required=False)
@@ -149,10 +149,10 @@ class SensorDataResource(Resource):
         if not sensor:
             return "Sensor Not Found", 404
 
-        if not sensor.check_key(params['key']):
-            return "Unauthorize", 403
+        if not sensor.user_id == current_user.id:
+            return "Access Denied", 403
 
-        cursor = nodb.SensorData.find({"sensor_id":sensor.id})
+        cursor = nodb.SensorData.find({"token":sensor.token})
         
         # if params['start_time']:
         #     print "Start:", params['start_time'].strftime("%s")
@@ -214,10 +214,8 @@ class SensorDataResource(Resource):
         """
         Create Sensor Data
         """
-        # from flask import request
-        # print request.data
         parser = reqparse.RequestParser()
-        parser.add_argument('key', type = str, location='args', required = True)
+        parser.add_argument('SENSOR-KEY', type = str, location='headers', required = True)
         parser.add_argument('data', type = datapoints, required = False, location='json')
         parser.add_argument('value', type = float, required = False, location='json')
         parser.add_argument('timestamp', type = int, required = False, location='json')
@@ -231,26 +229,27 @@ class SensorDataResource(Resource):
         if not sensor:
             return "Sensor Not Found", 404
 
-        if not sensor.check_key(data['key']):
-            return "Unauthorize", 403
+        if not sensor.check_key(data['SENSOR-KEY']):
+            return "Access Denied", 403
 
         if not any([data['data'], data["value"]]):
-            raise ValueError("Malformed datapoints")
+            return "Malformed datapoint", 400
+            #raise ValueError("Malformed datapoints")
 
         if not data['data']:
             sensor_data = nodb.SensorData()
-            sensor_data.sensor_id = sensor.id
+            sensor_data.token = sensor.token
             sensor_data.value = data["value"]
-            sensor_data.timestamp = data.get("timestampt", int(time.time()))
+            sensor_data.timestamp = data.get("timestamp", int(time.time()))
             sensor_data.save()
 
-            return "OK", 201
+            return sensor_data.to_dict(), 201
         else:
             count=0
             for datapoint in data['data']:
                 # print datapoint
                 sensor_data = nodb.SensorData()
-                sensor_data.sensor_id = sensor.id
+                sensor_data.token = sensor.token
                 sensor_data.value = datapoint["value"]
                 sensor_data.timestamp = datapoint["timestamp"]
                 sensor_data.save()
@@ -264,3 +263,4 @@ class SensorDataResource(Resource):
         """
         Delete Sensor Data
         """
+        pass
