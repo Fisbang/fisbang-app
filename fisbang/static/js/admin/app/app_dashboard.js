@@ -68,7 +68,7 @@ $(function () {
 	    var x = item.datapoint[0],
 	    y = item.datapoint[1];
 	    
-	    $("#tooltip").html(y)
+	    $("#tooltip").html(y.toFixed(3))
 		.css({top: item.pageY+5, left: item.pageX+5})
 		.fadeIn(200);
 	} else {
@@ -156,7 +156,7 @@ $(function () {
 	    var x = item.datapoint[0],
 	    y = item.datapoint[1];
 	    
-	    $("#tooltip").html(y)
+	    $("#tooltip").html(y.toFixed(3))
 		.css({top: item.pageY+5, left: item.pageX+5})
 		.fadeIn(200);
 	} else {
