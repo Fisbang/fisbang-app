@@ -46,7 +46,7 @@ $(function () {
     };
     var plot;
     
-    plot = $.plot($('#placeholder'), [init], options);
+    mainPlot = $.plot($('#placeholder'), [init], options);
     
     $("<div id='tooltip'></div>").css({
 	position: "absolute",
@@ -79,7 +79,7 @@ $(function () {
     $("#placeholder").bind("plotclick", function (event, pos, item) {
 	if (item) {
 	    $("#clickdata").text(" - click point " + item.dataIndex + " in " + item.series.label);
-	    plot.highlight(item.series, item.datapoint);
+	    mainPlot.highlight(item.series, item.datapoint);
 	}
     });
     
@@ -134,7 +134,7 @@ $(function () {
     },
     plot;
     
-    plot2 = $.plot($('#placeholder2'), [], options);
+    devicePlot = $.plot($('#placeholder2'), [], options);
     
     $("<div id='tooltip'></div>").css({
 	position: "absolute",
@@ -156,7 +156,7 @@ $(function () {
 	    var x = item.datapoint[0],
 	    y = item.datapoint[1];
 	    
-	    $("#tooltip").html("Visitor : " + y)
+	    $("#tooltip").html(y)
 		.css({top: item.pageY+5, left: item.pageX+5})
 		.fadeIn(200);
 	} else {
@@ -167,7 +167,7 @@ $(function () {
     $("#placeholder2").bind("plotclick", function (event, pos, item) {
 	if (item) {
 	    $("#clickdata").text(" - click point " + item.dataIndex + " in " + item.series.label);
-	    plot2.highlight(item.series, item.datapoint);
+	    devicePlot.highlight(item.series, item.datapoint);
 	}
     });
     
@@ -181,8 +181,8 @@ $(function () {
     //				  return [[ o[0], o[1] * fx2.pos ]];
     //			});
 
-    //			 plot2.setData( [{ data: r2 }] );
-    //		 plot2.draw();
+    //			 devicePlot.setData( [{ data: r2 }] );
+    //		 devicePlot.draw();
     //		}	
     //	});
     //}
@@ -322,7 +322,7 @@ $(function () {
                         main_data.push([result[i]["timestamp"]*1000,result[i]["value"]]);
                     }
                     mainPlotData.push({data: main_data, label: environment_name})
-                    updatePlotData(plot, mainPlotData)
+                    updatePlotData(mainPlot, mainPlotData)
 		},
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert(xhr.status);
@@ -422,10 +422,10 @@ $(function () {
                 }
             }
 
-            plot.setData( data );
-            plot.getOptions().yaxes[0].max = max + 100;
-            plot.setupGrid()
-            plot.draw();
+            plt.setData( data );
+            plt.getOptions().yaxes[0].max = max + 100;
+            plt.setupGrid()
+            plt.draw();
 
         }
 
@@ -435,12 +435,56 @@ $(function () {
 		success:function(result){
 		    console.log("Got devices : "+JSON.stringify(result));
 		    devices = result;
-                    updateSensors();
+                    for(i=0;i<devices.length;i++){
+                        updateDevicePowerSensor(devices[i]);
+                    }
+
 		}
 	    });
 	};
 
+        var updateDevicePowerSensor = function(device) {
+	    console.log("Retrieving device power sensor");
+	    $.ajax({
+		url: "/api/sensor?device_id="+device["id"],
+		success:function(result){
+		    console.log("Got sensors : "+JSON.stringify(result));
+                    device["sensors"] = result;
+                    for(i=0;i<device["sensors"].length;i++){
+                        if(device["sensors"][i]["type"] == "POWER"){
+                            name = device["device_type"] + " - " + device["merk"] + " - " + device["type"] + " - " + device["wattage"] + "W"
+                            updateDevicePowerSensorData(device["sensors"][i], name)
+                        }
+                    }
+		}
+	    });
+        }
+
+        var updateDevicePowerSensorData = function(sensor, device_name) {
+	    console.log("Retrieving device power sensor data");
+	    $.ajax({
+		url: "/api/sensor/"+sensor["token"]+"/data?resample=H",
+		success:function(result){
+		    console.log("Got sensors data (hourly): "+JSON.stringify(result));
+
+                    var device_data = []
+                    for(i=0;i<result.length;i++){
+                        device_data.push([result[i]["timestamp"]*1000,result[i]["value"]]);
+                    }
+                    devicePlotData.push({data: device_data, label: device_name})
+                    updatePlotData(devicePlot, devicePlotData)
+		},
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+	    });
+
+        }
+
 	updateMainEnvironments();
+	updateDevices();
+
 
 	//Number Animation
 	// var today_energy = $('#today-energy').text();
