@@ -282,6 +282,7 @@ $(function () {
 
 	var updateMainEnvironments = function() {
 	    console.log("Retrieving main environment");
+            mainPlotData = [];
 	    $.ajax({
 		url: "/api/environment?collapse=true",
 		success:function(result){
@@ -293,6 +294,10 @@ $(function () {
                     }
 		}
 	    });
+	    setTimeout(function() {
+	        updateMainEnvironments();
+	    }, 10000);
+
 	};
 
         var updateMainPowerSensor = function(environment) {
@@ -445,6 +450,8 @@ $(function () {
         }
 
 	var updateDevices = function() {
+            devicePlotData = [];
+
 	    $.ajax({
 		url: "/api/device",
 		success:function(result){
@@ -453,9 +460,13 @@ $(function () {
                     for(i=0;i<devices.length;i++){
                         updateDevicePowerSensor(devices[i]);
                     }
-
 		}
 	    });
+
+	    setTimeout(function() {
+	        updateDevices();
+	    }, 10000);
+
 	};
 
         var updateDevicePowerSensor = function(device) {
