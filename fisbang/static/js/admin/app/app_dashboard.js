@@ -1,18 +1,12 @@
 $(function () {
     
     //Flot Chart
-    //Website traffic chart				
-    // var init = { data: [[0, 50], [1, 80], [2, 50], [3, 80], [4, 70], [5,90], [6, 80], [7, 80], [8, 10], [9, 12], [10, 10]],
-    //     	 label: "Visitor2"
-    //            };
     var init = { data: [],
         	 label: ""
                };
     var current_date = (new Date()).getTime();
     var offset_date = 1000 * 60 * 60 * 24;
     var yesterday_date = current_date - offset_date;
-    // var yesterday_date = current_date;
-    // yesterday_date.setDate(yesterday_date.getDate() - 1);
 
     console.log("current date : "+current_date);
     console.log("yesterday date : "+yesterday_date);
@@ -83,29 +77,6 @@ $(function () {
 	}
     });
     
-    // var animate = function () {
-    //     $('#placeholder').animate( {tabIndex: 0}, {
-    // 	    duration: 3000,
-    // 	    step: function ( now, fx ) {
-
-    // 		var r = $.map( init.data, function ( o ) {
-    // 		    return [[ o[0], o[1] * fx.pos ]];
-    // 		});
-
-    // 		plot.setData( [{ data: r }] );
-    // 		plot.draw();
-    // 	    }	
-    // 	});
-    // }
-    
-    // animate();
-
-
-    //Flot Chart
-    //Website traffic chart				
-    // var init2 = { data: [[0, 5], [1, 8], [2, 5], [3, 8], [4, 7], [5,9], [6, 8], [7, 8], [8, 10], [9, 12], [10, 10]],
-    //     	  label: "Visitor3"
-    //     	},
     options = {	
 	series: {
 	    lines: {
@@ -171,24 +142,6 @@ $(function () {
 	}
     });
     
-
-    //var animate2 = function () {
-    //   $('#placeholder2').animate2( {tabIndex: 0}, {
-    //	   duration: 3000,
-    //	   step: function ( now, fx2 ) {
-
-    //			 var r2 = $.map( init2.data, function ( o ) {
-    //				  return [[ o[0], o[1] * fx2.pos ]];
-    //			});
-
-    //			 devicePlot.setData( [{ data: r2 }] );
-    //		 devicePlot.draw();
-    //		}	
-    //	});
-    //}
-    
-    //animate2();
-
 
     //Sparkline
     $('#energy').sparkline([], {
@@ -516,43 +469,5 @@ $(function () {
 	updateMainEnvironments();
 	updateDevices();
 
-
-	//Number Animation
-	// var today_energy = $('#today-energy').text();
-	// $({numberValue: 0}).animate({numberValue: today_energy}, {
-	//     duration: 2500,
-	//     easing: 'linear',
-	//     step: function() { 
-	// 	$('#today-energy').text(Math.ceil(this.numberValue)); 
-	//     }
-	// });
-	
-	// var ratio_from_power_capacity = $('#ratio-from-power-capacity').text();
-	// $({numberValue: 0}).animate({numberValue: ratio_from_power_capacity}, {
-	//     duration: 2500,
-	//     easing: 'linear',
-	//     step: function() { 
-	// 	$('#ratio_from_power_capacity').text(Math.ceil(this.numberValue)); 
-	//     }
-	// });
-	
-	// var current_balance = $('#current-balance').text();
-	// $({numberValue: 0}).animate({numberValue: current_balance}, {
-	//     duration: 2500,
-	//     easing: 'linear',
-	//     step: function() { 
-	// 	$('#current_balance').text(Math.ceil(this.numberValue)); 
-	//     }
-	// });
-	
-	// var ratio_from_max_budget = $('#ratio-from-max-budget').text();
-	// $({numberValue: 0}).animate({numberValue: ratio_from_max_budget}, {
-	//     duration: 2500,
-	//     easing: 'linear',
-	//     step: function() { 
-	// 	$('#ratio-from-max-budget').text(Math.ceil(this.numberValue)); 
-	//     }
-	// });
-	
     });
 });
