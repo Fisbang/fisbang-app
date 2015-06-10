@@ -69,9 +69,35 @@ class SensorResource(Resource):
         """
         Get Sensor
         """
-        sensors = Sensor.query.filter_by(user_id=current_user.id).all()
+        arg = reqparse.RequestParser()
+        arg.add_argument('environment_id', type = int, required = False, location='args')
+        arg.add_argument('device_id', type = int, required = False, location='args')
 
-        return [sensor.view() for sensor in sensors], 200
+        data = arg.parse_args()
+
+        sensors = Sensor.query.filter_by(user_id=current_user.id)
+
+        if data["environment_id"]:
+            environment = Environment.query.get(data["environment_id"])
+            if not environment:
+                return "Environment Not Found", 400
+
+            if not environment.user_id == current_user.id:
+                return "Access Denied", 403
+
+            sensors = sensors.filter_by(environment_id=data["environment_id"])
+
+        if data["device_id"]:
+            device = Device.query.get(data["device_id"])
+            if not device:
+                return "Device Not Found", 400
+
+            if not device.user_id == current_user.id:
+                return "Access Denied", 403
+
+            sensors = sensors.filter_by(device_id=data["device_id"])
+
+        return [sensor.view() for sensor in sensors.all()], 200
 
 class SensorDetailResource(Resource):
 
@@ -186,8 +212,10 @@ class SensorDataResource(Resource):
             if params['resample'] == 'H':
                 df = df.resample('1H')
             elif params['resample'] == 'D':
+                df = df.resample('1H')
                 df = df.resample('1D', 'sum')
             elif params['resample'] == 'M':
+                df = df.resample('1H')
                 df = df.resample('1M', 'sum')
             # print df
         
@@ -206,7 +234,7 @@ class SensorDataResource(Resource):
         else:
             return_data = sensor_datas
 
-        # print return_data
+        return_data = filter(lambda data: not np.isnan(data["value"]), return_data)
 
         return return_data, 200
 
@@ -240,7 +268,7 @@ class SensorDataResource(Resource):
             sensor_data = nodb.SensorData()
             sensor_data.token = sensor.token
             sensor_data.value = data["value"]
-            sensor_data.timestamp = data.get("timestamp", int(time.time()))
+            sensor_data.timestamp = data["timestamp"] if data["timestamp"] else int(time.time())
             sensor_data.save()
 
             return sensor_data.to_dict(), 201
