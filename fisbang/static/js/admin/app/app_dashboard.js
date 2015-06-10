@@ -279,6 +279,8 @@ $(function () {
 	var sensorData = {};
         var mainPlotData = [];
         var devicePlotData = [];
+        var last_daily_energy = 0;
+        var last_daily_balance = 0;
 
 	var updateMainEnvironments = function() {
 	    console.log("Retrieving main environment");
@@ -346,18 +348,21 @@ $(function () {
 
                     current_date.setHours(0,0,0,0);
 
-                    var last_daily_energy = 0;
+                    var last_daily_energy_tmp = last_daily_energy;
+                    var last_daily_balance_tmp = last_daily_balance;
+
                     for(i=0;i<result.length;i++){
                         console.log(result[i]["timestamp"]*1000);
                         console.log(current_date.getTime())
                         if(result[i]["timestamp"]*1000 >= current_date.getTime()){
                             last_daily_energy = result[i]["value"]/1000;
+                            last_daily_balance = (result[i]["value"]/1000)*900;
                         }
                     }
 
                     $('#energy-count-daily').text(last_daily_energy.toFixed(3));
 
-	            $({numberValue: 0}).animate({numberValue: last_daily_energy.toFixed(3)}, {
+	            $({numberValue: last_daily_energy_tmp.toFixed(3)}).animate({numberValue: last_daily_energy.toFixed(3)}, {
 	                duration: 1000,
 	                easing: 'linear',
 	                step: function() { 
@@ -365,7 +370,7 @@ $(function () {
 	                }
 	            });
 
-	            $({numberValue: 0}).animate({numberValue: last_daily_energy*900}, {
+	            $({numberValue: last_daily_balance_tmp.toFixed(3)}).animate({numberValue: last_daily_balance.toFixed(3)}, {
 	                duration: 1000,
 	                easing: 'linear',
 	                step: function() { 
@@ -425,7 +430,7 @@ $(function () {
                     $('#energy-count-monthly').text(last_monthly_energy.toFixed(3))
 
                     $('#currentEnergy').text(Math.ceil(last_monthly_energy)); 
-                    $('#currentBalance').text(Math.ceil(last_monthly_energy));
+                    $('#currentBalance').text(Math.ceil(last_monthly_balance));
 
 		}
 	    });
