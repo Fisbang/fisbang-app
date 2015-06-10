@@ -11,6 +11,7 @@ from flask.ext.security import login_required
 from flask.ext.security.core import current_user
 from flask.ext.security.decorators import auth_required
 
+from flask import request
 import pandas as pd
 import numpy as np
 
@@ -209,7 +210,9 @@ class SensorDataResource(Resource):
             df.index = pd.to_datetime((df.index.values*1e9).astype(int))
             # print df[:10]
 
-            if params['resample'] == 'H':
+            if params['resample'] == 'T':
+                df = df.resample('10T')
+            elif params['resample'] == 'H':
                 df = df.resample('1H')
             elif params['resample'] == 'D':
                 df = df.resample('1H')

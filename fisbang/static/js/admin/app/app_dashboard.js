@@ -26,7 +26,7 @@ $(function () {
 		fillColor: 'rgba(121,206,167,0.2)'
 	    },
 	    points: {
-		show: true,
+		show: false,
 		radius: '4.5'
 	    }
 	},
@@ -44,7 +44,7 @@ $(function () {
         },
 	colors: ["#37b494"]
     };
-    var plot;
+    var mainPlot;
     
     mainPlot = $.plot($('#placeholder'), [init], options);
     
@@ -114,7 +114,7 @@ $(function () {
 		fillColor: 'rgba(121,206,167,0.2)'
 	    },
 	    points: {
-		show: true,
+		show: false,
 		radius: '4.5'
 	    }
 	},
@@ -131,8 +131,8 @@ $(function () {
             max: current_date
         },
 	colors: ["#37b494"]
-    },
-    plot;
+    };
+    var devicePlot;
     
     devicePlot = $.plot($('#placeholder2'), [], options);
     
@@ -313,7 +313,7 @@ $(function () {
 
         var updateMainPowerSensorData = function(sensor, environment_name) {
 	    $.ajax({
-		url: "/api/sensor/"+sensor["token"]+"/data?resample=H",
+		url: "/api/sensor/"+sensor["token"]+"/data?resample=T",
 		success:function(result){
 		    console.log("Got sensors data (hourly): "+JSON.stringify(result));
 
@@ -378,6 +378,18 @@ $(function () {
 	                height:'35px',
 	                weight:'96px'
                     });
+
+                    var monthly_balance = [];
+                    for(i=0;i<result.length;i++)
+                        monthly_balance.push((result[i]["value"]/1000) * 900);
+
+                    $('#balances').sparkline(monthly_balance, {
+	                type: 'bar',
+	                barColor: '#FC8675',
+	                height:'35px',
+	                weight:'96px'
+                    });
+
 		}
 	    });
 
@@ -402,10 +414,13 @@ $(function () {
                         }
                     }
 
+                    var last_monthly_balance = last_monthly_energy;
+                    console.log(last_monthly_balance);
+
                     $('#energy-count-monthly').text(last_monthly_energy.toFixed(3))
 
-		    $('#currentEnergy').text(Math.ceil(last_monthly_energy)); 
-		    $('#currentBalance').text(Math.ceil(last_monthly_energy*900)); 
+                    $('#currentEnergy').text(Math.ceil(last_monthly_energy)); 
+                    $('#currentBalance').text(Math.ceil(last_monthly_energy));
 
 		}
 	    });
@@ -463,7 +478,7 @@ $(function () {
         var updateDevicePowerSensorData = function(sensor, device_name) {
 	    console.log("Retrieving device power sensor data");
 	    $.ajax({
-		url: "/api/sensor/"+sensor["token"]+"/data?resample=H",
+		url: "/api/sensor/"+sensor["token"]+"/data?resample=T",
 		success:function(result){
 		    console.log("Got sensors data (hourly): "+JSON.stringify(result));
 
