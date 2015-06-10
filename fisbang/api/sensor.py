@@ -211,7 +211,7 @@ class SensorDataResource(Resource):
             # print df[:10]
 
             if params['resample'] == 'T':
-                df = df.resample('10T')
+                df = df.resample('30T')
             elif params['resample'] == 'H':
                 df = df.resample('1H')
             elif params['resample'] == 'D':

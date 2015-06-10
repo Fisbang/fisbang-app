@@ -77,47 +77,10 @@ $(function () {
 	}
     });
     
-    options = {	
-	series: {
-	    lines: {
-		show: true, 
-		fill: true,
-		fillColor: 'rgba(121,206,167,0.2)'
-	    },
-	    points: {
-		show: false,
-		radius: '4.5'
-	    }
-	},
-	grid: {
-	    hoverable: true,
-	    clickable: true
-	},
-        xaxis: {
-            mode: "time",
-            timeformat: "%H:%M",
-            minTickSize: [1, "hour"],
-            timezone: "browser",
-            min: yesterday_date,
-            max: current_date
-        },
-	colors: ["#37b494"]
-    };
     var devicePlot;
     
     devicePlot = $.plot($('#placeholder2'), [], options);
     
-    $("<div id='tooltip'></div>").css({
-	position: "absolute",
-	display: "none",
-	border: "1px solid #222",
-	padding: "4px",
-	color: "#fff",
-	"border-radius": "4px",
-	"background-color": "rgb(0,0,0)",
-	opacity: 0.90
-    }).appendTo("body");
-
     $("#placeholder2").bind("plothover", function (event, pos, item) {
 
 	var str = "(" + pos.x.toFixed(2) + ", " + pos.y.toFixed(2) + ")";
@@ -141,6 +104,34 @@ $(function () {
 	    devicePlot.highlight(item.series, item.datapoint);
 	}
     });
+
+    // var environmentPlot;
+    
+    // environmentPlot = $.plot($('#placeholder3'), [], options);
+    
+    // $("#placeholder3").bind("plothover", function (event, pos, item) {
+
+    //     var str = "(" + pos.x.toFixed(2) + ", " + pos.y.toFixed(2) + ")";
+    //     $("#hoverdata").text(str);
+	
+    //     if (item) {
+    //         var x = item.datapoint[0],
+    //         y = item.datapoint[1];
+	    
+    //         $("#tooltip").html(y.toFixed(3))
+    //     	.css({top: item.pageY+5, left: item.pageX+5})
+    //     	.fadeIn(200);
+    //     } else {
+    //         $("#tooltip").hide();
+    //     }
+    // });
+
+    // $("#placeholder3").bind("plotclick", function (event, pos, item) {
+    //     if (item) {
+    //         $("#clickdata").text(" - click point " + item.dataIndex + " in " + item.series.label);
+    //         devicePlot.highlight(item.series, item.datapoint);
+    //     }
+    // });
     
 
     //Sparkline
@@ -168,11 +159,12 @@ $(function () {
     $('.navbar-toggle').click(function()	{
 	setTimeout(function() {
 	    // donutChart.redraw();
-	    lineChart.redraw();
-	    barChart.redraw();			
-	    
-	    $.plot($('#placeholder'), [], options);
-	},500);	
+	    // lineChart.redraw();
+	    // barChart.redraw();
+
+            //$.plot($('#placeholder'), [], options);
+            //$.plot($('#placeholder2'), [], options);
+	},500);
     });
     
     $('.size-toggle').click(function()	{
@@ -234,6 +226,7 @@ $(function () {
         var devicePlotData = [];
         var last_daily_energy = 0;
         var last_daily_balance = 0;
+        var cost_per_kwh = 900;
 
 	var updateMainEnvironments = function() {
 	    console.log("Retrieving main environment");
@@ -251,7 +244,7 @@ $(function () {
 	    });
 	    setTimeout(function() {
 	        updateMainEnvironments();
-	    }, 10000);
+	    }, 30000);
 
 	};
 
@@ -309,7 +302,7 @@ $(function () {
                         console.log(current_date.getTime())
                         if(result[i]["timestamp"]*1000 >= current_date.getTime()){
                             last_daily_energy = result[i]["value"]/1000;
-                            last_daily_balance = (result[i]["value"]/1000)*900;
+                            last_daily_balance = (result[i]["value"]/1000) * cost_per_kwh;
                         }
                     }
 
@@ -344,7 +337,7 @@ $(function () {
 
                     var monthly_balance = [];
                     for(i=0;i<result.length;i++)
-                        monthly_balance.push((result[i]["value"]/1000) * 900);
+                        monthly_balance.push((result[i]["value"]/1000) * cost_per_kwh);
 
                     $('#balances').sparkline(monthly_balance, {
 	                type: 'bar',
@@ -377,7 +370,7 @@ $(function () {
                         }
                     }
 
-                    var last_monthly_balance = last_monthly_energy;
+                    var last_monthly_balance = last_monthly_energy * cost_per_kwh;
                     console.log(last_monthly_balance);
 
                     $('#energy-count-monthly').text(last_monthly_energy.toFixed(3))
@@ -423,7 +416,7 @@ $(function () {
 
 	    setTimeout(function() {
 	        updateDevices();
-	    }, 10000);
+	    }, 30000);
 
 	};
 
