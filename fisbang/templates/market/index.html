@@ -19,7 +19,7 @@
 		  Example, if you want to design and control your lamp for home or studio,
 		  Fisbang is the best way to implement that. 
 		</p>
-		<p><a href="{{ url_for('market.project_create')}}" class="btn btn-info btn-lg">Start your project</a></p>
+		<p><a href="{{ url_for('market.project_create')}}" class="btn btn-fsbg btn-lg">Start your project</a>  or  <a href="{{ url_for('market.more_market')}}" class="btn btn-fsbg btn-lg">More about market</a> </p>
 	      </div>
 	      <div class="col-md-6">
 		<img src="{{ url_for('static', filename='img/img-market-3.png') }}">
@@ -28,36 +28,6 @@
 	  </div>
 	</div>
       </section>	
-      <section id="steps">
-	<div class="container non-jumbotron">
-	  <div class="row">
-	    <div class="col-md-12"><h1>Reasons for using Fisbang Market</h1></div>    
-	  </div>
-	  <div class="row">
-	    <div class="col-md-3">
-	      <h2>Based on what do you need</h2>
-	      <p>Tell what do you need or want, we will work based on date without trying to sell others. We neutral and pick the solutions based on you.</p>
-	    </div>
-	    <div class="col-md-3">
-	      <h2>Affodable Price</h2>
-	      <p>Fisbang is built to help people get affordable or logic
-		price for what they need. Most of Costumer's money will be transferred to expert and we take a little as fee to maintain. Indeed,
-		everybody's happy at the end.</p>
-	    </div>
-	    <div class="col-md-3">
-	      <h2>Selected expert, driven by community</h2>
-	      <p> Building community is the great way to find out the best way to
-		impleement the idea or solve problem. You do not need to hire expensive
-		company for completing your job.</p>
-	    </div>
-	    <div class="col-md-3">
-	      <h2>Dont Worry, we help to control</h2>
-	      <p>We will manage the project until closing. Solving
-		the problem and maintain the schedule. Also, we build the good documentation or deal with expert. Yes, fisbang is for costumer.</p>
-	    </div>
-	  </div>
-	</div>          
-      </section> 
       <section id="portfolio">
 	<div class="container non-jumbotron">
 	  <div class="row">
@@ -74,7 +44,7 @@
 		    <i class="fa fa-plus fa-3x"></i>
 		  </div>
 		</div>
-		<img src="{{ url_for('static', filename='img/portfolio-1.jpg') }}" class="img-responsive" alt="">
+		<img src="{{ url_for('static', filename='img/market-led.png') }}" class="img-responsive" alt="">
 	      </a>
 	      <div class="portopolio-caption product">
 		<h4>Product</h4>
@@ -89,11 +59,11 @@
 		    <i class="fa fa-plus fa-3x"></i>
 		  </div>
 		</div>
-		<img src="{{ url_for('static', filename='img/portfolio-2.jpg') }}" class="img-responsive" alt="">
+		<img src="{{ url_for('static', filename='img/market-rad.png') }}" class="img-responsive" alt="">
 	      </a>
 	      <div class="portopolio-caption product">
 		<h4>Product</h4>			                   
-		<h2>Comfort Panel</h2>
+		<h2>Radiant Cooling</h2>
 		<p class="text-muted">Best for re-design your building to get efficient cooling system with great comfort level. Find out how if your building use it in case of energy and comfort level</p>
 	      </div>
 	    </div>
@@ -104,15 +74,110 @@
 		    <i class="fa fa-plus fa-3x"></i>
 		  </div>
 		</div>
-		<img src="{{ url_for('static', filename='img/portfolio-3.jpg') }}" class="img-responsive" alt="">
+		<img src="{{ url_for('static', filename='img/market-es.png') }}" class="img-responsive" alt="">
 	      </a>
 	      <div class="portopolio-caption service">
 		<h4>Services</h4>	
-		<h2>Calculate your AC Capacity</h2>
-		<p class="text-muted">How if your know energy of your building in your hands? </p>
+		<h2>Energy Simulation</h2>
+		<p class="text-muted">Detailed Simulation for certification or finding out best system for your building </p>
+	      </div>
+	    </div>			                
+	  </div>
+	  <div class="row">
+	    <div class="col-md-4 col-sm-6 portfolio-item">
+	      <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+		<div class="portfolio-hover">
+		  <div class="portfolio-hover-content">
+		    <i class="fa fa-plus fa-3x"></i>
+		  </div>
+		</div>
+		<img src="{{ url_for('static', filename='img/market-col.png') }}" class="img-responsive" alt="">
+	      </a>
+	      <div class="portopolio-caption service">
+		<h4>Services</h4>
+		<h2>Cooling Capacity Evaluation</h2>
+		<p class="text-muted">Evaluate and understand how much your building needs cooling equipment</p>
 	      </div>
 	    </div>
+	    <div class="col-md-4 col-sm-6 portfolio-item">
+	      <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
+		<div class="portfolio-hover">
+		  <div class="portfolio-hover-content">
+		    <i class="fa fa-plus fa-3x"></i>
+		  </div>
+		</div>
+		<img src="{{ url_for('static', filename='img/market-al.png') }}" class="img-responsive" alt="">
+	      </a>
+	      <div class="portopolio-caption service">
+		<h4>Services</h4>			                   
+		<h2>Lighting Design </h2>
+		<p class="text-muted">Design and Specify lights, amarture and control based on your needs</p>
+
+	      </div>
+	    </div>
+	    <div class="col-md-4 col-sm-6 portfolio-item">
+	      <a href="#portfolioModal4" class="portfolio-link" data-toggle="modal">
+		<div class="portfolio-hover">
+		  <div class="portfolio-hover-content">
+		    <i class="fa fa-plus fa-3x"></i>
+		  </div>
+		</div>
+		<img src="{{ url_for('static', filename='img/market-dl.png') }}" class="img-responsive" alt="">
+	      </a>
+	      <div class="portopolio-caption service">
+		<h4>Services</h4>	
+		<h2>Daylighting Simulation</h2>
+		<p class="text-muted">Optmize your building with daylighting to save energy and better visualization </p>
+	      </div>
+	    </div>			                
 	  </div>
+	  <div class="row">
+	    <div class="col-md-4 col-sm-6 portfolio-item">
+	      <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+		<div class="portfolio-hover">
+		  <div class="portfolio-hover-content">
+		    <i class="fa fa-plus fa-3x"></i>
+		  </div>
+		</div>
+		<img src="{{ url_for('static', filename='img/market-gb.png') }}" class="img-responsive" alt="">
+	      </a>
+	      <div class="portopolio-caption service">
+		<h4>Services</h4>
+		<h2>Green Building Certification</h2>
+		<p class="text-muted">Using Greenship or even LEED Certification for your green building</p>
+	      </div>
+	    </div>
+	    <div class="col-md-4 col-sm-6 portfolio-item">
+	      <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
+		<div class="portfolio-hover">
+		  <div class="portfolio-hover-content">
+		    <i class="fa fa-plus fa-3x"></i>
+		  </div>
+		</div>
+		<img src="{{ url_for('static', filename='img/market-ea.png') }}" class="img-responsive" alt="">
+	      </a>
+	      <div class="portopolio-caption service">
+		<h4>Services</h4>			                   
+		<h2>Energy Audit and ESCO</h2>
+		<p class="text-muted">Know your current condition and find out how to improve</p>
+	      </div>
+	    </div>
+	    <div class="col-md-4 col-sm-6 portfolio-item">
+	      <a href="#portfolioModal4" class="portfolio-link" data-toggle="modal">
+		<div class="portfolio-hover">
+		  <div class="portfolio-hover-content">
+		    <i class="fa fa-plus fa-3x"></i>
+		  </div>
+		</div>
+		<img src="{{ url_for('static', filename='img/market-fb2.png') }}" class="img-responsive" alt="">
+	      </a>
+	      <div class="portopolio-caption service">
+		<h4>Services</h4>	
+		<h2>Asking Question</h2>
+		<p class="text-muted">Feel free to ask us any question related to your building </p>
+	      </div>
+	    </div>			                
+	  </div>			            
 	</div>  
       </section>
 

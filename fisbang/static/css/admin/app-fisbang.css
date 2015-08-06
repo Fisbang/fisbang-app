@@ -8,6 +8,8 @@
 		color:#63C2E8;
 	}
 
+	.full {width: 100%;}
+
 	h1,h2,h3,h4,h5,h6,label {
 		font-family: 'rockwell';	
 	}
@@ -16,11 +18,15 @@
 
 	h1 {margin-bottom: 40px;}
 
-	p {
+	p, .jumbotron p {
 		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 		font-weight: 200;
-		font-size: 16px;
+		font-size: 18px;
 
+	}
+
+	a {
+		color: #0092B9;
 	}
 
 	body {color: #000000;}
@@ -30,23 +36,37 @@
 		margin-bottom: 30px;
 	}
 
-	textarea { 
-	    padding:6px 12px;
-	    width:100%; 
-	    height:10em; 
-	    font-size:14px;
-	    line-height:1.42857143;
-	    color:#555;
-	    background-color:#fff;
-	    background-image:none;
-	    border:1px solid #ccc;
-	    border-radius:4px;
-	    -webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075);
-	    box-shadow:inset 0 1px 1px rgba(0,0,0,.075);
-	    -webkit-transition:border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-	    -o-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-	    transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;
- 	}	
+
+	p.no-background {
+	  text-align: center;	
+	  position: relative;
+	  overflow: hidden;
+	  margin-top: 20px;
+	}
+	p.no-background span {
+	  display: inline-block;
+	  vertical-align: baseline;
+	  zoom: 1;
+	  *display: inline;
+	  *vertical-align: auto;
+	  position: relative;
+	  padding: 0 20px;
+	}
+	p.no-background span:before,
+	p.no-background span:after {
+	  content: '';
+	  display: block;
+	  width: 1000px;
+	  position: absolute;
+	  top: 0.73em;
+	  border-top: 1px solid #214B19;
+	}
+	p.no-background span:before {
+	  right: 100%;
+	}
+	p.no-background span:after {
+	  left: 100%;
+	}
 
 
 /* only for web 
@@ -62,12 +82,15 @@
 		min-height: 0;
 	}
 
+
 	.navbar-nav>li>a {
+		color: #000000;
 		padding: 10px;
 	}
 
-	.navbar-nav>li.active{
-		color: #0087AF;
+	.navbar-nav>li.active, .active{
+		color: #438733;
+		background-color: #eeeeee;
 		border-bottom:0px solid transparent;		
 	}	
 
@@ -121,7 +144,9 @@
 	#steps {
 		background: #0087AF;
 		color: #ffffff;
-	}       	
+	} 
+
+    	
 
 /*	general */    
 	.jumbotron {
@@ -133,6 +158,7 @@
 		padding-right: 0;
 		margin-bottom: 0;
 	}
+
 
 	.white{
 		color: #ffffff;
@@ -146,6 +172,7 @@
 	.non-jumbotron, footer {
 		padding-top: 40px;
 		padding-bottom: 40px;
+		border-bottom: 1px solid #CCCCCC;
 	}
 
 	#landing-content, #landing-app {
@@ -166,6 +193,94 @@
 		padding-right: 0;
 	}
 
+/* form */
+
+	textarea, .form-fsbg {
+	    padding:3%;    
+		font-size:17px;	
+		border:1px solid #ccc;
+	    border-radius:5px;
+	    -webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075);
+	    box-shadow:inset 0 1px 1px rgba(0,0,0,.075);
+	    -webkit-transition:border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+	    -o-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+	    transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+
+
+	}
+
+	textarea { 
+	    
+	    width:100%; 
+	    height:10em; 
+	    line-height:1.42857143;
+	    color:#555;
+	    background-image:none;
+
+
+ 	}	
+
+	input[type="email"],input[type="password"]{
+	 
+	  width:100%;
+	  margin-bottom:4%;
+	  color:#555;
+	  font-size: 17px;
+	
+	}
+
+/*
+	input[type="submit"]{
+	  width:100%;
+	  border:0;
+	  color:#fff;
+	  cursor:pointer;
+
+
+	}
+*/
+
+	input[type="submit"]:hover{
+	  background:#438733;
+	}
+
+	.button{
+		width:100%;
+		background-color:#0092B9;
+		display:block;
+		text-decoration:none;
+		color:#fff;
+		cursor:pointer;
+		transition:background .3s;
+		-webkit-transition:background .3s;
+		font-family: 'rockwell';
+		font-size: 17px;
+		font-weight: 20;
+	}
+
+	.btn-fsbg {
+		background-color:#0092B9;
+		font-family: 'rockwell';
+		font-size: 17px;
+		font-weight: 20;
+		color: #ffffff;
+	}
+
+
+	.button:hover, .btn-fsbg:hover {
+	  background:#438733;
+	  color: #fffff
+	}
+
+	input[type="email-sub"] {
+		float: left;
+		width: 70%;
+	}
+	.buttonright {
+		float: right;
+		width: 28%;
+	}
+
 
 /* market */
 
@@ -176,6 +291,7 @@
 	.portopolio-caption {
 		padding: 10px;
 		background-color: #ffffff;
+		height: 250px;
 		
 	}
 

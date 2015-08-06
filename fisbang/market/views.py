@@ -12,6 +12,10 @@ from fisbang import db
 def index():
     return render_template('market/index.html')
 
+@market.route('/more', methods=['GET'])
+def more_market():
+    return render_template('market/more-market.html')
+
 @market.route('/create_project', methods=['GET','POST'])
 def project_create():
     from fisbang.market.forms import CreateProjectForm
