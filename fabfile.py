@@ -19,6 +19,7 @@ file_list = [   'fisbang/app/*',
                 'conf/uwsgi.ini',
                 'conf/settings.conf.sample',
                 'migrations/*',
+                'migrations/versions/*',
                 'manage.py',
                 'wsgi.py',
                 'requirements.txt'   ]
