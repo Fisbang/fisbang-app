@@ -7,106 +7,117 @@
 
 {% block content %}
     {{ super() }}
-    <div id="wrapper" class="back-market">    
-        <div class="container">
-            <div class="jumbotron">
-              <div class="col-md-6">
-                <h1>Everything you need for your next great idea </h1>
-                <p>We connect you with experts for your idea for your building/facility. 
-                  Example, if you want to design and control your lamp for home or studio,
-                  Fisbang is the best way to implement that. 
-                </p>
-                <p><a href="{{ url_for('market.project_create') }}" class="btn btn-info btn-lg">Start your project</a></p>
-              </div>
-              <div class="col-md-6">
-                  <img src ="{{ url_for('static', filename='img/img-market-1.png') }}">
-              </div>  
-            </div>
-        </div>
-    </div>
-<!--
-    <section id="project"> 
-        <div class="container"> 
-            <div class="row">
-                <div class="col-md-12">
-                  <h1>List of Project on Market</h1>
-                  <a href="{{ url_for('market.projects_list') }}"  class="btn btn-danger">See all projects</a>
-                </div>
-            </div>      
-            <div class="row">
-                {% for project in project_list %}
-                <div class="col-xs-4">
-                    <img src ="{{ url_for('static', filename='img/portfolio-'+loop.index|string+'.jpg') }}">
-                    <p><a href="{{ url_for('market.project_details', project_id=project.id) }}"  class="btn btn-danger">{{ project.name }}</a></p>
-                </div>
-                {% endfor %}
-            </div>
-        </div>    
-    </section>
--->
-    <section id="Steps" class="container">
-        <div class="row">
-            <div class="col-md-12"><h1>Why Using Fisbang Market?</h1></div>    
-        </div>        
-        <div class="row">
-            <div class="col-md-3">
-                <h2>Based on what do you need</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore 
-              magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut
-              aliquip ex ea commodo consequat.</p>
-            </div>
-            <div class="col-md-3">
-                <h2>Affodable Price</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore 
-              magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut
-              aliquip ex ea commodo consequat</p>
-            </div>
-            <div class="col-md-3">
-                <h2>Selected expert, driven by community</h2>
-                <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore 
-              magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut
-              aliquip ex ea commodo consequat</p>
-            </div>
-            <div class="col-md-3">
-                <h2>Dont Worry, we help to control</h2>
-                <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-              sed do eiusmod tempor incididunt ut labore et dolore 
-              magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut
-              aliquip ex ea commodo consequat</p>
-            </div>
-        </div>
-        <hr>
-    </section>
-
-    <div id="wrapper" class="back-footer">  
-      <section id="footer" class="container">
-        <div class="row">  
-          <div class="col-md-6">
-            <h2> contact us</h2>
-            <p> Feel free to email us to provide some feedback on everything,
-             give us opportunity to implement your idea, or to just say hello!
-            </p>
-            <p><a href="mailto:info@fisbang.com">hello@fisbang.com</a> 
-          </div>
-          <div class="col-md-6">
-            <div class="col-md-3">
-            <img src ="{{ url_for('static', filename='img/img-footer-logo.png') }}">
-            </div>
-            <div class="col-md-9">
-                <h2> fisbang : get implemented </h2>
-                <p> Fisbang is abbreviation of FISika BANGunan (in Bahasa) </p>
-                <p> Copyright © Fisbang 2015 </p>
-            </div>  
-          </div>   
-        </div>
+    <div id="landing-content">
+      <section id="market">
+	<div class="container">
+	  <div class="jumbotron white">
+	    <div class="row">
+	      <div class="col-md-6">
+		<h3> Fisbang Market : </h3>
+		<h1>Everything you need for your next great idea </h1>
+		<p>We connect you with experts for your idea for your building/facility. 
+		  Example, if you want to design and control your lamp for home or studio,
+		  Fisbang is the best way to implement that. 
+		</p>
+		<p><a href="{{ url_for('market.project_create')}}" class="btn btn-info btn-lg">Start your project</a></p>
+	      </div>
+	      <div class="col-md-6">
+		<img src="{{ url_for('static', filename='img/img-market-3.png') }}">
+	      </div>
+	    </div>      
+	  </div>
+	</div>
+      </section>	
+      <section id="steps">
+	<div class="container non-jumbotron">
+	  <div class="row">
+	    <div class="col-md-12"><h1>Reasons for using Fisbang Market</h1></div>    
+	  </div>
+	  <div class="row">
+	    <div class="col-md-3">
+	      <h2>Based on what do you need</h2>
+	      <p>Tell what do you need or want, we will work based on date without trying to sell others. We neutral and pick the solutions based on you.</p>
+	    </div>
+	    <div class="col-md-3">
+	      <h2>Affodable Price</h2>
+	      <p>Fisbang is built to help people get affordable or logic
+		price for what they need. Most of Costumer's money will be transferred to expert and we take a little as fee to maintain. Indeed,
+		everybody's happy at the end.</p>
+	    </div>
+	    <div class="col-md-3">
+	      <h2>Selected expert, driven by community</h2>
+	      <p> Building community is the great way to find out the best way to
+		impleement the idea or solve problem. You do not need to hire expensive
+		company for completing your job.</p>
+	    </div>
+	    <div class="col-md-3">
+	      <h2>Dont Worry, we help to control</h2>
+	      <p>We will manage the project until closing. Solving
+		the problem and maintain the schedule. Also, we build the good documentation or deal with expert. Yes, fisbang is for costumer.</p>
+	    </div>
+	  </div>
+	</div>          
+      </section> 
+      <section id="portfolio">
+	<div class="container non-jumbotron">
+	  <div class="row">
+	    <div class="col-md-12 ">
+	      <h1>What's on Fisbang Market</h1> 
+	      <p class="section-subheading">Explore product thant can make your building more efficient. Also find out project using fisbang</p>  
+	    </div> 	
+	  </div> 
+	  <div class="row">
+	    <div class="col-md-4 col-sm-6 portfolio-item">
+	      <a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
+		<div class="portfolio-hover">
+		  <div class="portfolio-hover-content">
+		    <i class="fa fa-plus fa-3x"></i>
+		  </div>
+		</div>
+		<img src="{{ url_for('static', filename='img/portfolio-1.jpg') }}" class="img-responsive" alt="">
+	      </a>
+	      <div class="portopolio-caption product">
+		<h4>Product</h4>
+		<h2> LED Lamps </h2>
+		<p class="text-muted">High Efficient LED can save your bill more. Find out how if your building use it in case of energy and brightness</p>
+	      </div>
+	    </div>
+	    <div class="col-md-4 col-sm-6 portfolio-item">
+	      <a href="#portfolioModal2" class="portfolio-link" data-toggle="modal">
+		<div class="portfolio-hover">
+		  <div class="portfolio-hover-content">
+		    <i class="fa fa-plus fa-3x"></i>
+		  </div>
+		</div>
+		<img src="{{ url_for('static', filename='img/portfolio-2.jpg') }}" class="img-responsive" alt="">
+	      </a>
+	      <div class="portopolio-caption product">
+		<h4>Product</h4>			                   
+		<h2>Comfort Panel</h2>
+		<p class="text-muted">Best for re-design your building to get efficient cooling system with great comfort level. Find out how if your building use it in case of energy and comfort level</p>
+	      </div>
+	    </div>
+	    <div class="col-md-4 col-sm-6 portfolio-item">
+	      <a href="#portfolioModal4" class="portfolio-link" data-toggle="modal">
+		<div class="portfolio-hover">
+		  <div class="portfolio-hover-content">
+		    <i class="fa fa-plus fa-3x"></i>
+		  </div>
+		</div>
+		<img src="{{ url_for('static', filename='img/portfolio-3.jpg') }}" class="img-responsive" alt="">
+	      </a>
+	      <div class="portopolio-caption service">
+		<h4>Services</h4>	
+		<h2>Calculate your AC Capacity</h2>
+		<p class="text-muted">How if your know energy of your building in your hands? </p>
+	      </div>
+	    </div>
+	  </div>
+	</div>  
       </section>
-    </div>  
+
+
+    </div><!-- /landing-content -->
+    {% include 'footer.html' %}
 
 {% endblock %}

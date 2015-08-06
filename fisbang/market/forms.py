@@ -9,4 +9,4 @@ class CreateProjectForm(Form):
     description = TextAreaField('Tell us about your idea/project')
     budget = StringField('Already has budget?')
     # deadline = StringField('And deadline')
-    # submit = SubmitField('Register')
+    submit = SubmitField('Submit')

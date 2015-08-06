@@ -1,5 +1,0 @@
-{
-    "hosts": ["101.50.3.79"],
-    "user": "root",
-    "key": "~/.ssh/id_rsa"
-}
