@@ -26,8 +26,13 @@
                 <input type="submit" class="btn btn-fsbg btn-lg full" value="Log in" />
                 <p class="no-background"><span> or </span></p>
                 <p> Drop us your email for getting update </p>
-                <input type="email-sub" class="form-fsbg" placeholder="Email" />
-                <input type="submit" class="btn btn-fsbg btn-lg full buttonright" value="submit" />
+                <form method="post" class="form" role="form">
+                  {{ form.hidden_tag() }}
+                  <div class="form-group ">
+                    {{ form.email(class_="form-fsbg", type="email-sub", placeholder="Email") }}
+                    <input type="submit" class="btn btn-fsbg btn-lg full buttonright" value="submit" />
+                  </div>
+                </form>
               </div>
             </div>
           </div>

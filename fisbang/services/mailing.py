@@ -33,6 +33,24 @@ Budget = {}""".format(name, description, budget)
                     text_html = text_html)
         return True
 
+    return False
+
+def send_get_update(email):
+
+    text_plain = "Send me update"
+
+    text_html = "Send me update"
+
+    for admin in ADMINS:
+        _send_email(admin,
+                    email,
+                    subject="Send me update!", 
+                    text_plain=text_plain,
+                    text_html = text_html)
+        return True
+
+    return False
+
 def _send_email(to, fro, subject="", text_plain="", text_html=""):
 
     msg = MIMEMultipart('alternative')
