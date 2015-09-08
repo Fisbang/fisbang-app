@@ -79,13 +79,16 @@
 		color: #FFFFFF;
 		font-family: 'rockwell';
 		font-size: 17px;
-		min-height: 0;
+		height: 60px;
+		padding-top: 10px;
 	}
 
 
 	.navbar-nav>li>a {
-		color: #000000;
-		padding: 10px;
+		/*color: #000000;*/
+		padding-top: 10px;
+		padding-bottom: 10px;
+		/*padding: 10px;*/
 	}
 
 	.navbar-nav>li.active, .active{
@@ -110,6 +113,11 @@
 		padding-right: 0;
 	}
 
+	.nav > li > a:hover, .nav > li > a:focus {
+    text-decoration: none;
+    background-color: #ffffff;
+}
+
 
 /*background conf*/
 
@@ -126,11 +134,21 @@
 	#dynamic {
 		background-color: #ffffff;
 		text-align: center;
-	} 
+	}
+
+	#Promote {
+		background-color: #ffffff;
+	}  
 
 	#project, #app {
 		background-color: #D2DAB3;
 	}	
+
+
+	#home {
+	    background: #60a89d;
+	    min-height: 650px;
+	    color:#0087AF;}	
 
 	#market {
 	    background:#57BBE2;
@@ -161,7 +179,7 @@
 
 
 	.white{
-		color: #ffffff;
+		color: #273C65;
 	}
 
 	.container .jumbotron{
@@ -205,7 +223,6 @@
 	    -webkit-transition:border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
 	    -o-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 	    transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-
 
 	}
 
@@ -259,6 +276,7 @@
 	}
 
 	.btn-fsbg {
+		/*padding:3%; */
 		background-color:#0092B9;
 		font-family: 'rockwell';
 		font-size: 17px;
@@ -280,6 +298,56 @@
 		float: right;
 		width: 28%;
 	}
+
+/* subscribe */	
+
+	.subscribe {
+		left: 0;
+  		right: 0;
+  		bottom: 0;
+  		top: 0;
+  		margin: auto;
+  		width: auto;
+  		height: 47px;
+  		background: #fff;
+  		border-radius: 5px;
+	}
+
+	.text-sub{
+		position: absolute;
+  		left: 20px;
+  		padding-top: 10px;
+  		font-size: 1.5em;
+  		color: #e9625b;
+  		pointer-events: none;
+  		-webkit-transition: opacity 0.25s ease, -webkit-transform 0.35s ease;
+          transition: opacity 0.25s ease, transform 0.35s ease;
+	}
+
+	input[type="email-sub"] {
+		float: left;
+		height: 100%;
+		width: 70%;
+		border: 0;
+		outline: none;
+		font-size: 1.5em;
+		padding-left: 10px;
+		padding-right: 10px;
+		color: grey;
+	}
+
+	.move-btn {
+  -webkit-transform: translateX(-280px);
+      -ms-transform: translateX(-280px);
+          transform: translateX(-280px);
+	}
+
+	.text-sub-active {
+  	opacity: 1 !important;
+  -webkit-transform: translateX(120px);
+      -ms-transform: translateX(120px);
+          transform: translateX(120px);
+}
 
 
 /* market */
@@ -595,14 +663,14 @@
 	}
 	#top-nav .brand , .navbar .brand{
 	  background: #fff;
-	  width: 120px;
+	  /*width: 120px;*/
 	  line-height: 120%;
 	  text-align: left;
 	  color: #438733;
 	}
 
 	#top-nav .brand img, .navbar .brand img{
-	  height: 20px;float: left;
+	  height: 30px;float: left;
 	  margin-right: 10px;
 	}
 
@@ -617,7 +685,7 @@
 	}
 	#top-nav .nav-notification > li > a,#top-nav .brand , .navbar .brand{
 	  /*color: #999;*/
-	  padding: 10px;
+	  padding: 5px;
 	}
 	#top-nav .nav-notification > li > a:hover,
 	#top-nav .nav-notification > li > a:focus {
