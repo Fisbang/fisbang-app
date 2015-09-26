@@ -200,7 +200,10 @@ class SensorDataResource(Resource):
         if params['resample']:
             df = pd.DataFrame.from_records(sensor_datas)            
             # print df[:10]
-            
+
+            if df.empty:
+                return [], 200
+
             # df.timestamp = pd.to_datetime((df.timestamp.values*1e9).astype(int))
             # print df[:10]
             

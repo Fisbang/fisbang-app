@@ -55,7 +55,7 @@ $(function () {
 
     $("#placeholder").bind("plothover", function (event, pos, item) {
 
-	var str = "(" + pos.x.toFixed(2) + ", " + pos.y.toFixed(2) + ")";
+	var str = "(" + pos.pageX.toFixed(2) + ", " + pos.pageY.toFixed(2) + ")";
 	$("#hoverdata").text(str);
 	
 	if (item) {
@@ -170,7 +170,7 @@ $(function () {
     $('.size-toggle').click(function()	{
 	//resize morris chart
 	setTimeout(function() {
-	    donutChart.redraw();
+	    // donutChart.redraw();
 	    lineChart.redraw();
 	    barChart.redraw();	
 
@@ -208,7 +208,7 @@ $(function () {
 
 	//resize morris chart
 	setTimeout(function() {
-	    donutChart.redraw();
+	    // donutChart.redraw();
 	    lineChart.redraw();
 	    barChart.redraw();			
 	    
