@@ -14,9 +14,9 @@
 		<!-- Pace -->
 		<link href="css/pace.css" rel="stylesheet">
 		<!-- Fisbang main CSS generated from 'Perfect' themes -->
-		<link href="../admin/HTML/css/app.min.css" rel="stylesheet">		
-		<link href="../admin/HTML/css/app-landing.min.css" rel="stylesheet">
-		<link href="../admin/HTML/css/app-fisbang.css" rel="stylesheet">
+		<link href="./static/css/app.min.css" rel="stylesheet">
+		<link href="./static/css/app-landing.min.css" rel="stylesheet">
+		<link href="./static/css/app-fisbang.css" rel="stylesheet">
 	</head>
 	<body>
 		<div id="wrapper">
@@ -29,15 +29,17 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<div class="brand">
-							<img src="./static/img/logo_fisbang_2.png" href="homepage.html">
-							<!--<span>Fisbang</span>-->
-						</div><!-- /brand -->	
+						<a class="navbar-brand" href="index.html">
+							<img src="./static/img/logo_fisbang_3.png">
+						</a>
 					</div>
-					<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
-						<ul class="nav navbar-nav navbar-right">
+					<nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
+						<ul class="nav nav-pills navbar-right">
 							<li>
-								<a href="blog.fisbang.com" class="top-link">Login</a>
+								<a href="login-page.html" class="btn-login">Login</a>
+							</li>
+							<li>
+								<a href="get-project.html" class="btn-fsbg">Get Started</a>
 							</li>
 						</ul>
 					</nav>
@@ -62,33 +64,28 @@
 					        <div class="col-md-7">
 					            <form method="post" class="form" role="form">
 						            <div class="form-group "><label class="control-label" for="email">Your Name</label>
-						                <input class="form-control" id="email" name="email" required="" type="text" value="">
+						                <input class="form-fsbg" id="email" name="email" required="" type="text" value="">
 						            </div>
 						            <div class="form-group "><label class="control-label" for="email">Your Email</label>
-						                <input class="form-control" id="email" name="email" required="" type="text" value="">
+						                <input class="form-fsbg" id="email" name="email" required="" type="text" value="">
 						            </div> 
 						            <div class="form-group "><label class="control-label" for="email">Tell us about your idea/project</label>
 						               <p><textarea placeholder="Type something in here"></textarea></p>
 						              </div>                         
-						            <div class="form-group "><label class="control-label" for="email">Upload File / Link via dropbox</label>
-						                <input class="form-control" id="email" name="email" required="" type="text" value="">
+						            <div class="form-group "><label class="control-label" for="email">Link via dropbox/drive</label>
+						                <input class="form-fsbg" id="email" name="email" required="" type="text" value="">
 						            </div> 
 						            <div class="form-group "><label class="control-label" for="email">Already has budget?</label>
-						                <input class="form-control" id="email" name="email" required="" type="text" value="">
+						                <input class="form-fsbg" id="email" name="email" required="" type="text" value="">
 						            </div>    						                
 						            <div class="form-group "><label class="control-label" for="email">And deadline?</label>
-						                <input class="form-control" id="email" name="email" required="" type="text" value="">
+						                <input class="form-fsbg" id="email" name="email" required="" type="text" value="">
 						            </div>     
-						            <input class="btn btn-fsbg btn-lg" id="submit" name="submit" type="submit" value="Submit">
+						            <input class="btn-fsbg" id="submit" name="submit" type="submit" value="Submit">
 					            </form>   
 					        </div> 
 					        <div class="col-md-1"></div>
-					        <div class="col-md-4">
-					        	<img src="./static/img/icon-home4.png">	
-					        	<h2> Tracking your progress </h2>
-					            <p> You can track or manage the project with fisbang later. We still develop the system
-					            </p>
-					        </div>      
+					        <div class="col-md-4"></div>      
 					    </div>    
 				    </div>    
 			    </section>
@@ -96,23 +93,23 @@
 			<footer class="back-footer">
 				<div class="container">
 	 				<div class="row">  
-	          			<div class="col-md-6">
+	 					<div class="col-md-2">
+			            	<img src="./static/img/img-footer-logo.png"s>
+	          			</div>
+	          			<div class="col-md-5">
+		            		<h2> fisbang : get implemented </h2>
+			                	<p> Fisbang is abbreviation of FISika BANGunan (in Bahasa) </p>
+			                	<p> Copyright © Fisbang 2015 </p>
+	          			</div>
+	          			<div class="col-md-5">
 		            		<h2> contact us</h2>
 		            		<p> Feel free to email us to provide some feedback on everything,
 		             		give us opportunity to implement your idea, or to just say hello!
 		            		</p>
 		            		<p><a href="mailto:contact@fisbang.com">contact@fisbang.com</a> 
 	          			</div>
-	          			<div class="col-md-6">
-		            		<div class="col-xs-3 col-md-3">
-			            		<img src="./static/img/img-footer-logo.png"s>
-		            		</div>
-		            		<div class="col-xs-9 col-md-9">
-			                	<h2> fisbang : get implemented </h2>
-			                	<p> Fisbang is abbreviation of FISika BANGunan (in Bahasa) </p>
-			                	<p> Copyright © Fisbang 2015 </p>
-		            		</div>  
-	          			</div>
+	  
+
 	          		</div>	   
 				</div>
 			</footer>

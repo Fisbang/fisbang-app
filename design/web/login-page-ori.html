@@ -10,11 +10,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="./static/img/favicon.ico">
-
+    
     <!-- Bootstrap -->
     <link href="./static/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <!-- MetisMenu CSS -->
-    <link href="./static/css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
+
 
     <!-- Timeline CSS -->
     <link href="./static/css/plugins/timeline.css" rel="stylesheet">
@@ -33,48 +32,37 @@
 
   </head>
   <body>
-    
+
     <div class="container">
       <div class="row">
         <div class="col-md-4 col-md-offset-4">
           <div class="login-panel panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title">Register New User</h3>
+              <h3 class="panel-title">Please Sign In</h3>
             </div>
             <div class="panel-body">
-              <form method="post" class="form" role="form">
+              <form method="post" class="form" role="form" _lpchecked="1">
                 <div class="form-group "><label class="control-label" for="email">Email Address</label>
-                  <input class="form-control" id="email" name="email" required="" type="text" value="">
+                  <input class="form-control" id="email" name="email" type="text" value="">
                 </div>
                 <div class="form-group "><label class="control-label" for="password">Password</label>
-                  <input class="form-control" id="password" name="password" required="" type="password" value="">
+                  <input class="form-control" id="password" name="password" type="password" value="">
                 </div>
-                <div class="form-group "><label class="control-label" for="password_confirm">Retype Password</label>
-                  <input class="form-control" id="password_confirm" name="password_confirm" type="password" value="">
+                <div class="checkbox">
+                  <label>
+                    <input id="remember" name="remember" type="checkbox" value="y"> Remember Me
+                  </label>
                 </div>
-                <input class="btn btn-default" id="submit" name="submit" type="submit" value="Register">
+                <input class="btn btn-default" id="submit" name="submit" type="submit" value="Login">
               </form>
             </div>
             <div class="panel-body">
-              <a href="#login">Login</a>
+              <a href="#register">Register new user</a>
             </div>
           </div>
         </div>
       </div>
     </div>
     
-    <script src="./static/js/jquery.min.js"></script>
-    <script src="./static/js/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="./static/js/metisMenu.min.js"></script>
-
-    <!-- Flot Charts JavaScript -->
-    <script src="./static/js/excanvas.min.js"></script>
-    <script src="./static/js/jquery.flot.js"></script>
-    <script src="./static/js/jquery.flot.pie.js"></script>
-    <script src="./static/js/jquery.flot.resize.js"></script>
-    <script src="./static/js/jquery.flot.tooltip.min.js"></script>
-
   </body>
 </html>
