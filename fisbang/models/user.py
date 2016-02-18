@@ -19,7 +19,6 @@ class User(db.Model, UserMixin):
     confirmed_at = db.Column(db.DateTime())
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
-    sensors = db.relationship('Sensor', backref='user', lazy='dynamic')
     devices = db.relationship('Device', backref='user', lazy='dynamic')
 
     def __repr__(self):
@@ -29,5 +28,6 @@ class User(db.Model, UserMixin):
         user = {}
         user["id"] = self.id
         user["email"] = self.email
+        user["name"] = self.email
 
         return user

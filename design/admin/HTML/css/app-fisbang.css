@@ -217,7 +217,7 @@
 
 	input[type="checkbox"], input[type="radio"] {
     opacity: 1;
-}
+	}
 
 	input[type="submit"]:hover{
 	  background:#438733;

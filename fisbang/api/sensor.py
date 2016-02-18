@@ -1,144 +1,297 @@
 from flask.ext.restful import Resource, reqparse
-from fisbang.models.sensor import Sensor, SensorData
+from fisbang.models.sensor import Sensor, SensorType
+from fisbang.models.sensor_data import SensorData
 from fisbang.models.user import User
-from fisbang.helpers.arg_types import date_type, datapoints
-from fisbang import db
+from fisbang.models.environment import Environment
+from fisbang.models.device import Device
+from fisbang.helpers.arg_types import datapoints
+from fisbang import db, nodb
 
+from flask.ext.security import login_required
 from flask.ext.security.core import current_user
-from flask.ext.security.decorators import http_auth_required
+from flask.ext.security.decorators import auth_required
+
+from flask import request
+import pandas as pd
+import numpy as np
+
+import time
 
 class SensorResource(Resource):
 
-    decorators = [http_auth_required]
+    decorators = [auth_required('token','basic','session')]
 
-    def get(self):
-        """
-        Get Sensor List
-        """
-        # get sensor details
-        sensors = Sensor.query.all()
+    # def post(self):
+    #     """
+    #     Register Sensor
+    #     """
+    #     arg = reqparse.RequestParser()
+    #     arg.add_argument('type', type = str, required = True, location='json')
 
-        return [sensor.view() for sensor in sensors], 200
+    #     data = arg.parse_args()
+
+    #     sensor_type = SensorType.query.filter_by(name=data["type"]).first()
+    #     if not sensor_type:
+    #         return "Sensor Type not found", 400
+
+    #     sensor = Sensor()
+    #     sensor.create_token()
+    #     sensor.sensor_type_id = sensor_type.id
+
+    #     db.session.add(sensor)
+    #     db.session.commit()
+        
+    #     return sensor.view(True), 201
 
     def post(self):
         """
-        Create New Sensor
+        Register Sensor
         """
         arg = reqparse.RequestParser()
         arg.add_argument('token', type = str, required = True, location='json')
+        arg.add_argument('key', type = str, required = True, location='json')
 
         data = arg.parse_args()
 
-        sensor_query = Sensor.query.filter_by(token=data['token'])
-        if sensor_query.count():
-            sensor = sensor_query.first()
-            if not sensor.user_id == current_user.id:
-                return "Unauthorized", 403
-            return sensor.view(), 200
-        else:
-            sensor = Sensor()
-            sensor.token = data["token"]
-            sensor.user_id = current_user.id
-            db.session.add(sensor)
-            db.session.commit()
-            return sensor.view(), 201
+        sensor = Sensor.query.get(data["token"])
+        if not sensor:
+            return "Sensor Not Found", 404
 
+        if not sensor.check_key(data["key"]):
+            return "Access Denied", 403
 
-class SensorDetailsResource(Resource):
+        sensor.user_id = current_user.id
 
-    decorators = [http_auth_required]
+        db.session.commit()
 
-    def get(self, sensor_id):
+        return sensor.view(), 200
+
+    def get(self):
+        """
+        Get Sensor
+        """
+        arg = reqparse.RequestParser()
+        arg.add_argument('environment_id', type = int, required = False, location='args')
+        arg.add_argument('device_id', type = int, required = False, location='args')
+
+        data = arg.parse_args()
+
+        sensors = Sensor.query.filter_by(user_id=current_user.id)
+
+        if data["environment_id"]:
+            environment = Environment.query.get(data["environment_id"])
+            if not environment:
+                return "Environment Not Found", 400
+
+            if not environment.user_id == current_user.id:
+                return "Access Denied", 403
+
+            sensors = sensors.filter_by(environment_id=data["environment_id"])
+
+        if data["device_id"]:
+            device = Device.query.get(data["device_id"])
+            if not device:
+                return "Device Not Found", 400
+
+            if not device.user_id == current_user.id:
+                return "Access Denied", 403
+
+            sensors = sensors.filter_by(device_id=data["device_id"])
+
+        return [sensor.view() for sensor in sensors.all()], 200
+
+class SensorDetailResource(Resource):
+
+    decorators = [auth_required('token','basic','session')]
+        
+    def get(self, token):
         """
         Get Sensor Detail
         """
-        # get sensor details
-        sensor = Sensor.query.get(sensor_id)
-        if sensor:
-            return sensor.view(), 200
-        else:
-            return "Sensor Not Found", 400
+        sensor = Sensor.query.get(token)
 
-    def delete(self, sensor_id):
-        """
-        Delete Existing Sensor
-        """
+        if not sensor:
+            return "Sensor Not Found", 404
 
-    def put(self, sensor_id):
-        """
-        Change Existing Sensor
-        """
+        if not sensor.user_id == current_user.id:
+            return "Access Denied", 403
 
+        return sensor.view(), 200
 
+    def put(self, token):
+        """
+        Update Sensor
+        """
+        sensor = Sensor.query.get(token)
+
+        if not sensor:
+            return "Sensor Not Found", 404
+        
+        if not sensor.user_id == current_user.id:
+            return "Access Denied", 40
+
+        arg = reqparse.RequestParser()
+        arg.add_argument('environment_id', type = int, required = False, location='json')
+        arg.add_argument('device_id', type = int, required = False, location='json')
+
+        data = arg.parse_args()
+
+        if data["environment_id"]:
+            environment = Environment.query.filter_by(id=data["environment_id"]).first()
+            if not environment:
+                return "Environment ID Not found", 400
+
+            sensor.environment_id = data["environment_id"]
+
+        if data["device_id"]:
+            device = Device.query.filter_by(id=data["device_id"]).first()
+            if not device:
+                return "Device ID Not found", 400
+
+            sensor.device_id = data["device_id"]
+
+        db.session.commit()
+
+        return sensor.view(), 200
+
+        
 class SensorDataResource(Resource):
 
-    decorators = [http_auth_required]
-
-    def get(self, sensor_id):
+    @auth_required('token','basic','session')
+    def get(self, token):
         """
         Get Sensor Data
         """
-        # parser = reqparse.RequestParser()
-        # parser.add_argument('start_time', type = date_type, location='args', required=False)
-        # parser.add_argument('end_time', type = date_type, location='args', required=False)
-        # parser.add_argument('limit', type = int, location='args', required=False)
-        # params = parser.parse_args()
+        parser = reqparse.RequestParser()
+        parser.add_argument('start_time', type = int, location='args', required=False)
+        parser.add_argument('end_time', type = int, location='args', required=False)
+        parser.add_argument('limit', type = int, location='args', required=False)
+        parser.add_argument('resample', type = str, location='args', required=False)
+        params = parser.parse_args()
 
         # get sensor details
-        sensor_datas = SensorData.query.filter_by(sensor_id=sensor_id).order_by(SensorData.timestamp.desc())
+        query = Sensor.query.filter_by(token=token)
+        sensor = query.first()
 
+        if not sensor:
+            return "Sensor Not Found", 404
+
+        if not sensor.user_id == current_user.id:
+            return "Access Denied", 403
+
+        cursor = nodb.SensorData.find({"token":sensor.token})
+        
         # if params['start_time']:
         #     print "Start:", params['start_time'].strftime("%s")
-        #     sensor_datas = sensor_datas.filter(SensorData.timestamp >= params['start_time'])
+        # TODO : filter base on start_time
         # if params['end_time']:
         #     print "Stop:", params['end_time'].strftime("%s")
-        #     sensor_datas = sensor_datas.filter(SensorData.timestamp <= params['end_time'])
+        # TODO : filter base on end_time
 
         # if params['limit'] > 0:
-        #     sensor_datas = sensor_datas.limit(params['limit'])
+        # TODO : limit the result by user parameter
         # else:
-        #     sensor_datas = sensor_datas.limit(1000)
-        sensor_datas = sensor_datas.limit(1000)
+        # TODO : limit the result by default
 
-        formated_data = [{"time": int(sensor_data.timestamp.strftime("%s")), "value": sensor_data.value} for sensor_data in sensor_datas]
+        sensor_datas = [sensor_data.to_dict() for sensor_data in cursor]
+        # print sensor_datas[:10]
 
-        return formated_data, 200
+        # if params['resample']:
+        if params['resample']:
+            df = pd.DataFrame.from_records(sensor_datas)            
+            # print df[:10]
+            
+            # df.timestamp = pd.to_datetime((df.timestamp.values*1e9).astype(int))
+            # print df[:10]
+            
+            df = df.set_index('timestamp')
+            # print df[:10]
 
+            df.index = pd.to_datetime((df.index.values*1e9).astype(int))
+            # print df[:10]
 
-    def post(self, sensor_id):
+            if params['resample'] == 'T':
+                df = df.resample('30T')
+            elif params['resample'] == 'H':
+                df = df.resample('1H')
+            elif params['resample'] == 'D':
+                df = df.resample('1H')
+                df = df.resample('1D', 'sum')
+            elif params['resample'] == 'M':
+                df = df.resample('1H')
+                df = df.resample('1M', 'sum')
+            # print df
+        
+            df.index = df.index.astype(np.int64) // 1e9
+            # print df
+
+            # print type(df.index)
+            # df.index = df.index.astype(int)
+
+            df = df.reset_index()
+            # print df[:10]
+
+            df.columns = ['timestamp', 'value']
+        
+            return_data = df.to_dict(orient='records')
+        else:
+            return_data = sensor_datas
+
+        return_data = filter(lambda data: not np.isnan(data["value"]), return_data)
+
+        return return_data, 200
+
+    def post(self, token):
         """
         Create Sensor Data
         """
-        # from flask import request
-        # print request.data
         parser = reqparse.RequestParser()
+        parser.add_argument('SENSOR-KEY', type = str, location='headers', required = True)
         parser.add_argument('data', type = datapoints, required = False, location='json')
         parser.add_argument('value', type = float, required = False, location='json')
-        parser.add_argument('time', type = date_type, required = False, location='json')
+        parser.add_argument('timestamp', type = int, required = False, location='json')
 
         data = parser.parse_args()
 
-        print "Sensor id: %d"%(sensor_id)
- 
-        if not data['data']:
-            sensor_data = SensorData(sensor_id=sensor_id, value=data["value"], timestamp=data["time"])
-            db.session.add(sensor_data)
-            db.session.commit()
+        # get sensor details
+        query = Sensor.query.filter_by(token=token)
+        sensor = query.first()
 
-            return sensor_data.view(), 201
+        if not sensor:
+            return "Sensor Not Found", 404
+
+        if not sensor.check_key(data['SENSOR-KEY']):
+            return "Access Denied", 403
+
+        if not any([data['data'], data["value"]]):
+            return "Malformed datapoint", 400
+            #raise ValueError("Malformed datapoints")
+
+        if not data['data']:
+            sensor_data = nodb.SensorData()
+            sensor_data.token = sensor.token
+            sensor_data.value = data["value"]
+            sensor_data.timestamp = data["timestamp"] if data["timestamp"] else int(time.time())
+            sensor_data.save()
+
+            return sensor_data.to_dict(), 201
         else:
             count=0
             for datapoint in data['data']:
                 # print datapoint
-                sensor_data = SensorData(sensor_id=sensor_id, value=datapoint["value"], timestamp=datapoint["time"])
-                db.session.add(sensor_data)
+                sensor_data = nodb.SensorData()
+                sensor_data.token = sensor.token
+                sensor_data.value = datapoint["value"]
+                sensor_data.timestamp = datapoint["timestamp"]
+                sensor_data.save()
+
                 count += 1
-            db.session.commit()
 
             return count, 201
                 
 	
-    def delete(self, sensor_id):
+    def delete(self, token):
         """
         Delete Sensor Data
         """
+        pass

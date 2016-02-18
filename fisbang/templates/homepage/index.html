@@ -7,92 +7,106 @@
 
 {% block content %}
     {{ super() }}
-    <div id="wrapper" class="back-home">    
+    <div id="landing-content">
+      <section class="back-home">
         <div class="container">
-            <div class="jumbotron" style="text-align:center">
-                <h1>Turn Green Idea into Reality </h1>
-                <p> We help you from design until implementation, seriously :)</p>
-            </div>
-        </div>
-    </div>
-
-    <section id="dynamic" class="container" style="background:white">
-      <div class="jumbotron" style="text-align:center">
-        <div class ="row"> 
-          <div class="col-md-12"><h1>Get Implemented!</h1>
-            <p> Fisbang is built to make everyone idea into
-              reality. Based on our extensive experiences, people
-              could be confused about what is the best for their building.
-
-              Our way is helping you start from design until implementation.
-              We have good experiences and networking on architect, mechanical,
-              electrical, control system, interior, lighting, accoustic or even
-              analysis flood :)
-
-              Yes, we are new for everyone but dont worry, your building will
-              be working well with us. 
-            </p>          
-          </div>  
-        </div>
-      </div>      
-    </section> 
-
-    <section id="Promote" class="container">
-        <div class="row">
-            <div class="col-md-12"><h1>Value of Fisbang</h1></div>    
-        </div>    
-        <div class="row">
-            <div class="col-md-4">
-              <h2>Could be one stop solution</h2>
-              <p>We build fisbang to help everyone
-                implement their idea or concept. Fisbang
-                can help you in design until implementation.
-                Starting from building or your home, we expect 
-                to spread to other engineering aspect.
-              </p>
-            </div>
-            <div class="col-md-4">
-              <h2>Costumer Focus</h2>
-              <p> Fisbang is independent to choose the best design
-                and also most suitable expert for your building/facility.
-                The idea is you pay what do you need the most and get comfort
-                because we take the hard part to control it. Yes, we are with you.
-              </p>    
-            </div>
-            <div class="col-md-4">
-              <h2>Looking best technology</h2>
-              <p> Fisbang will use complicated calculation
-                to design your building and finding the best technology
-                for you. Then, we will give report that you can easily 
-                understanding. Simplify. 
-              </p>
-            </div>
-        </div>
-        <hr>
-    </section>
-
-    <div id="wrapper" class="back-footer">  
-      <section id="footer" class="container">
-        <div class="row">  
-          <div class="col-md-6">
-            <h2> contact us</h2>
-            <p> Feel free to email us to provide some feedback on everything,
-             give us opportunity to implement your idea, or to just say hello!
-            </p>
-            <p><a href="mailto:feedback@startbootstrap.com">hello@fisbang.com</a> 
+          <div class="jumbotron" style="text-align:center">
+	    <h1>Turn Green Idea into Reality </h1>
+	    <p> We help you from design until implementation, seriously :)</p>
           </div>
-          <div class="col-md-6">
-            <div class="col-md-3">
-              <img src ="{{ url_for('static', filename='img/img-footer-logo.png') }}">
+        </div>
+      </section>	
+      <section id="dynamic">
+        <div class="container">
+          <div class="jumbotron">
+	    <div class ="row"> 
+	      <div class="col-md-12"><h1>Get Implemented!</h1>
+	        <p> Fisbang is built to make everyone idea into
+	          reality. Based on our extensive experiences, people
+	          could be confused about what is the best for their building.
+
+	          Our way is helping you start from design until implementation.
+	          We have good experiences and networking on architect, mechanical,
+	          electrical, control system, interior, lighting, accoustic or even
+	          flood expert :)
+
+
+	        </p>          
+	      </div>  
+	    </div>
+          </div>
+        </div>          
+      </section> 
+      <section id="promote">
+        <div class="container">
+          <div class="non-jumbotron">
+            <div class="row">
+              <div class="col-md-12"><h1>How we help you?</h1></div>
             </div>
-            <div class="col-md-9">
-                <h2> fisbang : get implemented </h2>
-                <p> Fisbang is abbreviation of FISika BANGunan (in Bahasa) </p>
-                <p> Copyright © Fisbang 2015 </p>
-            </div>  
-          </div>   
+            <div class="row">
+              <div class="col-md-6">
+                <img src="{{ url_for('static', filename='img/icon-app.png') }}">
+                <h2>Fisbang App, save your energy</h2>
+                <p>We are currently developing amazing app that
+                  can make your building even better. It is about
+                  how to save energy and solve your problem. Hopefully
+                  released this October.
+                </p>
+                <p><a href="{{ url_for('market.project_create') }}">find out more</a></p>
+              </div>
+              <div class="col-md-6">
+                <img src="{{ url_for('static', filename='img/icon-market.png') }}">
+                <h2>Fisbang Market, find what you need</h2>
+                <p> Fisbang market is place to provide you everything
+                  you need for building. We connect and also help
+                  you to choose the best services or product for your building.
+                </p>
+                <p><a href="{{ url_for('market.project_create') }}">go to market</a></p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
-    </div>  
+      <section id="Promote">
+        <div class="container">
+          <div class="non-jumbotron">
+	    <div class="row">
+	      <div class="col-md-12"><h1>Value of Fisbang</h1></div>    
+	    </div>    
+	    <div class="row">
+	      <div class="col-md-4">
+	        <img src="{{ url_for('static', filename='img/icon-home1.png') }}">
+	        <h2>Could be one stop solution</h2>
+	        <p>We build fisbang to help everyone
+	          implement their idea or concept. Fisbang
+	          can help you in design until implementation.
+	          Starting from building or your home, we expect 
+	          to spread to other engineering aspect.
+	        </p>
+	      </div>
+	      <div class="col-md-4">
+	        <img src="{{ url_for('static', filename='img/icon-home2.png') }}">
+	        <h2>Costumer Focus</h2>
+	        <p> Fisbang is independent to choose the best design
+	          and also most suitable expert for your building/facility.
+	          The idea is you pay what do you need the most and get comfort
+	          because we take the hard part to control it. Yes, we are with you.
+	        </p>    
+	      </div>
+	      <div class="col-md-4">
+	        <img src="{{ url_for('static', filename='img/icon-home3.png') }}">
+	        <h2>Looking best technology</h2>
+	        <p> Fisbang will use complicated calculation
+	          to design your building and finding the best technology
+	          for you. Then, we will give report that you can easily 
+	          understanding. Simplify. 
+	        </p>
+	      </div>
+	    </div>    
+          </div>
+        </div>  
+      </section>
+    </div><!-- /landing-content -->
+    {% include 'footer.html' %}
 
 {% endblock %}

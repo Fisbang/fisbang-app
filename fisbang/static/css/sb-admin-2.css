@@ -15,6 +15,172 @@ body {
     width: 100%;
 }
 
+#Promote, #project, #Steps {
+  padding:30px;
+}
+
+/*header right*/
+  .nav-notification {
+  list-style: none;
+  margin: 0;
+  float: right;
+  white-space: nowrap;
+  font-size: 12px;
+}
+@media (max-width: 480px) {
+    .nav-notification {
+    font-size: 11px;
+  }
+}
+  .nav-notification > li {
+  display: block;
+  position: relative;
+  float: left;
+  transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+}
+  .nav-notification > li.open {
+  background: #fcfcfc;
+}
+  .nav-notification > li.open .dropdown-menu {
+  animation: fadeInUp 0.8s ease;
+  -webkit-animation: fadeInUp 0.8s ease;
+  -moz-animation: fadeInUp 0.8s ease;
+  -ms-animation: fadeInUp 0.8s ease;
+  -o-animation: fadeInUp 0.8s ease;
+}
+  .nav-notification > li:last-child {
+  border-right: none;
+}
+  .nav-notification > li:hover {
+  background: #fcfcfc;
+  transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+}
+  .nav-notification > li.profile:hover a,
+  .nav-notification > li.profile:focus a {
+  animation: none;
+  -webkit-animation: none;
+  -moz-animation: none;
+  -ms-animation: none;
+  -o-animation: none;
+}
+  .nav-notification > li.profile:hover a > strong,
+  .nav-notification > li.profile:focus a > strong {
+  display: inline-block;
+  animation: fadeInRight 0.2s ease-in-out;
+  -webkit-animation: fadeInRight 0.2s ease-in-out;
+  -moz-animation: fadeInRight 0.2s ease-in-out;
+  -ms-animation: fadeInRight 0.2s ease-in-out;
+  -o-animation: fadeInRight 0.2s ease-in-out;
+}
+  .nav-notification > li.profile:hover a > span,
+  .nav-notification > li.profile:focus a > span {
+  display: inline-block;
+  animation: fadeInLeft 0.2s ease-in-out;
+  -webkit-animation: fadeInLeft 0.2s ease-in-out;
+  -moz-animation: fadeInLeft 0.2s ease-in-out;
+  -ms-animation: fadeInLeft 0.2s ease-in-out;
+  -o-animation: fadeInLeft 0.2s ease-in-out;
+}
+  .nav-notification > li.profile .dropdown-menu {
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  min-width: 220px;
+}
+  .nav-notification > li.profile .dropdown-menu li:first-child {
+  margin-bottom: 10px;
+}
+  .nav-notification > li.profile .dropdown-menu li:first-child a:hover {
+  background: #fff;
+  color: #000;
+}
+  .nav-notification > li.profile .dropdown-menu li:not(:first-child) a {
+  transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+  .nav-notification > li.profile .dropdown-menu li:not(:first-child) a:hover,
+  .nav-notification > li.profile .dropdown-menu li:not(:first-child) a:focus {
+  transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  background: transparent;
+  color: #000;
+  transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+}
+  .nav-notification > li > a {
+  display: block;
+  position: relative;
+  padding: 13px 15px;
+  color: #999999;
+  transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+}
+  .nav-notification > li > a:hover,
+  .nav-notification > li > a:focus {
+  color: #777777;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+}
+@media (max-width: 480px) {
+    .nav-notification > li > a {
+    padding: 14px 15px;
+  }
+}
+  .nav-notification .dropdown-menu {
+  right: 0;
+  left: auto;
+  top: 95%;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-color: #f1f5fc;
+}
+@media (max-width: 480px) {
+    .nav-notification .dropdown-menu.dropdown-1 {
+    left: -50px !important;
+    right: auto !important;
+  }
+}
+@media (max-width: 480px) {
+    .nav-notification .dropdown-menu.dropdown-2 {
+    left: -80px !important;
+    right: auto !important;
+  }
+}
+@media (max-width: 480px) {
+    .nav-notification .dropdown-menu.dropdown-3 {
+    left: -120px !important;
+    right: auto !important;
+  }
+}
+  .nav-notification .dropdown-menu li {
+  border-bottom-color: #f1f5fc;
+}
+
 /*homepage section */
 
 #dynamic, #dynamic img {width: 100%;}
@@ -36,7 +202,7 @@ body {
     min-height: 650px;
     padding-top: 20px;}
 .back-market{
-    background:#0092B9;
+    background:#7e63ce;
     min-height: 650px;
     color:#ffffff;}
 
@@ -46,7 +212,7 @@ h1,h2,h3,h4,h5,h6,label {
     font-family: 'rockwell';
 }
 
-label {color:#438733;}
+label {color:#438733;font-weight:200}
 
 /*.form-control{height: 60px;}*/
 
@@ -71,8 +237,8 @@ textarea {
 
 
 
-.navbar-header img {height: 32px;}
-.navbar-header {padding : 10px 10px 0 20px;}
+.navbar-header img {height: 25px;}
+.navbar-header {padding : 8px 10px 0 20px;}
 .navbar-togle {margin-top: 0px}
 .navbar-nav.navbar-right:last-child {
     margin-right: 0px;

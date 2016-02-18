@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+    {{ super() }}
+    {% include 'navbar.html' %}
+{% endblock %}
+
+{% block content %}
+    {{ super() }}
+    <div id="landing-app">
+      <section id="app">
+        <div class="container">
+          <div class="jumbotron">
+            <div class="row">
+              <div class="col-md-8">
+                <img src="{{ url_for('static', filename='img/app-device.png') }}">
+                <p></p>
+                <p> We are developing application that can save your bill based on 
+                  current condition. Hopefully app will be lauched <b>october 2015</b>
+                </p> 
+              </div>
+              <div class="col-md-4">
+                <input type="email" class="form-fsbg" placeholder="Email" />
+                <input type="password" class="form-fsbg" placeholder="Password" />
+                <p> Login for beta </p>
+                <input type="submit" class="btn btn-fsbg btn-lg full" value="Log in" />
+                <p class="no-background"><span> or </span></p>
+                <p> Drop us your email for getting update </p>
+                <input type="email-sub" class="form-fsbg" placeholder="Email" />
+                <input type="submit" class="btn btn-fsbg btn-lg full buttonright" value="submit" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="Promote">
+        <div class="container">
+          <div class="non-jumbotron">
+            <div class="row">
+              <div class="col-md-12"><h1>Why you 'll love this app</h1></div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <img src="{{ url_for('static', filename='img/icon-app1.png') }}">
+                <h2>Know Your Building Well</h2>
+                <p>This app will inform you about energy, power and also temperature. Simple also easy to understand.
+                </p>
+              </div>
+              <div class="col-md-4">
+                <img src="{{ url_for('static', filename='img/icon-app2.png') }}">	
+                <h2>Save Energy</h2>
+                <p> Save your energy based on your current condition then know how much it is
+                </p>
+              </div>
+              <div class="col-md-4">
+                <img src="{{ url_for('static', filename='img/icon-app3.png') }}">	
+                <h2>Another fun and great feature!</h2>
+                <p> We are excited to let you know more later
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div><!-- /landing-content -->
+    {% include 'footer.html' %}
+{% endblock %}

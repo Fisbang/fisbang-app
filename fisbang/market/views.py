@@ -12,10 +12,14 @@ from fisbang import db
 def index():
     return render_template('market/index.html')
 
+@market.route('/more', methods=['GET'])
+def more_market():
+    return render_template('market/more-market.html')
+
 @market.route('/create_project', methods=['GET','POST'])
 def project_create():
     from fisbang.market.forms import CreateProjectForm
-    form = CreateProjectForm()
+    form = CreateProjectForm(request.form)
     if form.validate_on_submit():
         from fisbang.models.project import Project
 
@@ -25,7 +29,11 @@ def project_create():
                           budget=form.budget.data)
         db.session.add(project)
         db.session.commit()
-        #mailing.send_created_project(project.id)
+        mailing.send_created_project(form.name.data,
+                                     form.email.data,
+                                     form.description.data,
+                                     form.budget.data,
+                                     project.id)
         return redirect(url_for('market.index'))
 
     if current_user.is_authenticated():
