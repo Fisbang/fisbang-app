@@ -17,9 +17,10 @@ import numpy as np
 
 import time
 
+
 class SensorResource(Resource):
 
-    decorators = [auth_required('token','basic','session')]
+    decorators = [auth_required('token', 'basic', 'session')]
 
     # def post(self):
     #     """
@@ -40,7 +41,7 @@ class SensorResource(Resource):
 
     #     db.session.add(sensor)
     #     db.session.commit()
-        
+
     #     return sensor.view(True), 201
 
     def post(self):
@@ -48,8 +49,8 @@ class SensorResource(Resource):
         Register Sensor
         """
         arg = reqparse.RequestParser()
-        arg.add_argument('token', type = str, required = True, location='json')
-        arg.add_argument('key', type = str, required = True, location='json')
+        arg.add_argument('token', type=str, required=True, location='json')
+        arg.add_argument('key', type=str, required=True, location='json')
 
         data = arg.parse_args()
 
@@ -71,8 +72,8 @@ class SensorResource(Resource):
         Get Sensor
         """
         arg = reqparse.RequestParser()
-        arg.add_argument('environment_id', type = int, required = False, location='args')
-        arg.add_argument('device_id', type = int, required = False, location='args')
+        arg.add_argument('environment_id', type=int, required=False, location='args')
+        arg.add_argument('device_id', type=int, required=False, location='args')
 
         data = arg.parse_args()
 
@@ -100,10 +101,11 @@ class SensorResource(Resource):
 
         return [sensor.view() for sensor in sensors.all()], 200
 
+
 class SensorDetailResource(Resource):
 
-    decorators = [auth_required('token','basic','session')]
-        
+    decorators = [auth_required('token', 'basic', 'session')]
+
     def get(self, token):
         """
         Get Sensor Detail
@@ -126,13 +128,13 @@ class SensorDetailResource(Resource):
 
         if not sensor:
             return "Sensor Not Found", 404
-        
+
         if not sensor.user_id == current_user.id:
             return "Access Denied", 40
 
         arg = reqparse.RequestParser()
-        arg.add_argument('environment_id', type = int, required = False, location='json')
-        arg.add_argument('device_id', type = int, required = False, location='json')
+        arg.add_argument('environment_id', type=int, required=False, location='json')
+        arg.add_argument('device_id', type=int, required=False, location='json')
 
         data = arg.parse_args()
 
@@ -154,19 +156,19 @@ class SensorDetailResource(Resource):
 
         return sensor.view(), 200
 
-        
+
 class SensorDataResource(Resource):
 
-    @auth_required('token','basic','session')
+    @auth_required('token', 'basic', 'session')
     def get(self, token):
         """
         Get Sensor Data
         """
         parser = reqparse.RequestParser()
-        parser.add_argument('start_time', type = int, location='args', required=False)
-        parser.add_argument('end_time', type = int, location='args', required=False)
-        parser.add_argument('limit', type = int, location='args', required=False)
-        parser.add_argument('resample', type = str, location='args', required=False)
+        parser.add_argument('start_time', type=int, location='args', required=False)
+        parser.add_argument('end_time', type=int, location='args', required=False)
+        parser.add_argument('limit', type=int, location='args', required=False)
+        parser.add_argument('resample', type=str, location='args', required=False)
         params = parser.parse_args()
 
         # get sensor details
@@ -179,8 +181,8 @@ class SensorDataResource(Resource):
         if not sensor.user_id == current_user.id:
             return "Access Denied", 403
 
-        cursor = nodb.SensorData.find({"token":sensor.token})
-        
+        cursor = nodb.SensorData.find({"token": sensor.token})
+
         # if params['start_time']:
         #     print "Start:", params['start_time'].strftime("%s")
         # TODO : filter base on start_time
@@ -198,7 +200,7 @@ class SensorDataResource(Resource):
 
         # if params['resample']:
         if params['resample']:
-            df = pd.DataFrame.from_records(sensor_datas)            
+            df = pd.DataFrame.from_records(sensor_datas)
             # print df[:10]
 
             if df.empty:
@@ -206,11 +208,11 @@ class SensorDataResource(Resource):
 
             # df.timestamp = pd.to_datetime((df.timestamp.values*1e9).astype(int))
             # print df[:10]
-            
+
             df = df.set_index('timestamp')
             # print df[:10]
 
-            df.index = pd.to_datetime((df.index.values*1e9).astype(int))
+            df.index = pd.to_datetime((df.index.values * 1e9).astype(int))
             # print df[:10]
 
             if params['resample'] == 'T':
@@ -224,7 +226,7 @@ class SensorDataResource(Resource):
                 df = df.resample('1H')
                 df = df.resample('1M', 'sum')
             # print df
-        
+
             df.index = df.index.astype(np.int64) // 1e9
             # print df
 
@@ -235,7 +237,7 @@ class SensorDataResource(Resource):
             # print df[:10]
 
             df.columns = ['timestamp', 'value']
-        
+
             return_data = df.to_dict(orient='records')
         else:
             return_data = sensor_datas
@@ -249,10 +251,10 @@ class SensorDataResource(Resource):
         Create Sensor Data
         """
         parser = reqparse.RequestParser()
-        parser.add_argument('SENSOR-KEY', type = str, location='headers', required = True)
-        parser.add_argument('data', type = datapoints, required = False, location='json')
-        parser.add_argument('value', type = float, required = False, location='json')
-        parser.add_argument('timestamp', type = int, required = False, location='json')
+        parser.add_argument('SENSOR-KEY', type=str, location='headers', required=True)
+        parser.add_argument('data', type=datapoints, required=False, location='json')
+        parser.add_argument('value', type=float, required=False, location='json')
+        parser.add_argument('timestamp', type=int, required=False, location='json')
 
         data = parser.parse_args()
 
@@ -268,7 +270,7 @@ class SensorDataResource(Resource):
 
         if not any([data['data'], data["value"]]):
             return "Malformed datapoint", 400
-            #raise ValueError("Malformed datapoints")
+            # raise ValueError("Malformed datapoints")
 
         if not data['data']:
             sensor_data = nodb.SensorData()
@@ -279,7 +281,7 @@ class SensorDataResource(Resource):
 
             return sensor_data.to_dict(), 201
         else:
-            count=0
+            count = 0
             for datapoint in data['data']:
                 # print datapoint
                 sensor_data = nodb.SensorData()
@@ -291,8 +293,7 @@ class SensorDataResource(Resource):
                 count += 1
 
             return count, 201
-                
-	
+
     def delete(self, token):
         """
         Delete Sensor Data

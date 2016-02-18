@@ -56,6 +56,7 @@ $(function () {
     $("#placeholder").bind("plothover", function (event, pos, item) {
 
 	var str = "(" + pos.pageX.toFixed(2) + ", " + pos.pageY.toFixed(2) + ")";
+
 	$("#hoverdata").text(str);
 	
 	if (item) {
