@@ -1,8 +1,7 @@
-/*css for admin of fisbang */
+/* css for admin of fisbang */
 
+/* Fisbang template */
 
-/* General */
----------------
 	.user {
 		font-size: 17px;
 		color:#63C2E8;
@@ -68,55 +67,12 @@
 	  left: 100%;
 	}
 
-
-/* only for web 
------------------*/
-
-/* top nav */
-
-	.navbar {
-		background-color: #ffffff;
-		color: #FFFFFF;
-		font-family: 'rockwell';
-		font-size: 17px;
-		min-height: 0;
-	}
-
-
-	.navbar-nav>li>a {
-		color: #000000;
-		padding: 10px;
-	}
-
-	.navbar-nav>li.active, .active{
-		color: #438733;
-		background-color: #eeeeee;
-		border-bottom:0px solid transparent;		
-	}	
-
-	.navbar-nav>li{
-		border-bottom:0px solid transparent;
-	}
-
-	.navbar-toggle{
-		margin: 0 0 0 0;
-	}
-
-	.navbar-nav.navbar-right:last-child {
-		margin-right: 0;
-	}
-
-	.navbar-collapse {
-		padding-right: 0;
-	}
-
-
-/*background conf*/
+/* background conf*/
 
 	.back-footer {background-color: #D2DAB3;color: #000000;}
 	.back-home{
 	    background: #60a89d;
-	    background-image: url('../../img/img-back-7.png');
+	    background-image: url('../img/web/img-back-7.png');
 	    background-position: center bottom;
 	    background-repeat: no-repeat;
 	    width: 100%;
@@ -126,11 +82,21 @@
 	#dynamic {
 		background-color: #ffffff;
 		text-align: center;
-	} 
+	}
+
+	#Promote {
+		background-color: #ffffff;
+	}  
 
 	#project, #app {
 		background-color: #D2DAB3;
 	}	
+
+
+	#home {
+	    background: #60a89d;
+	    min-height: 650px;
+	    color:#0087AF;}	
 
 	#market {
 	    background:#57BBE2;
@@ -144,11 +110,31 @@
 	#steps {
 		background: #0087AF;
 		color: #ffffff;
+	}
+
+	.bg-danger {
+		background-color: #ffffff !important;
+		color:#000000 !important;
 	} 
 
-    	
+	.panel-stat3 {
+		border-radius: 3px;
+		border:1px solid #DADADA;
+	}
 
-/*	general */    
+	.panel.panel-default, .panel-stat3 {
+    	border-color: #DADADA;
+	}
+
+	.panel-stat3 .stat-icon {
+   		right: 30px;
+    	opacity: 0.1;
+	}
+   	
+/* modify boostrap */ 
+
+	#main-container { padding-top: 65px;}
+
 	.jumbotron {
 		background: none;
 		color: #000000;
@@ -161,7 +147,7 @@
 
 
 	.white{
-		color: #ffffff;
+		color: #273C65;
 	}
 
 	.container .jumbotron{
@@ -169,7 +155,7 @@
 		padding-right: 0;
 	}
 
-	.non-jumbotron, footer {
+	.non-jumbotron {
 		padding-top: 40px;
 		padding-bottom: 40px;
 		border-bottom: 1px solid #CCCCCC;
@@ -179,19 +165,9 @@
 		padding-top: 40px;
 	}
 
-	footer .useful-link li a {color: #000000;}
+	footer{padding: 20px 15px;}
 
-	footer img {
-		padding-top: 20px;
-	}
 
-	footer {
-  		margin-left: 0;
-  		background: #504f63;
-  		color: #d5d4dd;
-  		padding-left: 0;
-		padding-right: 0;
-	}
 
 /* form */
 
@@ -205,7 +181,6 @@
 	    -webkit-transition:border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
 	    -o-transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 	    transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-
 
 	}
 
@@ -229,16 +204,20 @@
 	
 	}
 
-/*
-	input[type="submit"]{
-	  width:100%;
-	  border:0;
-	  color:#fff;
-	  cursor:pointer;
+	/*
+		input[type="submit"]{
+		  width:100%;
+		  border:0;
+		  color:#fff;
+		  cursor:pointer;
 
 
+		}
+	*/
+
+	input[type="checkbox"], input[type="radio"] {
+    opacity: 1;
 	}
-*/
 
 	input[type="submit"]:hover{
 	  background:#438733;
@@ -259,6 +238,7 @@
 	}
 
 	.btn-fsbg {
+		/*padding:3%; */
 		background-color:#0092B9;
 		font-family: 'rockwell';
 		font-size: 17px;
@@ -281,108 +261,8 @@
 		width: 28%;
 	}
 
+/* top nav / header */
 
-/* market */
-
-	#portfolio img {
-		width: 100%;
-	}
-
-	.portopolio-caption {
-		padding: 10px;
-		background-color: #ffffff;
-		height: 250px;
-		
-	}
-
-	.portopolio-caption h4 {
-		color: #CCCCCC;
-	}
-
-	.product {
-		border-bottom: 2px #438733 solid;
-	}
-
-	.service {
-		border-bottom: 2px #57BBE2 solid;
-	}
-
-	#portfolio .portfolio-item {
-        right: 0;
-        margin: 0 0 15px;
-    }
-
-    #portfolio .portfolio-item .portfolio-link {
-        display: block;
-        position: relative;
-        margin: 0 auto;
-        /*max-width: 400px;*/
-    }
-
-    #portfolio .portfolio-item .portfolio-link .portfolio-hover {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        background: rgba(67,135,51,.9);
-        -webkit-transition: all ease .5s;
-        -moz-transition: all ease .5s;
-        transition: all ease .5s;
-    }
-
-    #portfolio .portfolio-item .portfolio-link .portfolio-hover:hover {
-        opacity: 1;
-    }
-
-    #portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content {
-        position: absolute;
-        top: 50%;
-        width: 100%;
-        height: 20px;
-        margin-top: -12px;
-        text-align: center;
-        font-size: 20px;
-        color: #fff;
-    }
-
-    #portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content i {
-        margin-top: -12px;
-    }
-
-    #portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content h3,
-    #portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content h4 {
-        margin: 0;
-    }
-
-    #portfolio .portfolio-item .portfolio-caption {
-        margin: 0 auto;
-        padding: 25px;
-        max-width: 400px;
-        text-align: center;
-        background-color: #fff;
-    }
-
-    #portfolio .portfolio-item .portfolio-caption h4 {
-        margin: 0;
-        text-transform: none;
-    }
-
-    #portfolio .portfolio-item .portfolio-caption p {
-        margin: 0;
-        font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif;
-        font-size: 16px;
-        font-style: italic;
-    }
-
-    #portfolio * {
-        z-index: 2;
-    }
-
-
-/* for admin 
----------------*/
-
-/* for top navigation */
 
 
 	#top-nav {
@@ -589,13 +469,15 @@
 	#top-nav {
 	  background: #fff;
 	  border-bottom-color: #eee;
+	  padding: 10px;
+
 	}
 	#top-nav .navbar-toggle .icon-bar {
 	  background-color: #999;
 	}
 	#top-nav .brand , .navbar .brand{
 	  background: #fff;
-	  width: 120px;
+	  /*width: 120px;*/
 	  line-height: 120%;
 	  text-align: left;
 	  color: #438733;
